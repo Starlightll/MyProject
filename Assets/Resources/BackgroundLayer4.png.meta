@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 9066625879131381485
     second: BackgroundLayer4_0
+  - first:
+      213: -6013434171425668893
+    second: BackgroundLayer4_1
+  - first:
+      213: -7073523317304636883
+    second: BackgroundLayer4_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,10 +135,10 @@ TextureImporter:
       name: BackgroundLayer4_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 9722
-        height: 6944
+        x: 9379
+        y: 3833
+        width: 65
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,6 +149,50 @@ TextureImporter:
       bones: []
       spriteID: dee5df4333023dd70800000000000000
       internalID: 9066625879131381485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundLayer4_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 852
+        width: 9246
+        height: 2359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e04afb4b7dfb8ca0800000000000000
+      internalID: -6013434171425668893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundLayer4_2
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 1916
+        width: 1286
+        height: 1346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2a4d91250cc5dd90800000000000000
+      internalID: -7073523317304636883
       vertices: []
       indices: 
       edges: []
