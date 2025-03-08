@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BackgroundWaxForest_0: -3087344993955277488
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
