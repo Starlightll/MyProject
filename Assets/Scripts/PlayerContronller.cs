@@ -24,11 +24,11 @@ public class PlayerController : MonoBehaviour
 
         if (moveInput > 0)
         {
-            transform.localScale = new Vector3(1f, 1f, 1); // Nhìn phải
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) , transform.localScale.y, transform.localScale.z); // Nhìn phải
         }
         else if (moveInput < 0)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1); // Nhìn trái
+            transform.localScale = new Vector3(-1*Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // Nhìn trái
         }
     }
 
