@@ -85,7 +85,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -98,9 +98,35 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -125,6 +151,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 124, y: 0, z: 105, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -146,6 +173,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5013646, y: 0.4362037}
       border: {x: 58, y: 0, z: 58, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -167,6 +195,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.50404537, y: 0.41423056}
       border: {x: 55, y: 0, z: 61, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -188,6 +217,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 124, y: 0, z: 107, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -209,6 +239,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5026574, y: 0.36152822}
       border: {x: 55, y: 0, z: 60, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -230,6 +261,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 129, y: 0, z: 105, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -251,6 +283,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.4999996, y: 0.45764747}
       border: {x: 78, y: 0, z: 71, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -272,6 +305,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.50000066, y: 0.44519213}
       border: {x: 76, y: 0, z: 72, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -293,6 +327,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.49615857, y: 0.4058657}
       border: {x: 77, y: 0, z: 72, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -314,6 +349,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5030009, y: 0.49467045}
       border: {x: 126, y: 0, z: 110, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -335,6 +371,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.50120234, y: 0.42991197}
       border: {x: 127, y: 0, z: 108, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -356,6 +393,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.54494977, y: 0.45829433}
       border: {x: 127, y: 0, z: 108, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -367,6 +405,7 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -376,6 +415,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Wox grass sides_0: -1113446489
       Wox grass sides_1: 2105025391
