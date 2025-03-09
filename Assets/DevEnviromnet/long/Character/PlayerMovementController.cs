@@ -22,6 +22,7 @@ public class PlayerMovementController : MonoBehaviour
     public LayerMask groundLayer;
     public float GroundCheckSize = 0.1f;
     public float wallCheckDistance = 0.5f;
+    public float gravityScale = 5f;
     
     [Header("System Variables")]
     private bool isGrounded;
@@ -33,6 +34,9 @@ public class PlayerMovementController : MonoBehaviour
     private float dashTimer;
     private bool facingRight = true;
     private float horizontalInput;
+
+    public float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
     
     private void Start()
     {
@@ -54,17 +58,22 @@ public class PlayerMovementController : MonoBehaviour
 
         Debug.Log("CheckGrounded: " + isGrounded);
         Debug.Log("CheckWall: " + isTouchingWall);
+        Debug.Log("IsWallSliding: " + isWallSliding);
+        Debug.Log("Coyote Time Counter: " + coyoteTimeCounter);
         
         // Handle jumping
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGrounded)
+            
+            if (isGrounded || coyoteTimeCounter > 0)
             {
                 Jump();
                 canDoubleJump = true;
             }
             else if (isWallSliding)
             {
+                coyoteTimeCounter = coyoteTime; // Reset coyote time
+                canDoubleJump = true; 
                 WallJump();
             }
             else if (canDoubleJump)
@@ -84,15 +93,20 @@ public class PlayerMovementController : MonoBehaviour
         if (dashCooldownTimer > 0)
             dashCooldownTimer -= Time.deltaTime;
             
-        // Handle wall sliding
-        if (isTouchingWall && !isGrounded && horizontalInput != 0)
-        {
-            isWallSliding = true;
-        }
-        else
-        {
-            isWallSliding = false;
-        }
+        // // Handle wall sliding
+        // if (isTouchingWall && !isGrounded && horizontalInput != 0)
+        // {
+        //     isWallSliding = true;
+        //     rb.gravityScale = 0.5f; // Reduce gravity while wall sliding
+        //     rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+        //     // animator.SetBool("IsWallSliding", true);
+
+
+        // }
+        // else
+        // {
+        //     isWallSliding = false;
+        // }
         
         // Update animations
         UpdateAnimations();
@@ -149,7 +163,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         isDashing = true;
         float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0;
+        rb.gravityScale = 1f;
         dashTimer = dashDuration;
         
         // Dash direction matches facing direction
@@ -168,27 +182,60 @@ public class PlayerMovementController : MonoBehaviour
     private void CheckGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, GroundCheckSize, groundLayer);
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime; // Reset coyote time
+        }
+        else if(!isGrounded && !isWallSliding) // If not grounded and not wall sliding
+
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+            // if (coyoteTimeCounter <= 0)
+            // {
+            //     canDoubleJump = false; // Disable double jump if not grounded
+            // }
+        }
     }
     
     private void CheckWall()
     {
         Vector2 direction = facingRight ? Vector2.right : Vector2.left;
         isTouchingWall = Physics2D.Raycast(wallCheck.position, direction, wallCheckDistance, groundLayer);
+        if (isTouchingWall && !isGrounded)
+        {
+            // Check if the player is sliding down the wall
+            isWallSliding = true;
+            rb.gravityScale = 0.5f; // Reduce gravity while wall sliding
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            coyoteTimeCounter = coyoteTime; // Reset coyote time
+            // animator.SetBool("IsWallSliding", true);
+        }
+        else if(!isTouchingWall || isGrounded) // If not touching wall or grounded
+        {
+            rb.gravityScale = gravityScale; // Reset gravity scale
+            // animator.SetBool("IsWallSliding", false);
+            // animator.SetBool("IsTouchingWall", false);
+            isWallSliding = false;
+        }
     }
     
     private void Flip()
     {
-        // Flip the character
+        // // Flip the character
+        // facingRight = !facingRight;
+        // Vector3 localScale = transform.localScale;
+        // localScale.x *= -1;
+        // transform.localScale = localScale;
+
         facingRight = !facingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        transform.Rotate(0f, 180f, 0f);
         
-        // Flip the wall check position
-        Vector3 wallCheckPosition = wallCheck.position;
-        wallCheckPosition.x *= -1;
-        wallCheck.position = wallCheckPosition;
+        // // Flip the wall check position
+        // Vector3 wallCheckPosition = wallCheck.position;
+        // wallCheckPosition.x *= -1;
+        // wallCheck.position = wallCheckPosition;
     }
+    
     
     private void UpdateAnimations()
     {
@@ -196,5 +243,17 @@ public class PlayerMovementController : MonoBehaviour
         animator.SetFloat("VerticalVelocity", rb.linearVelocity.y);
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsWallSliding", isWallSliding);
+        animator.SetBool("IsTouchingWall", isTouchingWall);
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(groundCheck.position, GroundCheckSize);
+        
+        Gizmos.color = Color.cyan;
+        Vector2 direction = facingRight ? Vector2.right : Vector2.left;
+        Gizmos.DrawRay(wallCheck.position, direction * wallCheckDistance);       
     }
 }
