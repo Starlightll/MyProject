@@ -23,6 +23,8 @@ public class PlayerMovementController : MonoBehaviour
     public float GroundCheckSize = 0.1f;
     public float wallCheckDistance = 0.5f;
     public float gravityScale = 5f;
+    public float gravityScaleWallSlide = 1f;
+
     
     [Header("System Variables")]
     private bool isGrounded;
@@ -56,10 +58,14 @@ public class PlayerMovementController : MonoBehaviour
         CheckGrounded();
         CheckWall();
 
-        Debug.Log("CheckGrounded: " + isGrounded);
-        Debug.Log("CheckWall: " + isTouchingWall);
-        Debug.Log("IsWallSliding: " + isWallSliding);
-        Debug.Log("Coyote Time Counter: " + coyoteTimeCounter);
+        // Debug.Log("CheckGrounded: " + isGrounded);
+        // Debug.Log("CheckWall: " + isTouchingWall);
+        // Debug.Log("IsWallSliding: " + isWallSliding);
+        // Debug.Log("Coyote Time Counter: " + coyoteTimeCounter);
+        
+
+
+        Debug.Log("Gravity Scale: " + rb.gravityScale);
         
         // Handle jumping
         if (Input.GetButtonDown("Jump"))
@@ -205,9 +211,9 @@ public class PlayerMovementController : MonoBehaviour
         {
             // Check if the player is sliding down the wall
             isWallSliding = true;
-            rb.gravityScale = 0.5f; // Reduce gravity while wall sliding
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
-            coyoteTimeCounter = coyoteTime; // Reset coyote time
+            // rb.gravityScale = gravityScaleWallSlide; // Reduce gravity while wall sliding
+            // rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            coyoteTimeCounter = coyoteTime; // Reset coyote timea
             // animator.SetBool("IsWallSliding", true);
         }
         else if(!isTouchingWall || isGrounded) // If not touching wall or grounded
