@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerContronller : MonoBehaviour
 {
     public float speed = 5.0f; // Tốc độ di chuyển
     public float moveJump = 5.0f; // Lực nhảy
