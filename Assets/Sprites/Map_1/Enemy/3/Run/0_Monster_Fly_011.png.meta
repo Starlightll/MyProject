@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Monster_Fly_011_0: 6770007724235522025
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
