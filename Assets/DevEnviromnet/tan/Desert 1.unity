@@ -11248,7 +11248,7 @@ SpriteShapeRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44686655
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 15
   m_Color: {r: 0.6509434, g: 0.5630975, b: 0.49434853, a: 1}
   m_MaskInteraction: 0
@@ -12582,7 +12582,7 @@ GameObject:
   - component: {fileID: 889574420}
   - component: {fileID: 889574419}
   - component: {fileID: 889574418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Desert ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19047,7 +19047,7 @@ SortingGroup:
   m_GameObject: {fileID: 1208414143}
   m_Enabled: 1
   m_SortingLayerID: -44686655
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &1210418309
@@ -24125,7 +24125,7 @@ SpriteShapeRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44686655
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 16
   m_Color: {r: 0.3735848, g: 0.23905903, b: 0.12899247, a: 1}
   m_MaskInteraction: 0
@@ -26811,7 +26811,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44686655
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 8285405926754761822, guid: 4f7ea6c4da0ea264bbe2846b1be0303e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
