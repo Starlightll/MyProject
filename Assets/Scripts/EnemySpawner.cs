@@ -6,11 +6,15 @@ public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance { get; private set; }
 
-    [SerializeField] private EnemyBase[] enemyPrefabs;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int poolSize = 5;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float respawnDelay = 30f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 3f; 
+
+    [SerializeField] private List<EnemyBase> groundEnemies;
+    [SerializeField] private List<EnemyBase> airEnemies;
 
     private Dictionary<EnemyBase, ObjectPool<EnemyBase>> enemyPools = new Dictionary<EnemyBase, ObjectPool<EnemyBase>>();
     private Dictionary<Transform, EnemyBase> activeEnemies = new Dictionary<Transform, EnemyBase>();
@@ -25,13 +29,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        
-        foreach (var enemyPrefab in enemyPrefabs)
+        foreach (var enemy in groundEnemies)
         {
-            enemyPools[enemyPrefab] = new ObjectPool<EnemyBase>(enemyPrefab, poolSize, transform);
+            enemyPools[enemy] = new ObjectPool<EnemyBase>(enemy, poolSize, transform);
         }
 
-       
+        foreach (var enemy in airEnemies)
+        {
+            enemyPools[enemy] = new ObjectPool<EnemyBase>(enemy, poolSize, transform);
+        }
+
         foreach (var spawnPoint in spawnPoints)
         {
             activeEnemies[spawnPoint] = null;
@@ -46,14 +53,34 @@ public class EnemySpawner : MonoBehaviour
         {
             if (activeEnemies[spawnPoint] == null)
             {
-                int randomIndex = Random.Range(0, enemyPrefabs.Length);
-                EnemyBase enemyPrefab = enemyPrefabs[randomIndex];
+                bool hasGround = CheckGround(spawnPoint.position);
+                List<EnemyBase> validEnemies = hasGround ? groundEnemies : airEnemies;
 
-                EnemyBase enemy = enemyPools[enemyPrefab].GetObject();
-                enemy.Initialize(spawnPoint.position);
-                activeEnemies[spawnPoint] = enemy;
+                if (validEnemies.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, validEnemies.Count);
+                    EnemyBase enemyPrefab = validEnemies[randomIndex];
+
+                    if (enemyPools.TryGetValue(enemyPrefab, out var pool))
+                    {
+                        EnemyBase enemy = pool.GetObject();
+                        enemy.Initialize(spawnPoint.position);
+                        activeEnemies[spawnPoint] = enemy;
+                    }
+                }
             }
         }
+    }
+
+    private bool CheckGround(Vector3 position)
+    {
+        // Kiểm tra khoảng cách đến mặt đất
+        RaycastHit hit;
+        if (Physics.Raycast(position, Vector3.down, out hit, groundCheckDistance, groundLayer))
+        {
+            return true; // Có mặt đất trong khoảng cách cho phép
+        }
+        return false; // Không có mặt đất gần đó
     }
 
     public void ReturnEnemyToPool(EnemyBase enemy)
@@ -65,13 +92,12 @@ public class EnemySpawner : MonoBehaviour
     {
         Transform enemySpawnPoint = null;
 
-        
         foreach (var entry in activeEnemies)
         {
             if (entry.Value == enemy)
             {
                 enemySpawnPoint = entry.Key;
-                activeEnemies[enemySpawnPoint] = null; 
+                activeEnemies[enemySpawnPoint] = null;
                 break;
             }
         }
@@ -80,13 +106,21 @@ public class EnemySpawner : MonoBehaviour
 
         if (enemySpawnPoint != null && activeEnemies[enemySpawnPoint] == null)
         {
-            
-            int randomIndex = Random.Range(0, enemyPrefabs.Length);
-            EnemyBase enemyPrefab = enemyPrefabs[randomIndex];
+            bool hasGround = CheckGround(enemySpawnPoint.position);
+            List<EnemyBase> validEnemies = hasGround ? groundEnemies : airEnemies;
 
-            EnemyBase newEnemy = enemyPools[enemyPrefab].GetObject();
-            newEnemy.Initialize(enemySpawnPoint.position);
-            activeEnemies[enemySpawnPoint] = newEnemy;
+            if (validEnemies.Count > 0)
+            {
+                int randomIndex = Random.Range(0, validEnemies.Count);
+                EnemyBase enemyPrefab = validEnemies[randomIndex];
+
+                if (enemyPools.TryGetValue(enemyPrefab, out var pool))
+                {
+                    EnemyBase newEnemy = pool.GetObject();
+                    newEnemy.Initialize(enemySpawnPoint.position);
+                    activeEnemies[enemySpawnPoint] = newEnemy;
+                }
+            }
         }
     }
 }
