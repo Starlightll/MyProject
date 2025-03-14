@@ -67,5 +67,8 @@ TagManager:
   - name: ForeGround
     uniqueID: 4250280641
     locked: 0
+  - name: Hp3
+    uniqueID: 410264133
+    locked: 0
   m_RenderingLayers:
   - Default
