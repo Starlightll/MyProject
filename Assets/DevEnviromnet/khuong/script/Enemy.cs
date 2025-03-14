@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     private Vector3 startPos;
     private bool moveRight = true;
     protected PlayerContronller player;
+    private Rigidbody2D rb;
+    protected Animator animator;
 
     [SerializeField] protected float hpMax = 50f;
     protected float currentHp;
@@ -20,6 +22,13 @@ public class Enemy : MonoBehaviour
         transform.position = spawnPosition;
         initialPosition = spawnPosition;
         gameObject.SetActive(true);
+        animator = GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            animator.SetInteger("State", 3);
+            animator.SetBool("Action", false);
+        }
     }
 
     protected virtual void Start()
@@ -42,6 +51,11 @@ public class Enemy : MonoBehaviour
         if (moveRight)
         {
             transform.Translate(Vector2.right * enemyMove * Time.deltaTime);
+            if (animator != null)
+            {
+                animator.SetInteger("State", 3);
+                animator.SetBool("Action", false);
+            }
             if (transform.position.x >= rightBound)
             {
                 moveRight = false;
@@ -51,6 +65,11 @@ public class Enemy : MonoBehaviour
         else
         {
             transform.Translate(Vector2.left * enemyMove * Time.deltaTime);
+            if (animator != null)
+            {
+                animator.SetInteger("State", 3);
+                animator.SetBool("Action", false);
+            }
             if (transform.position.x <= leftBound)
             {
                 moveRight = true;

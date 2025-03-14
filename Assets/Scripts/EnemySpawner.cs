@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -62,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
                         Enemy enemy = pool.GetObject();
                         enemy.Initialize(spawnPoint.position);
                         activeEnemies[spawnPoint] = enemy;
-
 
                     }
                 }
