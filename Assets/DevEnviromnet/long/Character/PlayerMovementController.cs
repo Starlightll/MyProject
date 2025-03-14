@@ -19,8 +19,10 @@ public class PlayerMovementController : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public Transform wallCheck;
+    public Transform HeadCheck;
     public LayerMask groundLayer;
     public float GroundCheckSize = 0.1f;
+    public float HeadCheckSize = 0.1f;
     public float wallCheckDistance = 0.5f;
     public float gravityScale = 5f;
     public float gravityScaleWallSlide = 1f;
@@ -28,6 +30,7 @@ public class PlayerMovementController : MonoBehaviour
     
     [Header("System Variables")]
     private bool isGrounded;
+    private bool isTouchingHead;
     private bool isTouchingWall;
     private bool isWallSliding;
     private bool canDoubleJump;
@@ -36,9 +39,10 @@ public class PlayerMovementController : MonoBehaviour
     private float dashTimer;
     private bool facingRight = true;
     private float horizontalInput;
-
+    private bool isOnWallJump = false;
     public float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
+
     
     private void Start()
     {
@@ -56,30 +60,22 @@ public class PlayerMovementController : MonoBehaviour
         
         // Check environment
         CheckGrounded();
+        CheckHead();
         CheckWall();
-
-        // Debug.Log("CheckGrounded: " + isGrounded);
-        // Debug.Log("CheckWall: " + isTouchingWall);
-        // Debug.Log("IsWallSliding: " + isWallSliding);
-        // Debug.Log("Coyote Time Counter: " + coyoteTimeCounter);
-        
-
-
-        Debug.Log("Gravity Scale: " + rb.gravityScale);
         
         // Handle jumping
         if (Input.GetButtonDown("Jump"))
         {
             
-            if (isGrounded || coyoteTimeCounter > 0)
+            if ((isGrounded && !isTouchingWall) || (coyoteTimeCounter > 0 && !isTouchingWall))
             {
                 Jump();
                 canDoubleJump = true;
             }
-            else if (isWallSliding)
+            else if (isWallSliding || isTouchingWall)
             {
                 coyoteTimeCounter = coyoteTime; // Reset coyote time
-                canDoubleJump = true; 
+                canDoubleJump = false; 
                 WallJump();
             }
             else if (canDoubleJump)
@@ -126,17 +122,25 @@ public class PlayerMovementController : MonoBehaviour
         Move();
         
         // Handle wall sliding
-        if (isWallSliding)
+        if (isWallSliding && isOnWallJump == false && !isGrounded)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
+            
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
         }
     }
     
     private void Move()
     {
+        // if (isWallSliding || isOnWallJump) return;
         // Set velocity with consistent x and maintaining current y
+        if(isTouchingWall && isGrounded && !isOnWallJump)
+        {
+            rb.linearVelocity = new Vector2(0f, 0f);
+        }else if (!isOnWallJump)
+        {
         rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
-        
+        }
+    
         // Flip character based on movement direction
         if (horizontalInput > 0 && !facingRight)
             Flip();
@@ -157,13 +161,23 @@ public class PlayerMovementController : MonoBehaviour
     }
     
     private void WallJump()
-    {
-        // Wall jump away from wall
-        float jumpDirection = facingRight ? -1f : 1f;
-        rb.linearVelocity = new Vector2(jumpDirection * moveSpeed, jumpForce);
-        Flip();
-        // animator.SetTrigger("WallJump");
-    }
+{
+    isOnWallJump = true;
+    Vector2 jumpDirection = facingRight ? Vector2.left : Vector2.right;
+    jumpDirection.y = jumpForce;
+    jumpDirection.x *= jumpForce/2;
+    // rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
+    Debug.Log("Wall Jump:" + jumpDirection);
+    rb.linearVelocity = jumpDirection;
+    // rb.AddForce(jumpDirection, ForceMode2D.Impulse);
+    StartCoroutine(MaintainWallJumpVelocity());
+}
+
+private IEnumerator MaintainWallJumpVelocity()
+{
+    yield return new WaitForSeconds(0.2f);
+    isOnWallJump = false;
+}
     
     private IEnumerator Dash()
     {
@@ -187,20 +201,23 @@ public class PlayerMovementController : MonoBehaviour
     
     private void CheckGrounded()
     {
+        
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, GroundCheckSize, groundLayer);
-        if (isGrounded)
+        if (isGrounded) // If grounded and not wall sliding
         {
             coyoteTimeCounter = coyoteTime; // Reset coyote time
         }
         else if(!isGrounded && !isWallSliding) // If not grounded and not wall sliding
-
         {
             coyoteTimeCounter -= Time.deltaTime;
-            // if (coyoteTimeCounter <= 0)
-            // {
-            //     canDoubleJump = false; // Disable double jump if not grounded
-            // }
+
         }
+    }
+
+    private void CheckHead()
+    {
+        isTouchingHead = Physics2D.OverlapCircle(HeadCheck.position, GroundCheckSize, groundLayer);
+        
     }
     
     private void CheckWall()
@@ -215,6 +232,7 @@ public class PlayerMovementController : MonoBehaviour
             // rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
             coyoteTimeCounter = coyoteTime; // Reset coyote timea
             // animator.SetBool("IsWallSliding", true);
+            return;
         }
         else if(!isTouchingWall || isGrounded) // If not touching wall or grounded
         {
@@ -227,19 +245,8 @@ public class PlayerMovementController : MonoBehaviour
     
     private void Flip()
     {
-        // // Flip the character
-        // facingRight = !facingRight;
-        // Vector3 localScale = transform.localScale;
-        // localScale.x *= -1;
-        // transform.localScale = localScale;
-
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
-        
-        // // Flip the wall check position
-        // Vector3 wallCheckPosition = wallCheck.position;
-        // wallCheckPosition.x *= -1;
-        // wallCheck.position = wallCheckPosition;
     }
     
     
@@ -261,5 +268,7 @@ public class PlayerMovementController : MonoBehaviour
         Gizmos.color = Color.cyan;
         Vector2 direction = facingRight ? Vector2.right : Vector2.left;
         Gizmos.DrawRay(wallCheck.position, direction * wallCheckDistance);       
+
+        Gizmos.color = Color.yellow;
     }
 }
