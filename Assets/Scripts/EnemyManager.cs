@@ -5,7 +5,7 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
     public List<GameObject> enemyPrefabs;
-    private Dictionary<string, ObjectPool<EnemyBase>> enemyPools = new Dictionary<string, ObjectPool<EnemyBase>>();
+    private Dictionary<string, ObjectPool<Enemy>> enemyPools = new Dictionary<string, ObjectPool<Enemy>>();
 
     private void Awake()
     {
@@ -16,23 +16,23 @@ public class EnemyManager : MonoBehaviour
     {
         if (!enemyPools.ContainsKey(enemyType))
         {
-            ObjectPool<EnemyBase> newPool = new ObjectPool<EnemyBase>(prefab.GetComponent<EnemyBase>(), poolSize, transform);
+            ObjectPool<Enemy> newPool = new ObjectPool<Enemy>(prefab.GetComponent<Enemy>(), poolSize, transform);
             enemyPools.Add(enemyType, newPool);
         }
     }
 
-    public EnemyBase GetEnemy(string enemyType, Vector3 position)
+    public Enemy GetEnemy(string enemyType, Vector3 position)
     {
         if (enemyPools.ContainsKey(enemyType))
         {
-            EnemyBase enemy = enemyPools[enemyType].GetObject();
+            Enemy enemy = enemyPools[enemyType].GetObject();
             enemy.transform.position = position;
             return enemy;
         }
         return null;
     }
 
-    public void ReturnEnemy(EnemyBase enemy)
+    public void ReturnEnemy(Enemy enemy)
     {
         enemyPools[enemy.GetType().Name].ReturnObject(enemy);
     }

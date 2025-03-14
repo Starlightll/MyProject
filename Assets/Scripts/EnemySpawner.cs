@@ -11,13 +11,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float respawnDelay = 30f;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckDistance = 3f; 
+    [SerializeField] private float groundCheckRadius = 5f;
 
-    [SerializeField] private List<EnemyBase> groundEnemies;
-    [SerializeField] private List<EnemyBase> airEnemies;
+    [SerializeField] private List<Enemy> groundEnemies;
+    [SerializeField] private List<Enemy> airEnemies;
 
-    private Dictionary<EnemyBase, ObjectPool<EnemyBase>> enemyPools = new Dictionary<EnemyBase, ObjectPool<EnemyBase>>();
-    private Dictionary<Transform, EnemyBase> activeEnemies = new Dictionary<Transform, EnemyBase>();
+    private Dictionary<Enemy, ObjectPool<Enemy>> enemyPools = new Dictionary<Enemy, ObjectPool<Enemy>>();
+    private Dictionary<Transform, Enemy> activeEnemies = new Dictionary<Transform, Enemy>();
 
     private void Awake()
     {
@@ -30,19 +30,13 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         foreach (var enemy in groundEnemies)
-        {
-            enemyPools[enemy] = new ObjectPool<EnemyBase>(enemy, poolSize, transform);
-        }
+            enemyPools[enemy] = new ObjectPool<Enemy>(enemy, poolSize, transform);
 
         foreach (var enemy in airEnemies)
-        {
-            enemyPools[enemy] = new ObjectPool<EnemyBase>(enemy, poolSize, transform);
-        }
+            enemyPools[enemy] = new ObjectPool<Enemy>(enemy, poolSize, transform);
 
         foreach (var spawnPoint in spawnPoints)
-        {
             activeEnemies[spawnPoint] = null;
-        }
 
         InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
     }
@@ -54,41 +48,45 @@ public class EnemySpawner : MonoBehaviour
             if (activeEnemies[spawnPoint] == null)
             {
                 bool hasGround = CheckGround(spawnPoint.position);
-                List<EnemyBase> validEnemies = hasGround ? groundEnemies : airEnemies;
+                List<Enemy> validEnemies = hasGround ? groundEnemies : airEnemies;
+
+
 
                 if (validEnemies.Count > 0)
                 {
                     int randomIndex = Random.Range(0, validEnemies.Count);
-                    EnemyBase enemyPrefab = validEnemies[randomIndex];
+                    Enemy enemyPrefab = validEnemies[randomIndex];
 
                     if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                     {
-                        EnemyBase enemy = pool.GetObject();
+                        Enemy enemy = pool.GetObject();
                         enemy.Initialize(spawnPoint.position);
                         activeEnemies[spawnPoint] = enemy;
+
+
                     }
                 }
             }
         }
     }
 
-    private bool CheckGround(Vector3 position)
+    bool CheckGround(Vector3 position)
     {
-        // Kiểm tra khoảng cách đến mặt đất
-        RaycastHit hit;
-        if (Physics.Raycast(position, Vector3.down, out hit, groundCheckDistance, groundLayer))
-        {
-            return true; // Có mặt đất trong khoảng cách cho phép
-        }
-        return false; // Không có mặt đất gần đó
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, groundCheckRadius, groundLayer);
+
+        bool grounded = hit.collider != null;
+
+        return grounded;
     }
 
-    public void ReturnEnemyToPool(EnemyBase enemy)
+
+
+    public void ReturnEnemyToPool(Enemy enemy)
     {
         StartCoroutine(RespawnEnemy(enemy));
     }
 
-    private IEnumerator RespawnEnemy(EnemyBase enemy)
+    private IEnumerator RespawnEnemy(Enemy enemy)
     {
         Transform enemySpawnPoint = null;
 
@@ -107,20 +105,29 @@ public class EnemySpawner : MonoBehaviour
         if (enemySpawnPoint != null && activeEnemies[enemySpawnPoint] == null)
         {
             bool hasGround = CheckGround(enemySpawnPoint.position);
-            List<EnemyBase> validEnemies = hasGround ? groundEnemies : airEnemies;
+            List<Enemy> validEnemies = hasGround ? groundEnemies : airEnemies;
 
             if (validEnemies.Count > 0)
             {
                 int randomIndex = Random.Range(0, validEnemies.Count);
-                EnemyBase enemyPrefab = validEnemies[randomIndex];
+                Enemy enemyPrefab = validEnemies[randomIndex];
 
                 if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                 {
-                    EnemyBase newEnemy = pool.GetObject();
+                    Enemy newEnemy = pool.GetObject();
                     newEnemy.Initialize(enemySpawnPoint.position);
                     activeEnemies[enemySpawnPoint] = newEnemy;
                 }
             }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        foreach (var spawnPoint in spawnPoints)
+        {
+            Gizmos.DrawSphere(spawnPoint.position, 0.2f);
         }
     }
 }
