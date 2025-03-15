@@ -866,12 +866,11 @@ MonoBehaviour:
   enemyMove: 1
   distance: 5
   speed: 2
-  chaseSpeed: 5
+  chaseSpeed: 8
   groundCheckDistance: 1
   attackRange: 1
-  detectionRange: 5
   groundCheck: {fileID: 2474713838673875269}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
+  playerTransform: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

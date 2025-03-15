@@ -162,26 +162,6 @@ public abstract class Enemy : MonoBehaviour
         direction *= -1;
         transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z);
     }
-
-    public virtual void TakeDamage(float damage)
-    {
-        currentHp -= damage;
-        currentHp = Mathf.Max(currentHp, 0);
-        UpdateHpBar();
-        Debug.Log("Enemy nhận " + damage + " sát thương! HP còn lại: " + currentHp);
-
-        if (currentHp <= 0)
-        {
-            Die();
-        }
-    }
-
-    public virtual void Die()
-    {
-        Debug.Log("Enemy đã chết!");
-        EnemySpawner.Instance.ReturnEnemyToPool(this);
-    }
-
     protected void UpdateHpBar()
     {
         if (imageHp != null)
@@ -189,4 +169,6 @@ public abstract class Enemy : MonoBehaviour
             imageHp.fillAmount = currentHp / hpMax;
         }
     }
+
+
 }
