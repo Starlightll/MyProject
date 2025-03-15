@@ -26,6 +26,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool isAttacking = false;
     protected float attackCooldown = 0.5f;
     protected float lastAttackTime = 0f;
+    private bool isRange = false;
 
     [SerializeField] protected float hpMax = 50f;
     protected float currentHp;
@@ -60,11 +61,11 @@ public abstract class Enemy : MonoBehaviour
             if (playerObj != null)
             {
                 playerTransform = playerObj.transform;
-                Debug.Log("Enemy đã tìm thấy Player!");
+                // Debug.Log("Enemy đã tìm thấy Player!");
             }
             else
             {
-                Debug.LogError("Không tìm thấy GameObject có tag 'Player'!");
+                // Debug.LogError("Không tìm thấy GameObject có tag 'Player'!");
             }
         }
     }
@@ -73,9 +74,10 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         if (playerTransform == null) return;
+        Debug.Log(isRange);
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-        Debug.Log("Khoảng cách đến Player: " + distanceToPlayer);
+
 
         if (PlayerInAttackRange())
         {
@@ -107,7 +109,7 @@ public abstract class Enemy : MonoBehaviour
             FlipEnemy();
         }
 
-        transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0);
+        rb.linearVelocity = new Vector2(direction * speed, 0);
     }
 
     protected void ChasePlayer()
@@ -126,7 +128,7 @@ public abstract class Enemy : MonoBehaviour
 
         // Enemy di chuyển về phía player
         transform.position += new Vector3(directionToPlayer.x * chaseSpeed * Time.deltaTime, 0, 0);
-        Debug.Log("Enemy đang đuổi theo player...");
+        // Debug.Log("Enemy đang đuổi theo player...");
     }
 
     protected void AttackPlayer()
@@ -143,17 +145,45 @@ public abstract class Enemy : MonoBehaviour
 
     protected bool PlayerInRange()
     {
-        if (playerTransform == null) return false;
-        bool inRange = Vector2.Distance(transform.position, playerTransform.position) < detectionRange;
-        Debug.Log("Player trong phạm vi phát hiện: " + inRange);
-        return inRange;
+        // if (playerTransform == null) return false;
+        // bool inRange = Vector2.Distance(transform.position, playerTransform.position) < detectionRange;
+
+        // Debug.Log("Player trong phạm vi phát hiện: " + inRange);
+        // return inRange;
+
+        isRange = Physics2D.OverlapCircle(transform.position, detectionRange, playerLayer);
+        return isRange;
+
+
     }
+
+
+
+
+    // void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         isRange = true;
+    //         Debug.Log("Player đã vào ph ạm vi phát hiện của Enemy!");
+
+
+    //     }
+    // }
+
+    // void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         isRange = false;
+    //     }
+    // }
 
     protected bool PlayerInAttackRange()
     {
         if (playerTransform == null) return false;
         bool inAttackRange = Vector2.Distance(transform.position, playerTransform.position) < attackRange;
-        Debug.Log("Player trong phạm vi tấn công: " + inAttackRange);
+        // Debug.Log("Player trong phạm vi tấn công: " + inAttackRange);
         return inAttackRange;
     }
 
@@ -162,7 +192,9 @@ public abstract class Enemy : MonoBehaviour
         direction *= -1;
         transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z);
     }
+
     protected void UpdateHpBar()
+
     {
         if (imageHp != null)
         {
@@ -170,5 +202,11 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
 
+
+    }
 }
