@@ -164,8 +164,8 @@ public class PlayerMovementController : MonoBehaviour
 {
     isOnWallJump = true;
     Vector2 jumpDirection = facingRight ? Vector2.left : Vector2.right;
-    jumpDirection.y = jumpForce;
-    jumpDirection.x *= jumpForce/2;
+    jumpDirection.y = jumpForce/1.5f;
+    jumpDirection.x *= jumpForce/3;
     // rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
     Debug.Log("Wall Jump:" + jumpDirection);
     rb.linearVelocity = jumpDirection;
