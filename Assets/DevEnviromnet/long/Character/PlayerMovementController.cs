@@ -86,14 +86,14 @@ public class PlayerMovementController : MonoBehaviour
         }
         
         // Handle dashing
-        if (Input.GetButtonDown("Fire1") && dashCooldownTimer <= 0 && !isDashing)
-        {
-            StartCoroutine(Dash());
-        }
+        // if (Input.GetButtonDown("Fire1") && dashCooldownTimer <= 0 && !isDashing)
+        // {
+        //     StartCoroutine(Dash());
+        // }
         
-        // Update cooldowns
-        if (dashCooldownTimer > 0)
-            dashCooldownTimer -= Time.deltaTime;
+        // // Update cooldowns
+        // if (dashCooldownTimer > 0)
+        //     dashCooldownTimer -= Time.deltaTime;
             
         // // Handle wall sliding
         // if (isTouchingWall && !isGrounded && horizontalInput != 0)
@@ -164,7 +164,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     isOnWallJump = true;
     Vector2 jumpDirection = facingRight ? Vector2.left : Vector2.right;
-    jumpDirection.y = jumpForce/1.5f;
+    jumpDirection.y = jumpForce/1.2f;
     jumpDirection.x *= jumpForce/3;
     // rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
     Debug.Log("Wall Jump:" + jumpDirection);
