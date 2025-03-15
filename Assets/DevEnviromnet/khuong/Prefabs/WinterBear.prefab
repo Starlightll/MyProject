@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2383298053686796334}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9112510769946530959}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 6048495800304077023}
   - component: {fileID: 6428873686278924827}
   - component: {fileID: 6002233631803746772}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WinterBear
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -278,7 +278,6 @@ MonoBehaviour:
   chaseSpeed: 5
   groundCheckDistance: 1
   attackRange: 1
-  detectionRange: 5
   groundCheck: {fileID: 2383298053686796334}
   playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
   groundLayer:
@@ -300,7 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4962415225884325359}
   - component: {fileID: 7544688497531341482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910053633121216513}
   - component: {fileID: 7658757810039295230}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1600670202915502570}
   - component: {fileID: 1531894566655532410}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegFrontL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2622986289049497325}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8582268132783149750}
   - component: {fileID: 120547654611589444}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7597007019937008824}
   - component: {fileID: 2662368529980523930}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegFrontR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6654151053376369344}
   - component: {fileID: 583467099022792198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7398001987841243690}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5513215077783012020}
   - component: {fileID: 8771462945875667482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegBackR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +979,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8240170738300992420}
   - component: {fileID: 5186413237322976997}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegBackL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,9 +1068,17 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1705703619297114216, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Name
       value: Hp3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Pivot.x
@@ -1164,6 +1171,10 @@ PrefabInstance:
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722452020556545427, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
