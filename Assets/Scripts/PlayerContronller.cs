@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerContronller : MonoBehaviour
 {
     public float speed = 5.0f; // Tốc độ di chuyển
     public float moveJump = 5.0f; // Lực nhảy
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-       HandleMove();
+        HandleMove();
         HandleJump();
     }
 
@@ -24,11 +24,11 @@ public class PlayerController : MonoBehaviour
 
         if (moveInput > 0)
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) , transform.localScale.y, transform.localScale.z); // Nhìn phải
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // Nhìn phải
         }
         else if (moveInput < 0)
         {
-            transform.localScale = new Vector3(-1*Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // Nhìn trái
+            transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // Nhìn trái
         }
     }
 
@@ -38,7 +38,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, moveJump);
-       
+
         }
+    }
+
+
+    public void TakeDame()
+    {
+        Die();
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
