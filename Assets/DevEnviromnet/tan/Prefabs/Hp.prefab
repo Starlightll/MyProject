@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 737327697835183818}
   - component: {fileID: 3507254111273545528}
   m_Layer: 5
-  m_Name: Hp3
+  m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
