@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float distance = 5f;
     protected Vector3 startPos;
     protected PlayerContronller player;
-    protected Rigidbody2D rb;
+    private Rigidbody2D rb;
     protected Animator animator;
 
     [SerializeField] protected float speed = 2f;
@@ -74,8 +74,6 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         if (playerTransform == null) return;
-        GameObject playerObj = GameObject.FindWithTag("Player");
-        playerTransform = playerObj.transform;
         Debug.Log(isRange);
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
@@ -111,10 +109,10 @@ public abstract class Enemy : MonoBehaviour
             FlipEnemy();
         }
 
-        rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction * speed, 0);
     }
 
-    protected virtual void ChasePlayer()
+    protected void ChasePlayer()
     {
         isChasing = true;
         isAttacking = false;
@@ -129,8 +127,7 @@ public abstract class Enemy : MonoBehaviour
         }
 
         // Enemy di chuyển về phía player
-        // transform.position += new Vector3(directionToPlayer.x * chaseSpeed * Time.deltaTime, 0, 0);
-        rb.linearVelocity = new Vector2(directionToPlayer.x * chaseSpeed, 0);
+        transform.position += new Vector3(directionToPlayer.x * chaseSpeed * Time.deltaTime, 0, 0);
         // Debug.Log("Enemy đang đuổi theo player...");
     }
 
@@ -193,7 +190,7 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void FlipEnemy()
     {
         direction *= -1;
-        transform.localScale = new Vector3(direction, 1, 1);
+        transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z);
     }
 
     protected void UpdateHpBar()
@@ -210,8 +207,6 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, (playerTransform.position - transform.position) * attackRange);
 
     }
 }
