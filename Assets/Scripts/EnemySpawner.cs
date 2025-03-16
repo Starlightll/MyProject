@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
                     if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                     {
                         Enemy enemy = pool.GetObject();
-                        enemy.Initialize(spawnPoint.position);
+                        enemy.transform.position = enemy.spawnPosition;
                         activeEnemies[spawnPoint] = enemy;
 
                     }
@@ -114,8 +114,8 @@ public class EnemySpawner : MonoBehaviour
                 if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                 {
                     Enemy newEnemy = pool.GetObject();
-                    newEnemy.Initialize(enemySpawnPoint.position);
-                    activeEnemies[enemySpawnPoint] = newEnemy;
+                    // newEnemy.Initialize(enemySpawnPoint.position);
+                    // activeEnemies[enemySpawnPoint] = newEnemy;
                 }
             }
         }
