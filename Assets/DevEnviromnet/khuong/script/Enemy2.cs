@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class Enemy2 : Enemy
 {
+    protected override void Start()
+    {
+        base.Start();
+        rb.gravityScale = 0;
+    }
+
+
     protected override void Patrol()
     {
         isChasing = false;
@@ -22,8 +29,31 @@ public class Enemy2 : Enemy
             FlipEnemy();
         }
 
-        transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0);
+        // transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0);
+        rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
     }
+
+    protected override void ChasePlayer()
+    {
+        isChasing = true;
+        isAttacking = false;
+        animator.SetBool("isWalking", true);
+
+        Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+
+        // Kiểm tra hướng đi và flip nếu cần
+        if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
+        {
+            FlipEnemy();
+        }
+
+        // Enemy di chuyển về phía player
+        // transform.position += new Vector3(directionToPlayer.x * chaseSpeed * Time.deltaTime, 0, 0);
+        rb.linearVelocity = new Vector2(directionToPlayer.x * chaseSpeed, 0);
+        // Debug.Log("Enemy đang đuổi theo player...");
+    }
+
+
 
 
 }
