@@ -80,12 +80,19 @@ public class PlayerCombat : MonoBehaviour
         if (slashEffects.Length == 0 || slashEffects[ComboCounter] == null)
             return;
 
-        
-        GameObject slash = Instantiate(slashEffects[ComboCounter], attackPoint.position, slashEffects[ComboCounter].transform.rotation);
+        float direction = transform.rotation.y > 0 ? 1f : -1f;
+        Quaternion rotation = 
+            new Quaternion(slashEffects[ComboCounter].transform.rotation.x, 
+            slashEffects[ComboCounter].transform.rotation.y * direction, 
+            slashEffects[ComboCounter].transform.rotation.z, 
+            slashEffects[ComboCounter].transform.rotation.w);
+        GameObject slash = Instantiate(slashEffects[ComboCounter], attackPoint.position, rotation);
+        Debug.Log("Slash: " + rotation);
 
-        float direction = transform.localScale.x > 0 ? 1f : -1f;
-        Quaternion rotation = new Quaternion(slashEffects[comboIndex].transform.rotation.x, slashEffects[comboIndex].transform.rotation.y * direction, slashEffects[comboIndex].transform.rotation.z, slashEffects[comboIndex].transform.rotation.w);
-        slash.transform.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+        // slash.transform.eulerAngles = new Vector3(slash.transform.eulerAngles.x, slash.transform.eulerAngles.y * direction, slash.transform.eulerAngles.z);
+        // Instantiate(slash, attackPoint.position, slash.transform.rotation);
+        // Quaternion rotation = new Quaternion(slashEffects[comboIndex].transform.rotation.x, slashEffects[comboIndex].transform.rotation.y * direction, slashEffects[comboIndex].transform.rotation.z, slashEffects[comboIndex].transform.rotation.w);
+        // slash.transform.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
         Destroy(slash, 1f);
     }
 
