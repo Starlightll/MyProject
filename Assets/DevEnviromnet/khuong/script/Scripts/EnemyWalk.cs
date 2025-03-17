@@ -6,6 +6,7 @@ public class EnemyWalk : Enemy
     private Vector2 MinPos;
     private Vector2 MaxPos;
 
+
     protected override void Start()
     {
         base.Start();
@@ -13,10 +14,21 @@ public class EnemyWalk : Enemy
         MinPos = spawnPosition - new Vector2(PatrolRange, 0);
         MaxPos = spawnPosition + new Vector2(PatrolRange, 0);
         direction = Vector2.right;
+
     }
 
     void Update()
     {
+        if (CheckInRange())
+        {
+            isChasing = true;
+        }
+        else
+        {
+            isChasing = false;
+
+        }
+
         Patrol();
     }
 
@@ -32,20 +44,19 @@ public class EnemyWalk : Enemy
 
     protected override void Patrol()
     {
-
-        if (transform.position.x >= MaxPos.x)
+        FaceToward(direction);
+        if (transform.position.x > MaxPos.x)
         {
             direction = Vector2.left;
-            Flip();
+
 
         }
-        else if (transform.position.x <= MinPos.x)
+        else if (transform.position.x < MinPos.x)
         {
             direction = Vector2.right;
-            Flip();
+
         }
 
-        Debug.Log(direction);
 
         rb.linearVelocity = new Vector2(direction.x * WalkSpeed, rb.linearVelocity.y);
     }

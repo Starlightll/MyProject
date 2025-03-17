@@ -20,10 +20,16 @@ public abstract class Enemy : MonoBehaviour
 
     public Vector2 spawnPosition;
 
+    protected Transform player;
+
+    protected bool isChasing = false;
+    [SerializeField] protected Transform enemyEye;
+
     protected virtual void Start()
     {
         spawnPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
     }
 
@@ -33,10 +39,14 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void Die();
     protected abstract void TakeDame(float dame);
 
-    protected virtual void CheckInRange()
+
+
+    protected virtual bool CheckInRange()
     {
-        Debug.Log("Check In Range");
+        if (player == null) return false;
+        return Vector2.Distance(transform.position, player.position) <= AttackRange;
     }
+
 
     protected void Flip()
     {
@@ -47,9 +57,55 @@ public abstract class Enemy : MonoBehaviour
 
     protected void FaceToward(Vector2 direction)
     {
-        transform.localScale = new Vector3(Math.Abs(transform.localScale.x) * direction.x, transform.localScale.y, transform.localScale.z);
+        float temp = transform.position.x - enemyEye.position.x;
+
+        if (rb.linearVelocity.x < 0)
+        {
+            if (temp > 0)
+            {
+                return;
+            }
+            else
+            {
+                Flip();
+                return;
+            }
+
+        }
+        if (rb.linearVelocity.x > 0)
+        {
+            if (temp < 0)
+            {
+                return;
+            }
+            else
+            {
+                Flip();
+                return;
+            }
+        }
+
+
     }
 
+    // protected virtual void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         isChasing = true;
+    //         Debug.Log("Player đã vào phạm vi tấn công!");
+    //     }
+    // }
+
+    // protected virtual void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     if (collision.CompareTag("Player"))
+    //     {
+    //         isChasing = false;
+    //         Debug.Log("Player đã rời khỏi phạm vi tấn công!");
+    //         // Quay về trạng thái tuần tra hoặc chờ
+    //     }
+    // }
 
 
 }
