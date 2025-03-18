@@ -44,8 +44,7 @@ public abstract class Weapon : ScriptableObject
     public float comboResetTime;
     public float comboResetDuration;
 
-
-
-
     public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter);
+    
+
 }

@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private WeaponManager _weaponManager;
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerConfigs _configs;
+    [SerializeField] public Rigidbody2D _rb;
+    [SerializeField] public Animator _anim;
 
 
     public PlayerStats Stats => _stats;
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private int comboCounter = 0;
 
     private Vector2 playerDirection;
+
+    public float attackRange = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,5 +60,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // _stateMachine.;
+    }
+
+    void OnDrawGizmos(){
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

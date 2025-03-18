@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Weapon/SwordOfArts")]
@@ -13,6 +14,8 @@ public class SwordOfArts : Weapon
     public float attackCooldownMultiplier = 1f;
     public float attackKnockbackMultiplier = 1.5f;
 
+    public float runtimeAttackRange = 0f;
+
 
     public GameObject[] slashEffects;
 
@@ -24,7 +27,7 @@ public class SwordOfArts : Weapon
         //     attackRange 
         //     + attackRange * attackRangeMultiplier/100
         //     + attackRange * attacker.GetComponent<PlayerController>().Stats.attackRange/100, attackMask);
-        
+
         // foreach(Collider2D hit in hits)
         // {
         //     if(hit.TryGetComponent<IDamageable>(out IDamageable damageable))
@@ -32,29 +35,34 @@ public class SwordOfArts : Weapon
         //         damageable.TakeDamage(baseDamage);
         //     }
         // }
-        if(comboEnabled){
-           comboCounter++;
-           switch(comboCounter){
-            case 1:
-                Attack1(attacker, enemyLayer, 0);
-                break;
-            case 2:
-                Attack2(attacker, enemyLayer, 1);
-                break;
-            case 3:
-                Attack3(attacker, enemyLayer, 2);
-                break;
-            default:
-                Attack1(attacker, enemyLayer, 0);
-                comboCounter = 1;
-                break;
+        if (comboEnabled)
+        {
+            comboCounter++;
+            switch (comboCounter)
+            {
+                case 1:
+                    Attack1(attacker, enemyLayer, 0);
+                    break;
+                case 2:
+                    Attack2(attacker, enemyLayer, 1);
+                    break;
+                case 3:
+                    Attack3(attacker, enemyLayer, 2);
+                    break;
+                default:
+                    Attack1(attacker, enemyLayer, 0);
+                    comboCounter = 1;
+                    break;
+            }
         }
-        }else{
+        else
+        {
             Attack1(attacker, enemyLayer, 0);
         }
     }
 
-    private void Attack1(Transform attacker, LayerMask enemyLayer, int comboCounter){
+    private void Attack1(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
         Debug.Log("Sword of Arts Attack 1");
         /*** Để tính toán được phạm vi gây sát thương đồng bộ với vfx thì cần phải
             * 1. Tính toán được vị trí tấn công
@@ -69,14 +77,19 @@ public class SwordOfArts : Weapon
          ***/
         //Calculate attack range
         float attackRange = 1f * attackRangeMultiplier;
-        
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
+
         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        foreach(Collider2D hit in hits){
-            if(hit.TryGetComponent<IDamageable>(out IDamageable damageable)){
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
                 damageable.TakeDamage(baseDamage * attackDamageMultiplier);
             }
         }
+        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
 
         //Show slash effect
         ShowSlashEffect(attacker, comboCounter, attackRange);
@@ -85,24 +98,28 @@ public class SwordOfArts : Weapon
         Vector2 dashDirection = new Vector2(attackRange, 0);
     }
 
-    private void Attack2(Transform attacker, LayerMask enemyLayer, int comboCounter){
+    private void Attack2(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
         Debug.Log("Sword of Arts Attack 2");
         float attackRange = 1.5f * attackRangeMultiplier;
-
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        
-        
+        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
+
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
 
-    private void Attack3(Transform attacker, LayerMask enemyLayer, int comboCounter){
+    private void Attack3(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
         Debug.Log("Sword of Arts Attack 3");
         float attackRange = 2f * attackRangeMultiplier;
-
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        
+        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
@@ -129,4 +146,12 @@ public class SwordOfArts : Weapon
         // slash.transform.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
         Destroy(slash, 1f);
     }
+
+    public void hit(Collider2D collider)
+    {
+        Debug.Log("Hit");
+        collider.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
+        //Call enemy take damage function here
+    }
+
 }

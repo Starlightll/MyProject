@@ -14631,6 +14631,7 @@ GameObject:
   - component: {fileID: 2392601426291180953}
   - component: {fileID: 1069161236026285801}
   - component: {fileID: 4652370213074407049}
+  - component: {fileID: 2295523718352121298}
   m_Layer: 0
   m_Name: SlashInk3
   m_TagString: Untagged
@@ -19467,6 +19468,19 @@ SortingGroup:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &2295523718352121298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575611588403928121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c7629c74284a7428f5459071ac1604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordOfArts: {fileID: 11400000, guid: be9b06411fa90494d99e8d4698618985, type: 2}
 --- !u!1 &3473464100591762889
 GameObject:
   m_ObjectHideFlags: 0
@@ -24313,6 +24327,8 @@ GameObject:
   - component: {fileID: 3915089328481575416}
   - component: {fileID: 679460276003865271}
   - component: {fileID: 8751024316012167799}
+  - component: {fileID: 6018844799880904764}
+  - component: {fileID: 1079864639011584677}
   m_Layer: 0
   m_Name: slash_alp
   m_TagString: Untagged
@@ -29211,6 +29227,71 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!60 &6018844799880904764
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3872395413873741648}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.02212542, y: 1.3914831}
+      - {x: -1.2167048, y: 0.45736778}
+      - {x: -0.5232623, y: -1.5770376}
+      - {x: 0.8435516, y: -1.3156439}
+      - {x: 1.1258574, y: 0.51816165}
+  m_UseDelaunayMesh: 0
+--- !u!114 &1079864639011584677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3872395413873741648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c7629c74284a7428f5459071ac1604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordOfArts: {fileID: 11400000, guid: be9b06411fa90494d99e8d4698618985, type: 2}
 --- !u!1 &4672068790917930225
 GameObject:
   m_ObjectHideFlags: 0
@@ -39031,6 +39112,8 @@ GameObject:
   - component: {fileID: 5664613906365666891}
   - component: {fileID: 1630663111753964849}
   - component: {fileID: 5502122769402358735}
+  - component: {fileID: 8643063471717493266}
+  - component: {fileID: 1182278772940277871}
   m_Layer: 0
   m_Name: slash_add
   m_TagString: Untagged
@@ -43929,6 +44012,71 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!60 &8643063471717493266
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067044503706748646}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1.6144619}
+      - {x: -1.5354445, y: 0.49889612}
+      - {x: -0.9489568, y: -1.3061272}
+      - {x: 0.9489571, y: -1.3061271}
+      - {x: 1.5354445, y: 0.49889636}
+  m_UseDelaunayMesh: 0
+--- !u!114 &1182278772940277871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067044503706748646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c7629c74284a7428f5459071ac1604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordOfArts: {fileID: 11400000, guid: be9b06411fa90494d99e8d4698618985, type: 2}
 --- !u!1 &5469199767801901268
 GameObject:
   m_ObjectHideFlags: 0
@@ -53769,6 +53917,8 @@ GameObject:
   - component: {fileID: 4341469071153408154}
   - component: {fileID: 6181045385402480234}
   - component: {fileID: 5404230855234878441}
+  - component: {fileID: 5203463782666683553}
+  - component: {fileID: 1002187280374512088}
   m_Layer: 0
   m_Name: slash 01
   m_TagString: Untagged
@@ -58678,6 +58828,71 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!60 &5203463782666683553
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337145591568128037}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.06445804, y: 2.4040072}
+      - {x: -1.0926831, y: 0.20228869}
+      - {x: -0.60931104, y: -2.0972352}
+      - {x: 0.72723716, y: -1.9913844}
+      - {x: 1.1590122, y: 0.4406802}
+  m_UseDelaunayMesh: 0
+--- !u!114 &1002187280374512088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337145591568128037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c7629c74284a7428f5459071ac1604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordOfArts: {fileID: 11400000, guid: be9b06411fa90494d99e8d4698618985, type: 2}
 --- !u!1 &8622853983799507708
 GameObject:
   m_ObjectHideFlags: 0
