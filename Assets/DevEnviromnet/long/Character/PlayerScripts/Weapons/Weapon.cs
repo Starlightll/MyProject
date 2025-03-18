@@ -38,6 +38,13 @@ public abstract class Weapon : ScriptableObject
     public GameObject[] attackHitEffects;
     public GameObject[] attackMissEffects;
 
+    [Header("Combo System")]
+    public bool comboEnabled;
+    public int maxComboCount;
+    public float comboResetTime;
+    public float comboResetDuration;
 
-    public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer);
+    public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter);
+    
+
 }

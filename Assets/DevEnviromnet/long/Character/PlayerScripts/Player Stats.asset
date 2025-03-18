@@ -16,13 +16,11 @@ MonoBehaviour:
   currentHealth: 100
   maxMana: 100
   currentMana: 0
-  attackPower: 0
+  attackPower: 5
   attackDamageMultiplier: 1
   attackRange: 0
-  defense: 0
-  attackSpeed: 0
-  movementSpeed: 30
-  jumpForce: 30
+  defense: 5
+  attackSpeed: 10
   critChance: 0
   critDamage: 0
   lifeSteal: 0
