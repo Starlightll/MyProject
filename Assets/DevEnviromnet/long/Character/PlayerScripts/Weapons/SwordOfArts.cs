@@ -70,7 +70,6 @@ public class SwordOfArts : Weapon
         //Calculate attack range
         float attackRange = 1f * attackRangeMultiplier;
         
-
         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
         foreach(Collider2D hit in hits){
@@ -78,12 +77,6 @@ public class SwordOfArts : Weapon
                 damageable.TakeDamage(baseDamage * attackDamageMultiplier);
             }
         }
-
-        //Draw gizmos for attack area
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attacker.position, attackRange);
-        
-
 
         //Show slash effect
         ShowSlashEffect(attacker, comboCounter, attackRange);
@@ -95,12 +88,22 @@ public class SwordOfArts : Weapon
     private void Attack2(Transform attacker, LayerMask enemyLayer, int comboCounter){
         Debug.Log("Sword of Arts Attack 2");
         float attackRange = 1.5f * attackRangeMultiplier;
+
+        //Perform hitbox check
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
+        
+        
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
 
     private void Attack3(Transform attacker, LayerMask enemyLayer, int comboCounter){
         Debug.Log("Sword of Arts Attack 3");
         float attackRange = 2f * attackRangeMultiplier;
+
+        //Perform hitbox check
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
+        
+
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
 

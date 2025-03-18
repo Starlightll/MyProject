@@ -53,6 +53,6 @@ MonoBehaviour:
   attackCooldownMultiplier: 1
   attackKnockbackMultiplier: 1.5
   slashEffects:
-  - {fileID: 5460416269855381367, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}
-  - {fileID: 4965298974853924062, guid: cab90f85bcea990478387ac806c4965d, type: 3}
-  - {fileID: 2065304157189791636, guid: edb7e242d04a57e419cdea5f723ae1f5, type: 3}
+  - {fileID: 2126529731121513941, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}
+  - {fileID: 8121855661580006960, guid: cab90f85bcea990478387ac806c4965d, type: 3}
+  - {fileID: 1575611588403928121, guid: edb7e242d04a57e419cdea5f723ae1f5, type: 3}
