@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2719247020045583751}
   - component: {fileID: 774713177299142572}
   - component: {fileID: 8638035093671338784}
-  - component: {fileID: 5460468032526697421}
+  - component: {fileID: 3162291007450634924}
   m_Layer: 7
   m_Name: Skeleton
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 916264935
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -7219542275010057529, guid: 040e1099f9b210d41bdc1e10521921d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -179,7 +179,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5460468032526697421
+--- !u!114 &3162291007450634924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,19 +191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc604832b99f434a826b6aa1efa0cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
   chaseSpeed: 3.5
   groundCheckDistance: 1
-  attackRange: 1
+  attackRange: 2
   detectionRange: 5
   groundCheck: {fileID: 8506194222365477044}
-  player: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &6812900499838114426
 GameObject:
   m_ObjectHideFlags: 0

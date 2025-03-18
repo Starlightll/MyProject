@@ -3,86 +3,113 @@ using UnityEngine;
 public class BatController : MonoBehaviour
 {
     public float detectionRange = 5f;
-    public float attackRange = 4f;
+    public float attackRange = 3f;
     public float flySpeed = 6f;
-    public float idleFlyRadius = 3f;
+    public float minPatrolDistance = 5f;
+    public float maxPatrolDistance = 10f;
+    public float patrolHeightVariation = 2f;
+    public float attackCooldown = 1f;
+    public LayerMask obstacleLayer;
 
-    public Transform player;
+    Transform player;
     private Animator animator;
-    private Rigidbody2D rb;
 
-    private bool isAwake = false;
     private bool isAttacking = false;
-    private Vector2 idleTarget;
+    private float lastAttackTime = 0f;
+    private Vector2 patrolTarget;
+    private bool movingRight = true;
+    private Vector2 startPos;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        
-
-        
+        startPos = transform.position;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        SetNextPatrolTarget();
     }
 
     void Update()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        if (isAttacking && distanceToPlayer > attackRange)
+        {
+            isAttacking = false;
+            animator.ResetTrigger("Attack");
+        }
+
         if (distanceToPlayer < detectionRange)
         {
-            if (!isAwake)
-            {
-                WakeUp();
-            }
-
-            if (distanceToPlayer < attackRange)
+            if (distanceToPlayer < attackRange && Time.time - lastAttackTime > attackCooldown)
             {
                 AttackPlayer();
             }
             else
             {
-                FlyAround();
+                ChasePlayer();
             }
         }
         else
         {
-            FlyAround();
+            Patrol();
         }
-    }
-
-    void WakeUp()
-    {
-        isAwake = true;
-        animator.SetTrigger("WakeUp");
     }
 
     void AttackPlayer()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            animator.SetTrigger("Attack");
-        }
-
-
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        rb.MovePosition(rb.position + direction * flySpeed * Time.deltaTime);
+        isAttacking = true;
+        animator.SetTrigger("Attack");
+        lastAttackTime = Time.time;
     }
 
-    void FlyAround()
+    void ChasePlayer()
     {
         isAttacking = false;
-        animator.SetBool("isRuning", false);
-
-        if (Vector2.Distance(transform.position, idleTarget) < 0.5f)
-        {
-            idleTarget = (Vector2)transform.position + Random.insideUnitCircle * idleFlyRadius;
-        }
-
+        animator.SetBool("isRuning", true);
 
         Vector2 direction = (player.position - transform.position).normalized;
+        Flip(direction.x);
+        transform.position += (Vector3)direction * flySpeed * 5 * Time.deltaTime;
+    }
 
-        rb.MovePosition(rb.position + direction * flySpeed * Time.deltaTime);
+    void Patrol()
+    {
+        if (isAttacking) return;
+
+        animator.SetBool("isRuning", true);
+
+        if (Vector2.Distance(transform.position, patrolTarget) < 0.5f || IsObstacleAhead())
+        {
+            SetNextPatrolTarget();
+        }
+
+        Vector2 direction = (patrolTarget - (Vector2)transform.position).normalized;
+        Flip(direction.x);
+        transform.position += (Vector3)direction * flySpeed * Time.deltaTime;
+
+    }
+
+    void SetNextPatrolTarget()
+    {
+        float patrolDistance = Random.Range(minPatrolDistance, maxPatrolDistance);
+        float heightOffset = Random.Range(-patrolHeightVariation, patrolHeightVariation);
+        movingRight = !movingRight;
+
+        patrolTarget = startPos + new Vector2(movingRight ? patrolDistance : -patrolDistance, heightOffset);
+    }
+
+    bool IsObstacleAhead()
+    {
+        Vector2 direction = movingRight ? Vector2.right : Vector2.left;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1f, obstacleLayer);
+        return hit.collider != null;
+    }
+
+    void Flip(float directionX)
+    {
+        if ((directionX > 0 && transform.localScale.x < 0) || (directionX < 0 && transform.localScale.x > 0))
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
     }
 }
