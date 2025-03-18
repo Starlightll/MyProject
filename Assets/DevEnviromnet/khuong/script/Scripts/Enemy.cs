@@ -16,6 +16,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float MagicDame = 0;
     [SerializeField] protected float PatrolRange = 5f;
 
+    protected bool canAttack = false;
+
     protected Rigidbody2D rb;
 
     public Vector2 spawnPosition;
