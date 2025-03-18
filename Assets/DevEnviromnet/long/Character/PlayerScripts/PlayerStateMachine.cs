@@ -5,32 +5,6 @@ public class PlayerStateMachine : MonoBehaviour
 {
     public PlayerState CurrentState { get; private set; }
 
-    
-    public Transform gorundCheck;
-    public float groundCheckRadius;
-    public LayerMask groundLayer;
-
-    public Transform wallCheck;
-    public float wallCheckDistance;
-    public LayerMask wallLayer;
-
-    private Rigidbody2D _rb;
-    private Animator _anim;
-    private PlayerStats _stats;
-    private PlayerConfigs _configs;
-    private WeaponManager _weaponManager;
-    
-
-    private float _attackCooldownTimer;
-
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
-        _stats = GetComponent<PlayerController>().Stats;
-        _weaponManager = GetComponent<WeaponManager>();
-        _configs = GetComponent<PlayerController>().Configs;
-    }
 
     // public void HandleInput(PlayerInput input)
     // {

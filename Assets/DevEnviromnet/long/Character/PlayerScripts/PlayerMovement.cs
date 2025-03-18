@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     [Header("Movement Settings")]

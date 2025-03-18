@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6843999541725230458}
   - component: {fileID: 8277469256599974484}
   m_Layer: 0
-  m_Name: SlashInk1
+  m_Name: SlashInk1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

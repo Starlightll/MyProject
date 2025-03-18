@@ -21,13 +21,35 @@ public class PlayerController : MonoBehaviour
     public PlayerState CurrentState => _stateMachine.CurrentState;
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
+    public Transform attackPoint;
+
+    private float comboTimer = 0f;
+    private int comboCounter = 0;
+
+    private Vector2 playerDirection;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Current Health: " + Stats.maxHealth);
-        _skillManager.UpdateSkills();
+        // if (_input.Dash)
+        // {
+        //     _movement.Dash();
+        // }
+        comboTimer += Time.deltaTime;
+        if(_input.AttackPressed)
+        {
+            if(comboTimer >= CurrentWeapon.comboResetTime)
+            {
+                comboCounter = 0;
+                comboTimer = 0f;
+            }
+            // _stateMachine.CurrentState(States.Attack);
+            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
+            comboTimer = 0f;
+        }
     }
 
 
