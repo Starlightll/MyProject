@@ -70,5 +70,11 @@ TagManager:
   - name: Hp3
     uniqueID: 410264133
     locked: 0
+  - name: PlayerVFX
+    uniqueID: 4095334061
+    locked: 0
+  - name: PlayerHead
+    uniqueID: 1076841431
+    locked: 0
   m_RenderingLayers:
   - Default
