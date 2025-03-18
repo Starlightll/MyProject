@@ -544,7 +544,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -596,7 +596,6 @@ MonoBehaviour:
   chaseSpeed: 5
   groundCheckDistance: 1
   attackRange: 1
-  detectionRange: 5
   groundCheck: {fileID: 7813824362721557108}
   playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
   groundLayer:
