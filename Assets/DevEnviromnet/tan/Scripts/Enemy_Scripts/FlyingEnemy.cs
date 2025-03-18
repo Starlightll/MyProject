@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BatController : MonoBehaviour
+public abstract class FlyingEnemy : MonoBehaviour
 {
     public float detectionRange = 5f;
     public float attackRange = 3f;
@@ -20,7 +20,7 @@ public class BatController : MonoBehaviour
     private bool movingRight = true;
     private Vector2 startPos;
 
-    void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         startPos = transform.position;
@@ -28,7 +28,7 @@ public class BatController : MonoBehaviour
         SetNextPatrolTarget();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
@@ -55,14 +55,14 @@ public class BatController : MonoBehaviour
         }
     }
 
-    void AttackPlayer()
+    protected virtual void AttackPlayer()
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
         lastAttackTime = Time.time;
     }
 
-    void ChasePlayer()
+    protected virtual void ChasePlayer()
     {
         isAttacking = false;
         animator.SetBool("isRuning", true);
@@ -72,7 +72,7 @@ public class BatController : MonoBehaviour
         transform.position += (Vector3)direction * flySpeed * 5 * Time.deltaTime;
     }
 
-    void Patrol()
+    protected virtual void Patrol()
     {
         if (isAttacking) return;
 
@@ -89,7 +89,7 @@ public class BatController : MonoBehaviour
 
     }
 
-    void SetNextPatrolTarget()
+    protected virtual void SetNextPatrolTarget()
     {
         float patrolDistance = Random.Range(minPatrolDistance, maxPatrolDistance);
         float heightOffset = Random.Range(-patrolHeightVariation, patrolHeightVariation);
@@ -101,7 +101,7 @@ public class BatController : MonoBehaviour
     bool IsObstacleAhead()
     {
         Vector2 direction = movingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1f, obstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 2f, obstacleLayer);
         return hit.collider != null;
     }
 
