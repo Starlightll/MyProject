@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skeleton : Enemy
+public class Skeleton : Enemy, IDamageable
 {
     [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private float attackRange = 1f;
@@ -9,13 +9,13 @@ public class Skeleton : Enemy
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
-    
+    [SerializeField] private Image healthBar;
     private int direction = 1;
     private Animator animator;
     private bool isAttacking = false;
     private bool is_Chasing = false;
     private float lastAttackTime = 0f;
-
+    private float currentHealth = 100;
     protected override void Start()
     {
         base.Start();
@@ -115,10 +115,11 @@ public class Skeleton : Enemy
         throw new System.NotImplementedException();
     }
 
-    protected override void TakeDame(float dame)
+
+    public void TakeDamage(float damage)
     {
-        Hp -= dame;
-        
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth/Hp;
         if (Hp <= 0)
         {
             Die();

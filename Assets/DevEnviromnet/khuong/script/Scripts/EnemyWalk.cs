@@ -106,10 +106,10 @@ public class EnemyWalk : Enemy
 
 
 
-    protected override void TakeDame(float dame)
-    {
-        throw new System.NotImplementedException();
-    }
+    //protected override void TakeDame(float dame)
+    //{
+    //    throw new System.NotImplementedException();
+    //}
 
 
 }
