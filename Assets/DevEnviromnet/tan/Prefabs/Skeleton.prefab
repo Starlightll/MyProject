@@ -213,6 +213,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 3890318002959135500}
 --- !u!1 &4833621225594022157
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,3 +402,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
   m_PrefabInstance: {fileID: 4805452616085458295}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3890318002959135500 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
+  m_PrefabInstance: {fileID: 4805452616085458295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

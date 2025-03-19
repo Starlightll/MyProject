@@ -135,10 +135,10 @@ public class EnemyWalk : Enemy
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
     }
 
-    protected override void TakeDame(float dame)
-    {
-        throw new System.NotImplementedException();
-    }
+    //protected override void TakeDame(float dame)
+    //{
+    //    throw new System.NotImplementedException();
+    //}
 
 
 }

@@ -67,7 +67,7 @@ public class Bat : Enemy
 
         Vector2 direction = (player.position - transform.position).normalized;
         Flip(direction.x);
-        transform.position += (Vector3)direction * FlySpeed * 5 * Time.deltaTime;
+        transform.position += (Vector3)direction * FlySpeed * Time.deltaTime;
     }
 
     protected override void Patrol()
@@ -116,8 +116,5 @@ public class Bat : Enemy
         throw new System.NotImplementedException();
     }
 
-    protected override void TakeDame(float dame)
-    {
-        throw new System.NotImplementedException();
-    }
+
 }
