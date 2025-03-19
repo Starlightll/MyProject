@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 8506194222365477044}
   - {fileID: 1061189628460213576}
+  - {fileID: 3693993130102278535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3578878160024267815
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 916264935
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -7219542275010057529, guid: 040e1099f9b210d41bdc1e10521921d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -191,15 +192,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc604832b99f434a826b6aa1efa0cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  chaseSpeed: 3.5
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 5
+  Hp: 100
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
   groundCheckDistance: 1
   attackRange: 2
   detectionRange: 5
   groundCheck: {fileID: 8506194222365477044}
+  attackCooldown: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 3890318002959135500}
+--- !u!1 &4833621225594022157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3693993130102278535}
+  m_Layer: 7
+  m_Name: Eye
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3693993130102278535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833621225594022157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.018, y: 0.164, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1618948177805806008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6812900499838114426
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,3 +402,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
   m_PrefabInstance: {fileID: 4805452616085458295}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3890318002959135500 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
+  m_PrefabInstance: {fileID: 4805452616085458295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

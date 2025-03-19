@@ -190,17 +190,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ead5a209a604240881bd0179a8da7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
-  attackRange: 1
-  flySpeed: 6
-  minPatrolDistance: 5
-  maxPatrolDistance: 10
-  patrolHeightVariation: 3
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 5
+  Hp: 100
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
+  detectionRange: 6
+  attackRange: 5
+  minPatrolDistance: 3
+  maxPatrolDistance: 20
+  patrolHeightVariation: 5
   attackCooldown: 1
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  player: {fileID: 0}
 --- !u!1001 &2309752774269893779
 PrefabInstance:
   m_ObjectHideFlags: 0

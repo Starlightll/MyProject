@@ -16,6 +16,7 @@ using UnityEngine;
         public float attackDamageMultiplier = 1f;
         public float attackRange;
         public float defense;
+        public float maxAttackSpeed = 200f;
         public float attackSpeed;
         public float critChance;
         public float critDamage;

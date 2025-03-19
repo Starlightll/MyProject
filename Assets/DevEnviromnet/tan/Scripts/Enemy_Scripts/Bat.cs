@@ -1,27 +1,25 @@
 using UnityEngine;
 
-public class BatController : MonoBehaviour
+public class Bat : Enemy
 {
-    public float detectionRange = 5f;
-    public float attackRange = 3f;
-    public float flySpeed = 6f;
-    public float minPatrolDistance = 5f;
-    public float maxPatrolDistance = 10f;
-    public float patrolHeightVariation = 2f;
-    public float attackCooldown = 1f;
-    public LayerMask obstacleLayer;
+    [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private float attackRange = 3f;
+    [SerializeField] private float minPatrolDistance = 5f;
+    [SerializeField] private float maxPatrolDistance = 10f;
+    [SerializeField] private float patrolHeightVariation = 2f;
+    // [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private LayerMask obstacleLayer;
 
-    Transform player;
     private Animator animator;
-
-    private bool isAttacking = false;
-    private float lastAttackTime = 0f;
+    // private bool isAttacking = false;
+    // private float lastAttackTime = 0f;
     private Vector2 patrolTarget;
     private bool movingRight = true;
     private Vector2 startPos;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         animator = GetComponent<Animator>();
         startPos = transform.position;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -42,7 +40,7 @@ public class BatController : MonoBehaviour
         {
             if (distanceToPlayer < attackRange && Time.time - lastAttackTime > attackCooldown)
             {
-                AttackPlayer();
+                Attack();
             }
             else
             {
@@ -55,7 +53,7 @@ public class BatController : MonoBehaviour
         }
     }
 
-    void AttackPlayer()
+    protected override void Attack()
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
@@ -69,10 +67,10 @@ public class BatController : MonoBehaviour
 
         Vector2 direction = (player.position - transform.position).normalized;
         Flip(direction.x);
-        transform.position += (Vector3)direction * flySpeed * 5 * Time.deltaTime;
+        transform.position += (Vector3)direction * FlySpeed * Time.deltaTime;
     }
 
-    void Patrol()
+    protected override void Patrol()
     {
         if (isAttacking) return;
 
@@ -85,7 +83,7 @@ public class BatController : MonoBehaviour
 
         Vector2 direction = (patrolTarget - (Vector2)transform.position).normalized;
         Flip(direction.x);
-        transform.position += (Vector3)direction * flySpeed * Time.deltaTime;
+        transform.position += (Vector3)direction * FlySpeed * Time.deltaTime;
 
     }
 
@@ -112,4 +110,11 @@ public class BatController : MonoBehaviour
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
+
+    protected override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
 }

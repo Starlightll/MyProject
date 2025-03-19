@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -13,18 +14,26 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float PhysicalDame = 0;
     [SerializeField] protected float AttackSpeed = 0;
     [SerializeField] protected float AttackRange = 0;
+    [SerializeField] protected float IsAttackRange = 0;
     [SerializeField] protected float MagicDame = 0;
     [SerializeField] protected float PatrolRange = 5f;
 
-    protected bool canAttack = false;
+    [SerializeField] protected float attackCooldown = 0.5f;
+    [SerializeField] protected float lastAttackTime = 0f;
+
+    [SerializeField] protected Image healthBar;
+    
+    protected float currentHealth = 0;
 
     protected Rigidbody2D rb;
 
     public Vector2 spawnPosition;
 
+
     protected Transform player;
 
     protected bool isChasing = false;
+    protected bool isAttacking = false;
     [SerializeField] protected Transform enemyEye;
 
     protected virtual void Start()
@@ -32,15 +41,13 @@ public abstract class Enemy : MonoBehaviour
         spawnPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
+        currentHealth = Hp;
     }
 
 
     protected abstract void Attack();
     protected abstract void Patrol();
     protected abstract void Die();
-    protected abstract void TakeDame(float dame);
-
 
 
     protected virtual bool CheckInRange()
@@ -50,7 +57,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    protected void Flip()
+    protected virtual void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
@@ -89,25 +96,6 @@ public abstract class Enemy : MonoBehaviour
 
 
     }
-
-    // protected virtual void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         isChasing = true;
-    //         Debug.Log("Player đã vào phạm vi tấn công!");
-    //     }
-    // }
-
-    // protected virtual void OnTriggerExit2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         isChasing = false;
-    //         Debug.Log("Player đã rời khỏi phạm vi tấn công!");
-    //         // Quay về trạng thái tuần tra hoặc chờ
-    //     }
-    // }
 
 
 }
