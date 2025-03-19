@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private WeaponManager _weaponManager;
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerConfigs _configs;
+    [SerializeField] public Rigidbody2D _rb;
+    [SerializeField] public Animator _anim;
 
 
     public PlayerStats Stats => _stats;
@@ -21,18 +23,61 @@ public class PlayerController : MonoBehaviour
     public PlayerState CurrentState => _stateMachine.CurrentState;
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
+    public Transform attackPoint;
+
+    private float comboTimer = 0f;
+    private int comboCounter = 0;
+    private float attackTimer = 0f;
+    private float attackCooldown = 0f;
+
+    private Vector2 playerDirection;
+
+    public float attackRange = 0;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Current Health: " + Stats.maxHealth);
-        _skillManager.UpdateSkills();
+        // if (_input.Dash)
+        // {
+        //     _movement.Dash();
+        // }
+        comboTimer += Time.deltaTime;
+        attackTimer += Time.deltaTime;
+
+        if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
+        {
+            if(comboTimer >= CurrentWeapon.attackCooldown)
+            {
+                comboCounter = 0;
+                comboTimer = 0f;
+            }
+            // _stateMachine.CurrentState(States.Attack);
+            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
+            comboTimer = 0f;
+            attackTimer = 0f;
+        }
     }
 
 
     private void FixedUpdate()
     {
         // _stateMachine.;
+    }
+
+    void OnDrawGizmos(){
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void HandleAttack() {
+        if(_input.AttackPressed)
+        {
+            //Need to be complete this task next time
+            //Move the attack logic to here
+            //Calculate time here.
+        }
     }
 }

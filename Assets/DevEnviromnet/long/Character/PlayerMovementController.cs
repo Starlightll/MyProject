@@ -246,7 +246,8 @@ private IEnumerator MaintainWallJumpVelocity()
     private void Flip()
     {
         facingRight = !facingRight;
-        transform.Rotate(0f, 180f, 0f);
+        int direction = facingRight ? 1 : -1;
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y,  transform.localScale.z);
     }
     
     
