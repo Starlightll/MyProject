@@ -145,7 +145,6 @@ public class SwordOfArts : Weapon
         if (slashEffects.Length == 0 || slashEffects[comboCounter] == null)
             return;
 
-        attacker.parent.GetComponent<PlayerController>()._anim.SetTrigger("AttackTrigger");
         float direction = attacker.parent.transform.localScale.x > 0 ? 1f : -1f;
         // Tạo ra rotation cho vfx theo euler angle
         Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
