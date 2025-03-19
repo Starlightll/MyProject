@@ -1,10 +1,55 @@
 using UnityEngine;
 
-public class Boss : GroundEnemy
+public class Boss : Enemy
 {
-    //public Transform rootTransform;
+    public Transform attack_Point;
+    public float attackRadius = 2f;
+    [SerializeField] private float groundCheckDistance = 2f;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private LayerMask groundLayer;
+
+    private int direction = 1;
+    private Animator animator;
+    private bool isAttacking = false;
+    private bool is_Chasing = false;
+    private float lastAttackTime = 0f;
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    }
+    void Update()
+    {
+        float distanceToPlayer = Vector2.Distance(groundCheck.position, player.position);
+
+        float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
 
 
+        if (distanceToPlayerX < 0.5f)
+        {
+            isChasing = false;
+            isAttacking = false;
+            animator.SetBool("isWalking", false);
+            return;
+        }
+
+        if (PlayerInAttackRange())
+        {
+            Attack();
+        }
+        else if (CheckInRange())
+        {
+            ChasePlayer();
+        }
+        else
+        {
+            Patrol();
+        }
+    }
     protected override void Patrol()
     {
         isChasing = false;
@@ -21,22 +66,22 @@ public class Boss : GroundEnemy
             Flip();
         }
 
-        transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(direction * WalkSpeed * Time.deltaTime, 0, 0);
     }
 
-    protected override bool PlayerInRange()
+    protected override bool CheckInRange()
     {
         float distanceToPlayer = Vector2.Distance(groundCheck.position, player.position);
         return distanceToPlayer < detectionRange;
     }
 
-    protected override bool PlayerInAttackRange()
+    protected bool PlayerInAttackRange()
     {
-        float distanceToPlayer = Vector2.Distance(groundCheck.position, player.position);
-        return distanceToPlayer >= (attackRange - 2) && distanceToPlayer <= (attackRange + 2);
+        float distanceToPlayer = Vector2.Distance(attack_Point.position, player.position);
+        return distanceToPlayer < attackRadius;
     }
 
-    protected override void ChasePlayer()
+    protected void ChasePlayer()
     {
         isChasing = true;
         isAttacking = false;
@@ -45,19 +90,16 @@ public class Boss : GroundEnemy
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (Mathf.Abs(directionToPlayer.x) > 0.1f)
-        {
             if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
             {
                 Flip();
             }
-        }
 
-         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * chaseSpeed * Time.deltaTime, 0, 0);
+         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
         
     }
 
-    protected override void AttackPlayer()
+    protected override void Attack()
     {
         if (Time.time - lastAttackTime >= attackCooldown)
         {
@@ -69,5 +111,27 @@ public class Boss : GroundEnemy
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (attack_Point != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attack_Point.position, attackRadius);
+        }
+    }
 
+    protected override void Flip()
+    {
+        direction *= -1;
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+    }
+    protected override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void TakeDame(float dame)
+    {
+        throw new System.NotImplementedException();
+    }
 }
