@@ -19,6 +19,7 @@ MonoBehaviour:
   attackRate: 0
   critChance: 0
   critDamage: 0
+  knockback: 10
   attackRange: 0
   attackDuration: 0
   attackCooldown: 1

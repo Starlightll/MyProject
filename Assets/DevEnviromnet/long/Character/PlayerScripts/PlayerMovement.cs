@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     public float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
 
+    private PlayerController _playerController;
+
     
     private void Start()
     {
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             
         if (animator == null)
             animator = GetComponent<Animator>();
+        _playerController = GetComponent<PlayerController>();
     }
     
     private void Update()
@@ -114,8 +117,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing) return;
         
+        
+        if(_playerController)
         // Move the player
         Move();
         

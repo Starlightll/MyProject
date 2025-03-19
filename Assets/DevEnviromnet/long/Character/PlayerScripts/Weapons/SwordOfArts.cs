@@ -74,19 +74,12 @@ public class SwordOfArts : Weapon
 
 
         //Perform hitbox check
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        foreach (Collider2D enemy in hits)
-        {
-            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                hit(damageable);
-                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
-            }
-            Debug.Log("Hit");
-        }
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange * 2.7f, enemyLayer);
+        PerformHits(hits, attacker);
 
-        //Perform player dash 
-        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
+        // Perform player dash using AddForce
+        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
+        rb.AddForce(new Vector2(attacker.parent.localScale.x * 100f, 0), ForceMode2D.Impulse);
 
 
         //Show slash effect
@@ -100,18 +93,12 @@ public class SwordOfArts : Weapon
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
         Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
          //Perform hitbox check
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        foreach (Collider2D enemy in hits)
-        {
-            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                hit(damageable);
-                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
-            }
-            Debug.Log("Hit");
-        }
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
+        PerformHits(hits, attacker);
         
-        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
+        // Perform player dash using AddForce
+        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
+        rb.AddForce(new Vector2(attacker.parent.localScale.x * 100f, 0), ForceMode2D.Impulse);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
@@ -123,19 +110,12 @@ public class SwordOfArts : Weapon
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
         Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
          //Perform hitbox check
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        foreach (Collider2D enemy in hits)
-        {
-            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                hit(damageable);
-                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
-            }
-            Debug.Log("Hit");
-        }
-        
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
+        PerformHits(hits, attacker);
 
-        attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
+        // Perform player dash using AddForce
+        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
+        rb.AddForce(new Vector2(attacker.parent.localScale.x * 100f, 0), ForceMode2D.Impulse);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
@@ -179,4 +159,18 @@ public class SwordOfArts : Weapon
         damageable.TakeDamage(baseDamage);
     }
 
+    private void PerformHits(Collider2D[] hits, Transform attacker)
+    {
+       foreach (Collider2D enemy in hits)
+        {
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                hit(damageable);
+                Vector2 knockbackDirection = (enemy.transform.position - attacker.parent.position).normalized;
+                knockbackDirection.y = 0.5f;
+                enemy.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);
+            }
+            Debug.Log("Hit");
+        }
+    }
 }
