@@ -140,7 +140,7 @@ public class SwordOfArts : Weapon
     {
         Debug.Log("Hit");
         collider.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
-        //Call enemy take damage function here
+        
     }
 
 }
