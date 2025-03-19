@@ -134,10 +134,15 @@ public class Skeleton : Enemy, IDamageable
             Die();
         }
         animator.SetTrigger("Hurt");
+        Invoke(nameof(ResetHurt), 0.3f);
+    }
+
+    void ResetHurt()
+    {
+        animator.ResetTrigger("Hurt");
         animator.SetBool("isHurt", false);
     }
 
-   
 
     //private void DealDamage()
     //{
