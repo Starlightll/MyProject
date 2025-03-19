@@ -136,11 +136,11 @@ public class SwordOfArts : Weapon
         Destroy(slash, 1f);
     }
 
-    public void hit(Collider2D collider)
+    public void hit(GameObject enemy)
     {
         Debug.Log("Hit");
-        collider.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
-        
+        enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
+        enemy.GetComponent<IDamageable>().TakeDamage(baseDamage);
     }
 
 }
