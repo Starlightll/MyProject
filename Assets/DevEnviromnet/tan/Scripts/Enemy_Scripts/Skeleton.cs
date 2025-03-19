@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skeleton : Enemy
 {
@@ -8,7 +9,7 @@ public class Skeleton : Enemy
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
-
+    
     private int direction = 1;
     private Animator animator;
     private bool isAttacking = false;
@@ -116,7 +117,12 @@ public class Skeleton : Enemy
 
     protected override void TakeDame(float dame)
     {
-        throw new System.NotImplementedException();
+        Hp -= dame;
+        
+        if (Hp <= 0)
+        {
+            Die();
+        }
     }
 
     //private void DealDamage()

@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -193,17 +193,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f3e4e82fad9ca489b0118c41495ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  chaseSpeed: 3.5
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 5
+  Hp: 100
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
+  attack_Point: {fileID: 3719113800635547982}
+  attackRadius: 2
   groundCheckDistance: 7
   attackRange: 6
   detectionRange: 15
   groundCheck: {fileID: 6259987411736731756}
+  attackCooldown: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  attack_Point: {fileID: 3719113800635547982}
-  attackRadius: 2
 --- !u!1 &6919192963992944825
 GameObject:
   m_ObjectHideFlags: 0
