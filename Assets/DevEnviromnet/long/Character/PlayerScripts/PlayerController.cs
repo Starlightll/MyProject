@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     private float comboTimer = 0f;
     private int comboCounter = 0;
+    private float attackTimer = 0f;
+    private float attackCooldown = 0f;
 
     private Vector2 playerDirection;
 
@@ -43,9 +45,11 @@ public class PlayerController : MonoBehaviour
         //     _movement.Dash();
         // }
         comboTimer += Time.deltaTime;
-        if(_input.AttackPressed)
+        attackTimer += Time.deltaTime;
+
+        if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
         {
-            if(comboTimer >= CurrentWeapon.comboResetTime)
+            if(comboTimer >= CurrentWeapon.attackCooldown)
             {
                 comboCounter = 0;
                 comboTimer = 0f;
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
             // _stateMachine.CurrentState(States.Attack);
             CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
             comboTimer = 0f;
+            attackTimer = 0f;
         }
     }
 
@@ -65,5 +70,14 @@ public class PlayerController : MonoBehaviour
     void OnDrawGizmos(){
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void HandleAttack() {
+        if(_input.AttackPressed)
+        {
+            //Need to be complete this task next time
+            //Move the attack logic to here
+            //Calculate time here.
+        }
     }
 }

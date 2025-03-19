@@ -22,6 +22,14 @@ public abstract class Weapon : ScriptableObject
     public float attackCooldownReduction;
     public float attackDamageReduction;
     public float attackSpeedReduction;
+    public float attackDamageMultiplier = 1.5f;
+    public float attackSpeedMultiplier = 1.5f;
+    public float critChanceMultiplier = 1.5f;
+    public float critDamageMultiplier = 1.5f;
+    public float attackRangeMultiplier = 1.5f;
+    public float attackDurationMultiplier = 1.5f;
+    public float attackCooldownMultiplier = 1f;
+    public float attackKnockbackMultiplier = 1.5f;
 
     [Header("Attack Animation")]
     public string attackTrigger;
