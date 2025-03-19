@@ -39,8 +39,6 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void Attack();
     protected abstract void Patrol();
     protected abstract void Die();
-    protected abstract void TakeDame(float dame);
-
 
 
     protected virtual bool CheckInRange()
