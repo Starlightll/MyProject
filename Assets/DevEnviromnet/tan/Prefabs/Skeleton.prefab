@@ -165,7 +165,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -195,25 +195,27 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 100
+  Hp: 260
   Mana: 100
   Defend: 0
   PhysicalDame: 0
   AttackSpeed: 0
   AttackRange: 0
+  IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 3890318002959135500}
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   groundCheckDistance: 1
   attackRange: 2
   detectionRange: 5
   groundCheck: {fileID: 8506194222365477044}
-  attackCooldown: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  healthBar: {fileID: 3890318002959135500}
 --- !u!1 &4833621225594022157
 GameObject:
   m_ObjectHideFlags: 0
