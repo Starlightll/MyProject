@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,9 @@ public class EnemyWalk : Enemy
     private Vector2 direction;
     private Vector2 MinPos;
     private Vector2 MaxPos;
+
+    [SerializeField] private Transform groundCheck; // Điểm kiểm tra mặt đất
+    [SerializeField] private LayerMask groundLayer; // Lớp mặt đất
 
 
     protected override void Start()
@@ -21,65 +25,80 @@ public class EnemyWalk : Enemy
 
     void Update()
     {
-        if (CheckInRange())
+
+        if (PlayerInAttackRange())
+        {
+            Attack();
+        }
+        else if (CheckInRange())
         {
             isChasing = true;
-            Attack();
+            ChasePlayer();
         }
         else
         {
             isChasing = false;
-
+            Patrol();
         }
 
-        Patrol();
     }
 
     protected override void Attack()
     {
-        if (player == null) return;
 
-        // Enemy sẽ rượt đuổi player
-        ChasePlayer();
+        if (Time.time - lastAttackTime >= attackCooldown)
+        {
+            isAttacking = true;
+            isChasing = false;
+            lastAttackTime = Time.time;
+        }
     }
 
-    private void ChasePlayer()
+    protected virtual void ChasePlayer()
     {
+        isChasing = true;
+        isAttacking = false;
 
-        direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = direction * RunSpeed; // Enemy di chuyển nhanh về phía player
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         FaceToward(direction);
 
-        if (Vector2.Distance(transform.position, player.position) <= AttackRange && canAttack)
+        if (distanceToPlayer < 1.5f)
         {
-            StartCoroutine(AttackPlayer());
+            rb.linearVelocity = Vector2.zero;
+
+            return;
         }
+
+        if (directionToPlayer.x > 0)
+        {
+            direction = Vector2.left;
+        }
+        else if (directionToPlayer.x < 0)
+        {
+            direction = Vector2.right;
+        }
+
+        if (!IsGroundAhead())
+        {
+            direction *= -1;
+            return;
+        }
+
+
+        rb.linearVelocity = new Vector2(Mathf.Sign(directionToPlayer.x) * RunSpeed, rb.linearVelocity.y);
     }
 
-    private IEnumerator AttackPlayer()
+
+
+
+
+    protected virtual bool PlayerInAttackRange()
     {
-        canAttack = false;
-        rb.linearVelocity = Vector2.zero;
-
-        if (player != null)
-        {
-            FaceToward(direction);
-        }
-
-        yield return new WaitForSeconds(AttackSpeed);
-
-        if (player != null && Vector2.Distance(transform.position, player.position) <= AttackRange)
-        {
-            Debug.Log("Enemy tấn công Player gây " + PhysicalDame + " sát thương!");
-            // Thêm logic gây sát thương lên player nếu cần
-        }
-
-        canAttack = true;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        return distanceToPlayer < IsAttackRange;
     }
-
-
-
     protected override void Die()
     {
         throw new System.NotImplementedException();
@@ -88,6 +107,13 @@ public class EnemyWalk : Enemy
     protected override void Patrol()
     {
         FaceToward(direction);
+
+        if (!IsGroundAhead())
+        {
+            direction *= -1;
+        }
+
+
         if (transform.position.x > MaxPos.x)
         {
             direction = Vector2.left;
@@ -104,7 +130,10 @@ public class EnemyWalk : Enemy
         rb.linearVelocity = new Vector2(direction.x * WalkSpeed, rb.linearVelocity.y);
     }
 
-
+    private bool IsGroundAhead()
+    {
+        return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
+    }
 
     protected override void TakeDame(float dame)
     {

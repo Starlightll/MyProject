@@ -13,18 +13,22 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float PhysicalDame = 0;
     [SerializeField] protected float AttackSpeed = 0;
     [SerializeField] protected float AttackRange = 0;
+    [SerializeField] protected float IsAttackRange = 0;
     [SerializeField] protected float MagicDame = 0;
     [SerializeField] protected float PatrolRange = 5f;
 
-    protected bool canAttack = false;
+    [SerializeField] protected float attackCooldown = 0.5f;
+    [SerializeField] protected float lastAttackTime = 0f;
 
     protected Rigidbody2D rb;
 
     public Vector2 spawnPosition;
 
+
     protected Transform player;
 
     protected bool isChasing = false;
+    protected bool isAttacking = false;
     [SerializeField] protected Transform enemyEye;
 
     protected virtual void Start()
