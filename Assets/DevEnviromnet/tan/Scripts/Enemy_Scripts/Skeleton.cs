@@ -137,6 +137,8 @@ public class Skeleton : Enemy, IDamageable
         animator.SetBool("isHurt", false);
     }
 
+   
+
     //private void DealDamage()
     //{
     //    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
