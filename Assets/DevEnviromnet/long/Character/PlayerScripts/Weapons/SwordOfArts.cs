@@ -4,16 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapon/SwordOfArts")]
 public class SwordOfArts : Weapon
 {
-    [Header("Sword Of Arts")]
-    public float attackDamageMultiplier = 1.5f;
-    public float attackSpeedMultiplier = 1.5f;
-    public float critChanceMultiplier = 1.5f;
-    public float critDamageMultiplier = 1.5f;
-    public float attackRangeMultiplier = 1.5f;
-    public float attackDurationMultiplier = 1.5f;
-    public float attackCooldownMultiplier = 1f;
-    public float attackKnockbackMultiplier = 1.5f;
-
     public float runtimeAttackRange = 0f;
 
 
@@ -35,9 +25,13 @@ public class SwordOfArts : Weapon
         //         damageable.TakeDamage(baseDamage);
         //     }
         // }
-        if (comboEnabled)
+        if (!comboEnabled)
         {
-            comboCounter++;
+            comboCounter = 0;
+        }
+        comboCounter++;
+        
+
             switch (comboCounter)
             {
                 case 1:
@@ -54,11 +48,6 @@ public class SwordOfArts : Weapon
                     comboCounter = 1;
                     break;
             }
-        }
-        else
-        {
-            Attack1(attacker, enemyLayer, 0);
-        }
     }
 
     private void Attack1(Transform attacker, LayerMask enemyLayer, int comboCounter)

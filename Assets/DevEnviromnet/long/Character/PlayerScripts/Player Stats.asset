@@ -20,7 +20,8 @@ MonoBehaviour:
   attackDamageMultiplier: 1
   attackRange: 0
   defense: 5
-  attackSpeed: 10
+  maxAttackSpeed: 200
+  attackSpeed: 30
   critChance: 0
   critDamage: 0
   lifeSteal: 0

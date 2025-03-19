@@ -15,13 +15,13 @@ MonoBehaviour:
   weaponName: Sword Of Arts
   weaponIcon: {fileID: 0}
   baseDamage: 100
-  attackSpeed: 0
+  attackSpeed: 30
   attackRate: 0
   critChance: 0
   critDamage: 0
   attackRange: 0
   attackDuration: 0
-  attackCooldown: 0
+  attackCooldown: 1
   attackKnockback: 0
   attackStunDuration: 0
   attackManaCost: 0
@@ -31,6 +31,14 @@ MonoBehaviour:
   attackCooldownReduction: 0
   attackDamageReduction: 0
   attackSpeedReduction: 0
+  attackDamageMultiplier: 1.5
+  attackSpeedMultiplier: 1.5
+  critChanceMultiplier: 1.5
+  critDamageMultiplier: 1.5
+  attackRangeMultiplier: 1
+  attackDurationMultiplier: 1.5
+  attackCooldownMultiplier: 1
+  attackKnockbackMultiplier: 1.5
   attackTrigger: 
   animationDuration: 0
   attackOffset: {x: 0, y: 0}
@@ -44,14 +52,6 @@ MonoBehaviour:
   maxComboCount: 0
   comboResetTime: 1.5
   comboResetDuration: 0
-  attackDamageMultiplier: 1.5
-  attackSpeedMultiplier: 1.5
-  critChanceMultiplier: 1.5
-  critDamageMultiplier: 1.5
-  attackRangeMultiplier: 1
-  attackDurationMultiplier: 1.5
-  attackCooldownMultiplier: 1
-  attackKnockbackMultiplier: 1.5
   runtimeAttackRange: 0
   slashEffects:
   - {fileID: 2126529731121513941, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}
