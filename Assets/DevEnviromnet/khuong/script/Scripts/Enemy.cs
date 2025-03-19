@@ -50,7 +50,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    protected void Flip()
+    protected virtual void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
@@ -89,25 +89,6 @@ public abstract class Enemy : MonoBehaviour
 
 
     }
-
-    // protected virtual void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         isChasing = true;
-    //         Debug.Log("Player đã vào phạm vi tấn công!");
-    //     }
-    // }
-
-    // protected virtual void OnTriggerExit2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         isChasing = false;
-    //         Debug.Log("Player đã rời khỏi phạm vi tấn công!");
-    //         // Quay về trạng thái tuần tra hoặc chờ
-    //     }
-    // }
 
 
 }
