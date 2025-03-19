@@ -8,14 +8,14 @@ public class Boss : Enemy
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float attackCooldown = 0.5f;
+    // [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
 
     private int direction = 1;
     private Animator animator;
-    private bool isAttacking = false;
+    // private bool isAttacking = false;
     private bool is_Chasing = false;
-    private float lastAttackTime = 0f;
+    // private float lastAttackTime = 0f;
     protected override void Start()
     {
         base.Start();

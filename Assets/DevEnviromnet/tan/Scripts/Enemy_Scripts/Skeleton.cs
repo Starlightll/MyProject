@@ -7,15 +7,15 @@ public class Skeleton : Enemy, IDamageable
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Image healthBar;
+
     private int direction = 1;
     private Animator animator;
-    private bool isAttacking = false;
+    
+    // private bool isAttacking = false;
     private bool is_Chasing = false;
-    private float lastAttackTime = 0f;
-    private float currentHealth = 100;
+    // private float lastAttackTime = 0f;
+    // private float currentHealth = 100;
     protected override void Start()
     {
         base.Start();
