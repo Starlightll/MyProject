@@ -64,27 +64,33 @@ public class SwordOfArts : Weapon
             diện tích của sát thương sẽ đi theo VFX là 45.
             => sync được vùng gây sát thương với VFX.
          ***/
+
+       
+        
         //Calculate attack range
         float attackRange = 1f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
         Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
 
+
         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
-        foreach (Collider2D hit in hits)
+        foreach (Collider2D enemy in hits)
         {
-            if (hit.TryGetComponent<IDamageable>(out IDamageable damageable))
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageable.TakeDamage(baseDamage * attackDamageMultiplier);
+                hit(damageable);
+                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
             }
+            Debug.Log("Hit");
         }
+
+        //Perform player dash 
         attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
+
 
         //Show slash effect
         ShowSlashEffect(attacker, comboCounter, attackRange);
-
-        //player dash forward
-        Vector2 dashDirection = new Vector2(attackRange, 0);
     }
 
     private void Attack2(Transform attacker, LayerMask enemyLayer, int comboCounter)
@@ -93,8 +99,18 @@ public class SwordOfArts : Weapon
         float attackRange = 1.5f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
         Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
-        //Perform hitbox check
+         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
+        foreach (Collider2D enemy in hits)
+        {
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                hit(damageable);
+                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
+            }
+            Debug.Log("Hit");
+        }
+        
         attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
@@ -106,8 +122,19 @@ public class SwordOfArts : Weapon
         float attackRange = 2f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
         Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
-        //Perform hitbox check
+         //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange, enemyLayer);
+        foreach (Collider2D enemy in hits)
+        {
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                hit(damageable);
+                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2, 3), 1), ForceMode2D.Impulse);
+            }
+            Debug.Log("Hit");
+        }
+        
+
         attacker.transform.parent.GetComponent<PlayerController>()._rb.linearVelocity = new Vector2(attackRange * 2.7f, 0);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
@@ -118,6 +145,7 @@ public class SwordOfArts : Weapon
         if (slashEffects.Length == 0 || slashEffects[comboCounter] == null)
             return;
 
+        attacker.parent.GetComponent<PlayerController>()._anim.SetTrigger("AttackTrigger");
         float direction = attacker.parent.transform.localScale.x > 0 ? 1f : -1f;
         // Tạo ra rotation cho vfx theo euler angle
         Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
@@ -136,11 +164,20 @@ public class SwordOfArts : Weapon
         Destroy(slash, 1f);
     }
 
-    public void hit(GameObject enemy)
+    public void hit(Collider2D collider)
     {
         Debug.Log("Hit");
-        enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
-        enemy.GetComponent<IDamageable>().TakeDamage(baseDamage);
+        
+        collider.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(2,3), 1), ForceMode2D.Impulse);
+        if(collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            damageable.TakeDamage(baseDamage);
+        }
+    }
+    
+    private void hit(IDamageable damageable)
+    {
+        damageable.TakeDamage(baseDamage);
     }
 
 }

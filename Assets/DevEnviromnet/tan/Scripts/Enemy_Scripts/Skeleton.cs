@@ -126,6 +126,8 @@ public class Skeleton : Enemy, IDamageable
         }
     }
 
+   
+
     //private void DealDamage()
     //{
     //    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
