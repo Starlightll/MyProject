@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float attackCooldown = 0.5f;
     [SerializeField] protected float lastAttackTime = 0f;
 
+    [SerializeField] protected Image healthBar;
+    
+    protected float currentHealth = 0;
+
     protected Rigidbody2D rb;
 
     public Vector2 spawnPosition;
@@ -36,7 +41,7 @@ public abstract class Enemy : MonoBehaviour
         spawnPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
+        currentHealth = Hp;
     }
 
 

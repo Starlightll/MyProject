@@ -7,12 +7,12 @@ public class Bat : Enemy
     [SerializeField] private float minPatrolDistance = 5f;
     [SerializeField] private float maxPatrolDistance = 10f;
     [SerializeField] private float patrolHeightVariation = 2f;
-    [SerializeField] private float attackCooldown = 1f;
+    // [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private LayerMask obstacleLayer;
 
     private Animator animator;
-    private bool isAttacking = false;
-    private float lastAttackTime = 0f;
+    // private bool isAttacking = false;
+    // private float lastAttackTime = 0f;
     private Vector2 patrolTarget;
     private bool movingRight = true;
     private Vector2 startPos;
