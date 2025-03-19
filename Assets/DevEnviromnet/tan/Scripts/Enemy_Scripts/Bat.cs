@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class Bat : Enemy
+public class Bat : Enemy, IDamageable
 {
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackRange = 3f;
@@ -113,8 +114,25 @@ public class Bat : Enemy
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        animator.SetTrigger("Die");
+        StartCoroutine(ReturnToPoolAfterDelay());
     }
 
+    private IEnumerator ReturnToPoolAfterDelay()
+    {
+        Enemy_Pool enemy_Pool = Object.FindFirstObjectByType<Enemy_Pool>();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        ResetState();
+        enemy_Pool.ReturnToPool(gameObject);
+    }
 
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth / Hp;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
 }

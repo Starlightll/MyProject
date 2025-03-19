@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class Boss : Enemy
+public class Boss : Enemy, IDamageable
 {
     public Transform attack_Point;
     public float attackRadius = 2f;
@@ -127,7 +128,25 @@ public class Boss : Enemy
     }
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        animator.SetTrigger("Die");
+        StartCoroutine(ReturnToPoolAfterDelay());
     }
 
+    private IEnumerator ReturnToPoolAfterDelay()
+    {
+        Enemy_Pool enemy_Pool = Object.FindFirstObjectByType<Enemy_Pool>();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        ResetState();
+        enemy_Pool.ReturnToPool(gameObject);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth / Hp;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
 }
