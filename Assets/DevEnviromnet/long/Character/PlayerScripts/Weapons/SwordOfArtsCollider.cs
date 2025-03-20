@@ -11,10 +11,9 @@ public class SwordOfArtsCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Enemy"))
-        {
+        {   
             
-          
-            
+            _swordOfArts.hit(collider, transform.parent);
         }
     }
 

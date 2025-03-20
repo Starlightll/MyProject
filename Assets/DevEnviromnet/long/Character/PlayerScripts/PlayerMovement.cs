@@ -119,16 +119,17 @@ public class PlayerMovement : MonoBehaviour
     {
         
         
-        if(_playerController)
-        // Move the player
-        Move();
-        
-        // Handle wall sliding
-        if (isWallSliding && isOnWallJump == false && !isGrounded)
-        {
-            
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+        if(_playerController.PlayerStateMachine.CurrentState is not PlayerAttackState){
+            // Move the player
+            Move();
+            // Handle wall sliding
+            if (isWallSliding && isOnWallJump == false && !isGrounded)
+            {
+                
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            }
         }
+        
     }
     
     private void Move()
