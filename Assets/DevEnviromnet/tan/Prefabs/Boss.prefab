@@ -196,14 +196,18 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 100
+  Hp: 20000
   Mana: 100
   Defend: 0
   PhysicalDame: 0
   AttackSpeed: 0
   AttackRange: 0
+  IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
+  attackCooldown: 1
+  lastAttackTime: 0
+  healthBar: {fileID: 734142110459226231}
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   attack_Point: {fileID: 3719113800635547982}
@@ -212,7 +216,6 @@ MonoBehaviour:
   attackRange: 6
   detectionRange: 15
   groundCheck: {fileID: 6259987411736731756}
-  attackCooldown: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -477,6 +480,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
+--- !u!114 &734142110459226231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
+  m_PrefabInstance: {fileID: 9042516054085113356}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3564325981693902387 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}

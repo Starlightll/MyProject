@@ -15,7 +15,7 @@ public class DashSkill : Skill
 
     public override bool CanActiveSkill(PlayerController player)
     {
-                return player.Stats.currentMana >= manaCost && player.CurrentState != PlayerState.Dashing;
+        return player.Stats.currentMana >= manaCost;
     }
 
     private IEnumerator PerformDash(PlayerController player)

@@ -3,6 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Weapon")]
 public abstract class Weapon : ScriptableObject
 {
+    
+    [Header("Weapon References")]
+    public GameObject weaponPrefab;
+    public GameObject weaponTrail;
+    public GameObject weaponTrailHit;
+    public GameObject weaponTrailMiss;
+    public GameObject player;
+    
+    [Header("Weapon Info")]
     public string weaponName;
     public Sprite weaponIcon;
     public float baseDamage;
@@ -10,6 +19,7 @@ public abstract class Weapon : ScriptableObject
     public float attackRate;
     public float critChance;
     public float critDamage;
+    public float knockback;
     public float attackRange;
     public float attackDuration;
     public float attackCooldown;
@@ -54,5 +64,6 @@ public abstract class Weapon : ScriptableObject
 
     public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter);
     
+    public abstract float CalculateTimeBetweenAttacks();
 
 }

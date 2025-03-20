@@ -7,20 +7,19 @@ public class PlayerController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private PlayerStats _stats;
     [SerializeField] private PlayerInput _input;
-    [SerializeField] private PlayerStateMachine _stateMachine;
     [SerializeField] private SkillManager _skillManager;
     [SerializeField] private WeaponManager _weaponManager;
-    [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerConfigs _configs;
     [SerializeField] public Rigidbody2D _rb;
     [SerializeField] public Animator _anim;
 
+    private PlayerStateMachine _playerStateMachine;
 
     public PlayerStats Stats => _stats;
     public PlayerInput Input => _input;
     public PlayerConfigs Configs => _configs;
 
-    public PlayerState CurrentState => _stateMachine.CurrentState;
+    public PlayerStateMachine PlayerStateMachine => _playerStateMachine;
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
     public Transform attackPoint;
@@ -34,19 +33,59 @@ public class PlayerController : MonoBehaviour
 
     public float attackRange = 0;
 
+    // [Header("References")]
+    // public Transform groundCheck;
+    // public Transform wallCheck;
+    // public Transform HeadCheck;
+    // public LayerMask groundLayer;
+    // public float GroundCheckSize = 0.1f;
+    // public float HeadCheckSize = 0.1f;
+    // public float wallCheckDistance = 0.5f;
+    // public float gravityScale = 5f;
+    // public float gravityScaleWallSlide = 1f;
+    // public float coyoteTime = 0.2f;
+
+    // [Header("System Variables")]
+    // private bool isGrounded;
+    // private bool isTouchingHead;
+    // private bool isTouchingWall;
+    // private bool isWallSliding;
+    // private bool canDoubleJump;
+    // private bool isDashing;
+    // private float dashCooldownTimer;
+    // private float dashTimer;
+    // private bool facingRight = true;
+    // private float horizontalInput;
+    // private bool isOnWallJump = false;
+    // private float coyoteTimeCounter;
+
+
+
+
+    private void Awake() {
+        _playerStateMachine = new PlayerStateMachine(this);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Start()
+    {
+        //Initialize the player state machine
+        _playerStateMachine.Initialize(_playerStateMachine.idleState);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        // if (_input.Dash)
-        // {
-        //     _movement.Dash();
-        // }
+        //Handle the player state machine
+        _playerStateMachine.Execute();
+
+
+
         comboTimer += Time.deltaTime;
         attackTimer += Time.deltaTime;
 
+        //Handle the player attack => Need to be moved HandleAttack() method
         if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
         {
             if(comboTimer >= CurrentWeapon.attackCooldown)
@@ -59,6 +98,8 @@ public class PlayerController : MonoBehaviour
             comboTimer = 0f;
             attackTimer = 0f;
         }
+
+        //Handle the player movement => Need to be moved HandleMovement() method
     }
 
 
@@ -67,11 +108,7 @@ public class PlayerController : MonoBehaviour
         // _stateMachine.;
     }
 
-    void OnDrawGizmos(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
-
+    
     private void HandleAttack() {
         if(_input.AttackPressed)
         {
@@ -79,5 +116,17 @@ public class PlayerController : MonoBehaviour
             //Move the attack logic to here
             //Calculate time here.
         }
+    }
+
+    private void HandleMovement() {
+        //Handle the player movement
+        //NB: This method should be moved to the PlayerMovementSystem class
+        //Need to be complete this task next time
+    }
+
+    //Draw the attack range of the player
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

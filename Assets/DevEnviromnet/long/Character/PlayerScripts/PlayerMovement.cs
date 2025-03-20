@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     public float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
 
+    private PlayerController _playerController;
+
     
     private void Start()
     {
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             
         if (animator == null)
             animator = GetComponent<Animator>();
+        _playerController = GetComponent<PlayerController>();
     }
     
     private void Update()
@@ -114,17 +117,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing) return;
         
-        // Move the player
-        Move();
         
-        // Handle wall sliding
-        if (isWallSliding && isOnWallJump == false && !isGrounded)
-        {
-            
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+        if(_playerController.PlayerStateMachine.CurrentState is not PlayerAttackState){
+            // Move the player
+            Move();
+            // Handle wall sliding
+            if (isWallSliding && isOnWallJump == false && !isGrounded)
+            {
+                
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            }
         }
+        
     }
     
     private void Move()

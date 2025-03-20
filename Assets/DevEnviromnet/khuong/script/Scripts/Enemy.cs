@@ -96,6 +96,12 @@ public abstract class Enemy : MonoBehaviour
 
 
     }
+    public virtual void ResetState()
+    {
+        currentHealth = Hp;
+        gameObject.SetActive(false);
+        healthBar.fillAmount = 1;
+    }
 
 
 }

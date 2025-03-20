@@ -158,7 +158,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -222,8 +222,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc604832b99f434a826b6aa1efa0cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  chaseSpeed: 3.5
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 5
+  Hp: 500
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 3711544908309565323}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
   groundCheckDistance: 1
   attackRange: 3
   detectionRange: 5
@@ -361,3 +376,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
   m_PrefabInstance: {fileID: 4958256760464011760}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3711544908309565323 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
+  m_PrefabInstance: {fileID: 4958256760464011760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
