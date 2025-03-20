@@ -10,6 +10,7 @@ public abstract class Weapon : ScriptableObject
     public float attackRate;
     public float critChance;
     public float critDamage;
+    public float knockback;
     public float attackRange;
     public float attackDuration;
     public float attackCooldown;

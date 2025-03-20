@@ -67,11 +67,7 @@ public class PlayerController : MonoBehaviour
         // _stateMachine.;
     }
 
-    void OnDrawGizmos(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
-
+    
     private void HandleAttack() {
         if(_input.AttackPressed)
         {
@@ -79,5 +75,11 @@ public class PlayerController : MonoBehaviour
             //Move the attack logic to here
             //Calculate time here.
         }
+    }
+
+    //Draw the attack range of the player
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
