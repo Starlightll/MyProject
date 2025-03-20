@@ -1,3 +1,5 @@
+using NUnit.Framework.Interfaces;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +10,6 @@ public class Skeleton : Enemy, IDamageable
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
     private int direction = 1;
     private Animator animator;
     
@@ -112,19 +113,36 @@ public class Skeleton : Enemy, IDamageable
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        animator.SetTrigger("Die");
+        StartCoroutine(ReturnToPoolAfterDelay());
     }
 
+    private IEnumerator ReturnToPoolAfterDelay()
+    {
+        Enemy_Pool enemy_Pool = Object.FindFirstObjectByType<Enemy_Pool>();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        ResetState();
+        enemy_Pool.ReturnToPool(gameObject);
+    }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         healthBar.fillAmount = currentHealth/Hp;
-        if (Hp <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
+        animator.SetTrigger("Hurt");
+        Invoke(nameof(ResetHurt), 0.3f);
     }
+
+    void ResetHurt()
+    {
+        animator.ResetTrigger("Hurt");
+        animator.SetBool("isHurt", false);
+    }
+
 
     //private void DealDamage()
     //{
