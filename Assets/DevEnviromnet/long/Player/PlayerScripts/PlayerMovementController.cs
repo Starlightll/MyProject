@@ -1,9 +1,12 @@
 using System.Collections;
+using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class PlayerControllerTems : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
-    [Header("Movement Settings")]
+[Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float wallSlideSpeed = 2f;
@@ -39,6 +42,9 @@ public class PlayerControllerTems : MonoBehaviour
     private bool isOnWallJump = false;
     public float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
+    public PlayerController _playerController;
+
+    private Vector2 playerAttackVelocity;
 
     
     private void Start()
@@ -48,6 +54,7 @@ public class PlayerControllerTems : MonoBehaviour
             
         if (animator == null)
             animator = GetComponent<Animator>();
+        _playerController = GetComponent<PlayerController>();
     }
     
     private void Update()
@@ -113,16 +120,20 @@ public class PlayerControllerTems : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing) return;
+        if(_playerController.PlayerStateMachine.CurrentState is not PlayerAttackState){
+            // Move the player
+            Move();
         
-        // Move the player
-        Move();
-        
-        // Handle wall sliding
-        if (isWallSliding && isOnWallJump == false && !isGrounded)
-        {
-            
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            // Handle wall sliding
+            if (isWallSliding && isOnWallJump == false && !isGrounded)
+            {
+                
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed); // Slide down the wall
+            }
+        }
+        if(_playerController.PlayerStateMachine.CurrentState is PlayerAttackState && _playerController.CurrentWeapon is SwordOfArts){
+            float direction = facingRight ? 1 : -1;
+            rb.linearVelocity = new Vector2(_playerController.playerVelocity.x == 0 ? 5*direction:Mathf.Abs(_playerController.playerVelocity.x )* direction, _playerController.playerVelocity.y);
         }
     }
     
@@ -195,6 +206,16 @@ private IEnumerator MaintainWallJumpVelocity()
         rb.gravityScale = originalGravity;
         dashCooldownTimer = dashCooldown;
     }
+
+    public IEnumerable Dash(Vector2 direction, float power, float duration)
+    {   
+        isDashing = true;
+        rb.gravityScale = 2f;
+        rb.linearVelocity = direction * power;
+        yield return new WaitForSeconds(duration);
+        rb.linearVelocity = Vector2.zero;
+        isDashing = false;
+    }
     
     private void CheckGrounded()
     {
@@ -243,7 +264,8 @@ private IEnumerator MaintainWallJumpVelocity()
     private void Flip()
     {
         facingRight = !facingRight;
-        transform.Rotate(0f, 180f, 0f);
+        int direction = facingRight ? 1 : -1;
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y,  transform.localScale.z);
     }
     
     

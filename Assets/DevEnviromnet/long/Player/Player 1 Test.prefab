@@ -299,6 +299,7 @@ Transform:
   - {fileID: 8701093654654181395}
   - {fileID: 8779723825573408412}
   - {fileID: 5033718284029387703}
+  - {fileID: 4724015917967649390}
   m_Father: {fileID: 2278460079365132051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &8533520798825291966
@@ -782,7 +783,6 @@ Transform:
   - {fileID: 5247929525667325948}
   - {fileID: 2951744393802064262}
   - {fileID: 2005320301671585885}
-  - {fileID: 4724015917967649390}
   - {fileID: 1215643088287367749}
   - {fileID: 1804932365265265951}
   m_Father: {fileID: 0}
@@ -914,15 +914,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 1cf86430c9b425944bf6ad372bea31e0, type: 2}
   _input: {fileID: 11400000, guid: 6501991ae18ab1143ae53b370d4bb5d1, type: 2}
-  _playerStateMachine: {fileID: 0}
   _skillManager: {fileID: 5730235194935276113}
   _weaponManager: {fileID: 2497008846714915789}
-  _movement: {fileID: 0}
   _configs: {fileID: 0}
   _rb: {fileID: 949042950251221011}
   _anim: {fileID: 4282349276248236646}
   attackPoint: {fileID: 1804932365265265951}
   attackRange: 0
+  playerVelocity: {x: 0, y: 0}
 --- !u!114 &5730235194935276113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +984,7 @@ MonoBehaviour:
   gravityScale: 5
   gravityScaleWallSlide: 1
   coyoteTime: 0.1
+  _playerController: {fileID: 6595529693073392805}
 --- !u!1 &5158183809264328801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,12 +1847,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8850929098634276254}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.435294, y: 0, z: 0}
+  m_LocalScale: {x: 0.5882351, y: 0.5882351, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2278460079365132051}
+  m_Father: {fileID: 5330413365238238492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &1387335914611195394
 TrailRenderer:
@@ -1909,7 +1909,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.56603897
+        value: 0.30429226
         inSlope: -1.8879591
         outSlope: -1.8879591
         tangentMode: 0
@@ -1917,8 +1917,8 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0.21655712
       - serializedVersion: 3
-        time: 1
-        value: 0
+        time: 0.9842529
+        value: 0.114105225
         inSlope: 0
         outSlope: 0
         tangentMode: 0

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b546b40e4ed176e49b12193773c81062, type: 3}
   m_Name: Sword Of Arts
   m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 0}
+  weaponTrail: {fileID: 0}
+  weaponTrailHit: {fileID: 0}
+  weaponTrailMiss: {fileID: 0}
+  player: {fileID: 4960598903292135017, guid: fc2805d09fbaae741b64f5ef6f00a2e8, type: 3}
   weaponName: Sword Of Arts
   weaponIcon: {fileID: 0}
   baseDamage: 100
-  attackSpeed: 100
+  attackSpeed: 50
   attackRate: 0
   critChance: 0
   critDamage: 0
