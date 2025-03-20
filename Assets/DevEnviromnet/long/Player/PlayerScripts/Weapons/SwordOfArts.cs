@@ -77,9 +77,6 @@ public class SwordOfArts : Weapon
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange * 2.7f, enemyLayer);
         // PerformHits(hits, attacker);
 
-        // Perform player dash using AddForce
-        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
-        rb.linearVelocity = new Vector2(attacker.parent.localScale.x * 2.7f, 0);
 
         //Show slash effect
         ShowSlashEffect(attacker, comboCounter, attackRange);
@@ -90,14 +87,11 @@ public class SwordOfArts : Weapon
         Debug.Log("Sword of Arts Attack 2");
         float attackRange = 1.5f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
-        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 4f, 0), Color.red, 1f);
          //Perform hitbox check
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
         // PerformHits(hits, attacker);
         
-        // Perform player dash using AddForce
-        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
-        rb.linearVelocity = new Vector2(attacker.parent.localScale.x * 4.7f, 0);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
@@ -112,9 +106,6 @@ public class SwordOfArts : Weapon
         Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
         // PerformHits(hits, attacker);
 
-        // Perform player dash using AddForce
-        Rigidbody2D rb = attacker.transform.parent.GetComponent<PlayerController>()._rb;
-        rb.linearVelocity = new Vector2(attacker.parent.localScale.x * 10.7f, 0);
 
         ShowSlashEffect(attacker, comboCounter, attackRange);
     }
@@ -124,6 +115,10 @@ public class SwordOfArts : Weapon
         if (slashEffects.Length == 0 || slashEffects[comboCounter] == null)
             return;
 
+        Vector2 attackPoint = new Vector2(attacker.position.x + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x/5, attacker.parent.position.y);
+        Debug.Log("Attack Point: " + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x + " " + attacker.position.x);
+        
+
         float direction = attacker.parent.transform.localScale.x > 0 ? 1f : -1f;
         // Tạo ra rotation cho vfx theo euler angle
         Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
@@ -131,7 +126,7 @@ public class SwordOfArts : Weapon
 
         //Chuyển euler angle sang quaternion
         Quaternion rotation = Quaternion.Euler(eularRotation);
-        GameObject slash = Instantiate(slashEffects[comboCounter], attacker.position, rotation);
+        GameObject slash = Instantiate(slashEffects[comboCounter], attackPoint, rotation);
         slash.transform.localScale = new Vector3(size, size, size);
         Debug.Log("Slash: " + rotation);
 
@@ -148,7 +143,24 @@ public class SwordOfArts : Weapon
         
         if(collider.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(baseDamage);
+            float totalDamage = baseDamage;
+            if(player.GetComponent<PlayerController>().comboCounter == 0)
+            {
+                totalDamage = baseDamage * 1f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 1)
+            {
+                totalDamage = baseDamage * 1.5f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 2)
+            {
+                totalDamage = baseDamage * 2.5f;
+            }else{
+                totalDamage = baseDamage * 1f;
+            }
+            damageable.TakeDamage(totalDamage);
+            Debug.Log("Total Damage: " + totalDamage);
+            
             Vector2 knockbackDirection = (collider.transform.position - attacker.parent.position).normalized;
             knockbackDirection.y = 0.5f;
             collider.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);
@@ -174,6 +186,13 @@ public class SwordOfArts : Weapon
             Debug.Log("Hit");
         }
     }
+
+    private void dash(float power)
+    {
+        Rigidbody2D rb = player.GetComponent<PlayerController>()._rb;
+        rb.AddForce(new Vector2(player.transform.localScale.x * power, 0), ForceMode2D.Impulse);
+    }
+    
 
     public override float CalculateTimeBetweenAttacks()
     {

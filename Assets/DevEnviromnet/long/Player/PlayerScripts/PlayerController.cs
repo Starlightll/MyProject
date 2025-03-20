@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public Transform attackPoint;
 
     private float comboTimer = 0f;
-    private int comboCounter = 0;
+    public int comboCounter = 0;
     private float attackTimer = 0f;
     private float attackCooldown = 0f;
 
@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
     // private float horizontalInput;
     // private bool isOnWallJump = false;
     // private float coyoteTimeCounter;
+
+    public Vector2 playerVelocity;
 
 
 
@@ -93,6 +95,9 @@ public class PlayerController : MonoBehaviour
                 comboCounter = 0;
                 comboTimer = 0f;
             }
+            float direction = transform.localScale.x > 0 ? 1 : -1;
+            playerVelocity = new Vector2(_rb.linearVelocity.x == 0 ? 3 * direction: _rb.linearVelocity.x * 0.3f, /*Mathf.Abs(_rb.linearVelocity.y) * -0.3f*/ _rb.linearVelocity.y < 0? Mathf.Abs(_rb.linearVelocity.y) * -0.2f : _rb.linearVelocity.y *-0.01f);
+            Debug.Log("Player Velocity: " + playerVelocity);
             // _stateMachine.CurrentState(States.Attack);
             CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
             comboTimer = 0f;
@@ -106,6 +111,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // _stateMachine.;
+
     }
 
     

@@ -16,13 +16,14 @@ public class PlayerIdleState : IPlayerState
 
     public void Execute()
     {
-        Debug.Log("Executing Idle State");
+        // Debug.Log("Executing Idle State");
         if(player.Input.AttackPressed){
             player.PlayerStateMachine.TransitionTo(new PlayerAttackState(player));
         }
         if(player.Input.MoveDirection.x != 0){
             player.PlayerStateMachine.TransitionTo(new PlayerRunState(player));
         }
+        
 
     }
 

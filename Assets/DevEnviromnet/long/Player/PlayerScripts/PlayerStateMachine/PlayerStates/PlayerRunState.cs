@@ -19,6 +19,9 @@ public class PlayerRunState : IPlayerState
         if(player.Input.AttackPressed){
             player.PlayerStateMachine.TransitionTo(new PlayerAttackState(player));
         }
+        if(player.Input.MoveDirection.x == 0){
+            player.PlayerStateMachine.TransitionTo(new PlayerIdleState(player));
+        }
     }
 
     public void Exit()
