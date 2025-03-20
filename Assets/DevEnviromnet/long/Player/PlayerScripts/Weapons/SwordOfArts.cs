@@ -143,7 +143,24 @@ public class SwordOfArts : Weapon
         
         if(collider.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.TakeDamage(baseDamage);
+            float totalDamage = baseDamage;
+            if(player.GetComponent<PlayerController>().comboCounter == 0)
+            {
+                totalDamage = baseDamage * 1f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 1)
+            {
+                totalDamage = baseDamage * 1.5f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 2)
+            {
+                totalDamage = baseDamage * 2.5f;
+            }else{
+                totalDamage = baseDamage * 1f;
+            }
+            damageable.TakeDamage(totalDamage);
+            Debug.Log("Total Damage: " + totalDamage);
+            
             Vector2 knockbackDirection = (collider.transform.position - attacker.parent.position).normalized;
             knockbackDirection.y = 0.5f;
             collider.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);

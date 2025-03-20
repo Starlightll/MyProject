@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public Transform attackPoint;
 
     private float comboTimer = 0f;
-    private int comboCounter = 0;
+    public int comboCounter = 0;
     private float attackTimer = 0f;
     private float attackCooldown = 0f;
 
