@@ -15,6 +15,7 @@ public class Skeleton : Enemy, IDamageable
     
     // private bool isAttacking = false;
     private bool is_Chasing = false;
+    private PlayerController playerController;
     // private float lastAttackTime = 0f;
     // private float currentHealth = 100;
     protected override void Start()
@@ -22,6 +23,7 @@ public class Skeleton : Enemy, IDamageable
         base.Start();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
