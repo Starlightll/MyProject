@@ -101,7 +101,7 @@ public class Skeleton : Enemy, IDamageable
             animator.SetTrigger("Attack");
             lastAttackTime = Time.time;
 
-            //Invoke(nameof(DealDamage), 0.3f);
+            Invoke(nameof(DealDamage), 0.3f);
         }
     }
     protected override void Flip()
@@ -144,16 +144,12 @@ public class Skeleton : Enemy, IDamageable
     }
 
 
-    //private void DealDamage()
-    //{
-    //    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-    //    if (distanceToPlayer <= attackRange)
-    //    {
-    //        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-    //        if (playerHealth != null)
-    //        {
-    //            playerHealth.TakeDamage(attackDamage);
-    //        }
-    //    }
-    //}
+    private void DealDamage()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        if (distanceToPlayer <= attackRange)
+        {
+            Debug.Log("Take Dame");
+        }
+    }
 }

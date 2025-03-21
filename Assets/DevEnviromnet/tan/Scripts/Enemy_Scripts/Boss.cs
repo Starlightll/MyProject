@@ -16,12 +16,14 @@ public class Boss : Enemy, IDamageable
     private Animator animator;
     // private bool isAttacking = false;
     private bool is_Chasing = false;
+    private GateController gate;
     // private float lastAttackTime = 0f;
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        gate = FindAnyObjectByType<GateController>();
     }
     void Update()
     {
@@ -129,6 +131,7 @@ public class Boss : Enemy, IDamageable
     protected override void Die()
     {
         animator.SetTrigger("Die");
+        gate.OpenGate();
         StartCoroutine(ReturnToPoolAfterDelay());
     }
 
