@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]   
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("Dependencies")]
     [SerializeField] private PlayerStats _stats;
@@ -134,5 +134,10 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _stats.TakeDamage(damage);
     }
 }
