@@ -1573,7 +1573,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.30429226
+        value: 0.6799484
         inSlope: -1.8879591
         outSlope: -1.8879591
         tangentMode: 0
@@ -1581,8 +1581,17 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0.21655712
       - serializedVersion: 3
-        time: 0.9842529
-        value: 0.114105225
+        time: 0.517133
+        value: 0.25714085
+        inSlope: -0.70611644
+        outSlope: -0.70611644
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.44929338
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.042328037
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2027,7 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   jumpForce: 30
-  wallSlideSpeed: 2
+  wallSlideSpeed: 5
   dashSpeed: 20
   dashDuration: 0.2
   dashCooldown: 1
@@ -2043,7 +2052,7 @@ MonoBehaviour:
   HeadCheckSize: 0.1
   wallCheckDistance: 1.3
   gravityScale: 5
-  gravityScaleWallSlide: 1
+  gravityScaleWallSlide: 2
   coyoteTime: 0.1
   _playerController: {fileID: 668418903709207227}
 --- !u!1 &4771676337953048634
