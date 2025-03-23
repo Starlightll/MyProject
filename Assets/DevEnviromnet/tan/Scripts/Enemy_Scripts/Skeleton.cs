@@ -10,6 +10,9 @@ public class Skeleton : Enemy, IDamageable
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float delay=0.5f;
     private int direction = 1;
     private Animator animator;
     
@@ -103,7 +106,8 @@ public class Skeleton : Enemy, IDamageable
             animator.SetTrigger("Attack");
             lastAttackTime = Time.time;
 
-            Invoke(nameof(DealDamage), 0.3f);
+
+            Invoke(nameof(DealDamage), delay);
         }
     }
     protected override void Flip()
@@ -148,10 +152,26 @@ public class Skeleton : Enemy, IDamageable
 
     private void DealDamage()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer <= attackRange)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, 1, playerLayer);
+        foreach (Collider2D hit in hits)
         {
-            Debug.Log("Take Dame");
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(PhysicalDame);
+                Debug.Log("Take Dame");
+            }
+        }
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (attackPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPoint.position, 1);
         }
     }
+
 }

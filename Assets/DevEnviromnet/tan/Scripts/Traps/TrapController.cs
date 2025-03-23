@@ -3,42 +3,17 @@ public class TrapController : MonoBehaviour
 {
     public int damage = 10;
     public float damageInterval = 1.0f;
-    private bool playerInTrap = false;
-    private float damageTimer = 0f;
+    private float lastDamageTime = 0f;
 
-    private void Update()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        
-        if (playerInTrap)
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (damageable != null && Time.time >= lastDamageTime + damageInterval)
         {
-            damageTimer -= Time.deltaTime;
-            if (damageTimer <= 0f)
-            {
-                DealDamage();
-                damageTimer = damageInterval;
-            }
+            damageable.TakeDamage(damage);
+            lastDamageTime = Time.time;
+            Debug.Log("Take dame");
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrap = true;
-            damageTimer = 0f;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrap = false;
-        }
-    }
-
-    private void DealDamage()
-    {
-        Debug.Log("Cook");
     }
 }

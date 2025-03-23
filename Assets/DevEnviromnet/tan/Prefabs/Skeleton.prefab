@@ -37,6 +37,7 @@ Transform:
   - {fileID: 8506194222365477044}
   - {fileID: 1061189628460213576}
   - {fileID: 3693993130102278535}
+  - {fileID: 4666564105577615825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3578878160024267815
@@ -204,7 +205,7 @@ MonoBehaviour:
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 1
   lastAttackTime: 0
   healthBar: {fileID: 3890318002959135500}
   spawnPosition: {x: 0, y: 0}
@@ -216,6 +217,42 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackPoint: {fileID: 4666564105577615825}
+  delay: 1.6
+--- !u!1 &4058037872453799089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4666564105577615825}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4666564105577615825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058037872453799089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.116, y: 0.056, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1618948177805806008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4833621225594022157
 GameObject:
   m_ObjectHideFlags: 0

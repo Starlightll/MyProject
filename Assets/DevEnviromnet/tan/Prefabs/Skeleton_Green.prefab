@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1267994153010820190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3690416078545944577}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3690416078545944577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267994153010820190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.336, y: 0.032, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5333073858337193170}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6425424299173948555
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +98,7 @@ Transform:
   m_Children:
   - {fileID: 631976921591126479}
   - {fileID: 6249212420513653214}
+  - {fileID: 3690416078545944577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4789641861243014221
@@ -234,18 +266,23 @@ MonoBehaviour:
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 0.47
   lastAttackTime: 0
   healthBar: {fileID: 3711544908309565323}
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   groundCheckDistance: 1
-  attackRange: 3
+  attackRange: 2
   detectionRange: 5
   groundCheck: {fileID: 6249212420513653214}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackPoint: {fileID: 3690416078545944577}
+  delay: 0
 --- !u!1001 &4958256760464011760
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -211,7 +211,7 @@ MonoBehaviour:
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   attack_Point: {fileID: 3719113800635547982}
-  attackRadius: 2
+  attackRadius: 2.5
   groundCheckDistance: 7
   attackRange: 6
   detectionRange: 15
@@ -219,6 +219,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &6919192963992944825
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +347,10 @@ PrefabInstance:
     - target: {fileID: 7963012341734031869, guid: fdf5950002e6c7046807982d43ee4e47, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963012341734031869, guid: fdf5950002e6c7046807982d43ee4e47, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

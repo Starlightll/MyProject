@@ -4,14 +4,17 @@ using UnityEngine;
 public class Boss : Enemy, IDamageable
 {
     public Transform attack_Point;
-    public float attackRadius = 2f;
+    public float attackRadius = 2.5f;
     [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
     // [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask playerLayer;
 
+    private float fireDamageTimer = 0f;
+    private float fireDamageInterval = 1f;
     private int direction = 1;
     private Animator animator;
     // private bool isAttacking = false;
@@ -51,6 +54,17 @@ public class Boss : Enemy, IDamageable
         else
         {
             Patrol();
+        }
+
+        Collider2D fire = Physics2D.OverlapCircle(groundCheck.position, 6, playerLayer);
+        IDamageable damage = fire?.GetComponent<IDamageable>();
+
+        if (damage != null && Time.time >= fireDamageTimer)
+        {
+            damage.TakeDamage(PhysicalDame);
+            Debug.Log("Take Dame Fire");
+
+            fireDamageTimer = Time.time + fireDamageInterval;
         }
     }
     protected override void Patrol()
@@ -110,7 +124,8 @@ public class Boss : Enemy, IDamageable
             isChasing = false;
             animator.SetTrigger("Attack");
             lastAttackTime = Time.time;
-            
+
+            Invoke(nameof(DealDamage), 1.1f);
         }
     }
 
@@ -151,5 +166,20 @@ public class Boss : Enemy, IDamageable
         {
             Die();
         }
+    }
+
+    private void DealDamage()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(PhysicalDame);
+                Debug.Log("Take Dame");
+            }
+        }
+
     }
 }
