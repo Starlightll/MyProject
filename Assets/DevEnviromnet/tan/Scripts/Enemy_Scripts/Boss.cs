@@ -4,24 +4,29 @@ using UnityEngine;
 public class Boss : Enemy, IDamageable
 {
     public Transform attack_Point;
-    public float attackRadius = 2f;
+    public float attackRadius = 2.5f;
     [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private Transform groundCheck;
     // [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask playerLayer;
 
+    private float fireDamageTimer = 0f;
+    private float fireDamageInterval = 1f;
     private int direction = 1;
     private Animator animator;
     // private bool isAttacking = false;
     private bool is_Chasing = false;
+    private GateController gate;
     // private float lastAttackTime = 0f;
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        gate = FindAnyObjectByType<GateController>();
     }
     void Update()
     {
@@ -29,27 +34,47 @@ public class Boss : Enemy, IDamageable
 
         float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
 
+        fireDamageTimer += Time.deltaTime;
+
+        if (fireDamageTimer >= fireDamageInterval)
+        {
+
+            Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, 4, playerLayer);
+            if (hits != null)
+            {
+                DealDamage(MagicDame, hits);
+                Debug.Log("Take Dame Fire");
+            }
+
+            fireDamageTimer = 0;
+        }
 
         if (distanceToPlayerX < 0.5f)
         {
             isChasing = false;
             isAttacking = false;
             animator.SetBool("isWalking", false);
-            return;
-        }
-
-        if (PlayerInAttackRange())
-        {
-            Attack();
-        }
-        else if (CheckInRange())
-        {
-            ChasePlayer();
+            //return;
         }
         else
         {
-            Patrol();
+            if (PlayerInAttackRange())
+            {
+                if (Time.time - lastAttackTime >= attackCooldown)
+                {
+                    animator.SetTrigger("Attack");
+                }
+            }
+            else if (CheckInRange())
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                Patrol();
+            }
         }
+
     }
     protected override void Patrol()
     {
@@ -91,25 +116,24 @@ public class Boss : Enemy, IDamageable
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
-            {
-                Flip();
-            }
+        if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
+        {
+            Flip();
+        }
 
-         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
-        
+        transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
+
     }
 
     protected override void Attack()
     {
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            isAttacking = true;
-            isChasing = false;
-            animator.SetTrigger("Attack");
-            lastAttackTime = Time.time;
-            
-        }
+        isAttacking = true;
+        isChasing = false;
+
+        lastAttackTime = Time.time;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        DealDamage(PhysicalDame, hits);
     }
 
     private void OnDrawGizmos()
@@ -117,7 +141,7 @@ public class Boss : Enemy, IDamageable
         if (attack_Point != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attack_Point.position, attackRadius);
+            Gizmos.DrawWireSphere(groundCheck.position, 4);
         }
     }
 
@@ -129,6 +153,7 @@ public class Boss : Enemy, IDamageable
     protected override void Die()
     {
         animator.SetTrigger("Die");
+        gate.OpenGate();
         StartCoroutine(ReturnToPoolAfterDelay());
     }
 
@@ -149,4 +174,22 @@ public class Boss : Enemy, IDamageable
             Die();
         }
     }
+
+    private void DealDamage(float dame, Collider2D[] hits)
+    {
+        //Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(PhysicalDame);
+                Debug.Log("Take Dame");
+                return;
+            }
+        }
+
+    }
+
+    
 }
