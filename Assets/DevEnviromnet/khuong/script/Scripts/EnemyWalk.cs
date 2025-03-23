@@ -9,8 +9,10 @@ public class EnemyWalk : Enemy
     private Vector2 MinPos;
     private Vector2 MaxPos;
 
-    [SerializeField] private Transform groundCheck; // Điểm kiểm tra mặt đất
-    [SerializeField] private LayerMask groundLayer; // Lớp mặt đất
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+
+    private Animator animator;
 
 
     protected override void Start()
@@ -20,6 +22,7 @@ public class EnemyWalk : Enemy
         MinPos = spawnPosition - new Vector2(PatrolRange, 0);
         MaxPos = spawnPosition + new Vector2(PatrolRange, 0);
         direction = Vector2.right;
+        animator = GetComponent<Animator>();
 
     }
 
@@ -48,6 +51,11 @@ public class EnemyWalk : Enemy
 
         if (Time.time - lastAttackTime >= attackCooldown)
         {
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");
+            }
+
             isAttacking = true;
             isChasing = false;
             lastAttackTime = Time.time;
@@ -59,35 +67,40 @@ public class EnemyWalk : Enemy
         isChasing = true;
         isAttacking = false;
 
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        FaceToward(direction);
+        //Distant on x axis between player and enemy
+        float distanceToPlayer = Mathf.Abs(player.position.x - transform.position.x);
 
-        if (distanceToPlayer < 1.5f)
+        if (distanceToPlayer <= 1.5f)
         {
             rb.linearVelocity = Vector2.zero;
-
+            Attack();
             return;
         }
-
-        if (directionToPlayer.x > 0)
+        else if (distanceToPlayer > 1.5f)
         {
-            direction = Vector2.left;
-        }
-        else if (directionToPlayer.x < 0)
-        {
-            direction = Vector2.right;
-        }
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            if (directionToPlayer.x > 0)
+            {
+                direction = Vector2.left;
+            }
+            else if (directionToPlayer.x < 0)
+            {
+                direction = Vector2.right;
+            }
 
-        if (!IsGroundAhead())
-        {
-            direction *= -1;
-            return;
+            if (!IsGroundAhead())
+            {
+                direction *= -1;
+                return;
+            }
+
+
+            rb.linearVelocity = new Vector2(Mathf.Sign(directionToPlayer.x) * RunSpeed, rb.linearVelocity.y);
         }
+        Debug.Log("Distant: " + distanceToPlayer);
 
-
-        rb.linearVelocity = new Vector2(Mathf.Sign(directionToPlayer.x) * RunSpeed, rb.linearVelocity.y);
+        FaceToward(direction);
     }
 
 
@@ -106,6 +119,12 @@ public class EnemyWalk : Enemy
 
     protected override void Patrol()
     {
+        if (animator != null)
+        {
+            animator.SetInteger("State", 3);
+            animator.SetBool("Action", false);
+        }
+
         FaceToward(direction);
 
         if (!IsGroundAhead())

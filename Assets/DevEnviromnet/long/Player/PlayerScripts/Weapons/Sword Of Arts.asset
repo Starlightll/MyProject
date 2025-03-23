@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b546b40e4ed176e49b12193773c81062, type: 3}
+  m_Name: Sword Of Arts
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 0}
+  weaponTrail: {fileID: 0}
+  weaponTrailHit: {fileID: 0}
+  weaponTrailMiss: {fileID: 0}
+  player: {fileID: 4960598903292135017, guid: fc2805d09fbaae741b64f5ef6f00a2e8, type: 3}
+  weaponName: Sword Of Arts
+  weaponIcon: {fileID: 0}
+  baseDamage: 150
+  attackSpeed: 100
+  attackRate: 0
+  critChance: 0
+  critDamage: 0
+  knockback: 10
+  attackRange: 0
+  attackDuration: 0
+  attackCooldown: 1
+  attackKnockback: 0
+  attackStunDuration: 0
+  attackManaCost: 0
+  attackLifeSteal: 0
+  attackHealthRegen: 0
+  attackManaRegen: 0
+  attackCooldownReduction: 0
+  attackDamageReduction: 0
+  attackSpeedReduction: 0
+  attackDamageMultiplier: 1.5
+  attackSpeedMultiplier: 1.5
+  critChanceMultiplier: 1.5
+  critDamageMultiplier: 1.5
+  attackRangeMultiplier: 1
+  attackDurationMultiplier: 1.5
+  attackCooldownMultiplier: 1
+  attackKnockbackMultiplier: 1.5
+  attackTrigger: 
+  animationDuration: 0
+  attackOffset: {x: 0, y: 0}
+  attackSound: {fileID: 0}
+  attackHitSound: {fileID: 0}
+  attackMissSound: {fileID: 0}
+  attackEffects: []
+  attackHitEffects: []
+  attackMissEffects: []
+  comboEnabled: 1
+  maxComboCount: 0
+  comboResetTime: 1.5
+  comboResetDuration: 0
+  runtimeAttackRange: 0
+  slashEffects:
+  - {fileID: 2126529731121513941, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}
+  - {fileID: 8121855661580006960, guid: cab90f85bcea990478387ac806c4965d, type: 3}
+  - {fileID: 1575611588403928121, guid: edb7e242d04a57e419cdea5f723ae1f5, type: 3}
