@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 [RequireComponent(typeof(Rigidbody2D))]   
 public class PlayerController : MonoBehaviour, IDamageable
@@ -82,7 +82,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Handle the player state machine
         _playerStateMachine.Execute();
 
-
+        //Test the player got hit by the enemy
+        if(UnityEngine.Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(Random.Range(2, 10));
+        }
 
         comboTimer += Time.deltaTime;
         attackTimer += Time.deltaTime;
@@ -140,4 +144,5 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _stats.TakeDamage(damage);
     }
+
 }

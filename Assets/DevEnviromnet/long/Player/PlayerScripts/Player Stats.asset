@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 19
   maxMana: 100
-  currentMana: 0
+  currentMana: 100
   attackPower: 5
   attackDamageMultiplier: 1
   attackRange: 0

@@ -9393,18 +9393,18 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.74509805, b: 0.38717243, a: 1}
+        key0: {r: 0, g: 1, b: 0.4000001, a: 1}
         key1: {r: 3.482202, g: 3.482202, b: 3.482202, a: 0}
         key2: {r: 0.08877714, g: 0.8962264, b: 0.620088, a: 0}
-        key3: {r: 0.009433985, g: 0, b: 0.0007399181, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 5129
         ctime1: 7028
-        ctime2: 11777
-        ctime3: 22663
+        ctime2: 12143
+        ctime3: 22745
         ctime4: 0
         ctime5: 0
         ctime6: 0
@@ -9418,7 +9418,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:
@@ -24160,8 +24160,8 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 0, g: 0.8301887, b: 0.57134473, a: 1}
         key1: {r: 1.7207954, g: 1.7207954, b: 1.7207954, a: 0}
-        key2: {r: 0.05490198, g: 1.0439533, b: 1.4980392, a: 0}
-        key3: {r: 0, g: 1.1670115, b: 1.2027059, a: 0}
+        key2: {r: 0.06274513, g: 1.4980392, b: 0.50937396, a: 0}
+        key3: {r: 1.6057067, g: 1.6057067, b: 1.6057067, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -24183,7 +24183,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 5
         m_NumAlphaKeys: 2
       minGradient:
@@ -48989,7 +48989,7 @@ SortingGroup:
   m_GameObject: {fileID: 8121855661580006960}
   m_Enabled: 1
   m_SortingLayerID: -199633235
-  m_SortingLayer: 10
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!114 &-475412221971195484

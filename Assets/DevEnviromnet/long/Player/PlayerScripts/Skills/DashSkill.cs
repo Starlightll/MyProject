@@ -24,8 +24,8 @@ public class DashSkill : Skill
         float originalGravity = player.GetComponent<Rigidbody2D>().gravityScale;
         player.GetComponent<Rigidbody2D>().gravityScale = 1;
         
-        // Vector2 dashDirection = player.GetComponent<PlayerInput>().;
-        // player.GetComponent<Rigidbody2D>().velocity = dashDirection * dashSpeed;
+        Vector2 dashDirection = player.GetComponent<PlayerInput>().MoveDirection;
+        player.GetComponent<Rigidbody2D>().linearVelocity = dashDirection * dashSpeed;
         
         yield return new WaitForSeconds(dashDuration);
         
