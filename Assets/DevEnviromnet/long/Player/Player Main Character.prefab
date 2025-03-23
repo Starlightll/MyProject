@@ -1829,6 +1829,9 @@ GameObject:
   - component: {fileID: 3836513416403922401}
   - component: {fileID: 2064724103464105244}
   - component: {fileID: 4545356818408817239}
+  - component: {fileID: 3559177582401242211}
+  - component: {fileID: 9159206376420884226}
+  - component: {fileID: 8004630199081882908}
   m_Layer: 8
   m_Name: Player Main Character
   m_TagString: Player
@@ -1988,6 +1991,7 @@ MonoBehaviour:
   _configs: {fileID: 0}
   _rb: {fileID: 1679118621039289837}
   _anim: {fileID: 5897861266177057662}
+  _playerHealthController: {fileID: 8004630199081882908}
   attackPoint: {fileID: 2775431839893350458}
   comboCounter: 0
   attackRange: 0
@@ -2055,6 +2059,54 @@ MonoBehaviour:
   gravityScaleWallSlide: 2
   coyoteTime: 0.1
   _playerController: {fileID: 668418903709207227}
+--- !u!114 &3559177582401242211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715208473121982112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4506dd871d72ec046a92fba3c9aad39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer:
+  - {fileID: 149892070809135858}
+  - {fileID: 5737190964963962624}
+  - {fileID: 3032153298253598741}
+  - {fileID: 2976875644978614743}
+  - {fileID: 6003907856405243824}
+  hurtColor: {r: 1, g: 0.4764151, b: 0.4764151, a: 1}
+  flashDuration: 0.3
+--- !u!114 &9159206376420884226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715208473121982112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31c67d85d69b954a8458f97ad607c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackDuration: 0.2
+--- !u!114 &8004630199081882908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715208473121982112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b659b16634b81a94d8e5f0d90483e9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 1cf86430c9b425944bf6ad372bea31e0, type: 2}
+  hurtEffect: {fileID: 3559177582401242211}
+  knockBack: {fileID: 9159206376420884226}
 --- !u!1 &4771676337953048634
 GameObject:
   m_ObjectHideFlags: 0
