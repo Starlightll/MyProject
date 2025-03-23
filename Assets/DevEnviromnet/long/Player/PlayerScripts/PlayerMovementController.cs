@@ -59,6 +59,10 @@ public class PlayerMovementController : MonoBehaviour
     
     private void Update()
     {
+        if(_playerController.PlayerStateMachine.CurrentState is PlayerDeadState)
+        {
+            return;
+        }
         // Get input
         horizontalInput = Input.GetAxisRaw("Horizontal");
         
@@ -120,6 +124,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_playerController.PlayerStateMachine.CurrentState is PlayerDeadState)
+        {
+            return;
+        }
         if(_playerController.PlayerStateMachine.CurrentState is not PlayerAttackState){
             // Move the player
             Move();

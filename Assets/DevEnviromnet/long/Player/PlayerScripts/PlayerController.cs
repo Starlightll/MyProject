@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerConfigs _configs;
     [SerializeField] public Rigidbody2D _rb;
     [SerializeField] public Animator _anim;
+    [SerializeField] private PlayerHealthController _playerHealthController;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -154,7 +155,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        _stats.TakeDamage(damage);
+        // _stats.TakeDamage(damage);
+        _anim.SetTrigger("Hurt");
+        //Set color to red
+        _playerHealthController.TakeDamage(damage);
+        
     }
 
 }

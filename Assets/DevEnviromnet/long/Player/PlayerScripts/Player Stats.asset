@@ -31,3 +31,4 @@ MonoBehaviour:
   experienceToNextLevel: 100
   level: 1
   skillPoints: 0
+  isInvincible: 0
