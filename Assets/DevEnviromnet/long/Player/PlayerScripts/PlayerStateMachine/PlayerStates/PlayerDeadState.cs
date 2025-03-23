@@ -16,7 +16,7 @@ public class PlayerDeadState : IPlayerState
     public void Enter()
     {
         Debug.Log("Entering Dead State");
-        player._anim.SetTrigger("IsDead");
+        player._anim.SetBool("IsDead", true);
         player._rb.linearVelocity = Vector2.zero;
         deadTimer = 0.0f;
     }
