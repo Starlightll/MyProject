@@ -62,7 +62,7 @@ using UnityEngine;
             currentHealth -= damage;
             if (currentHealth <= 0)
             {
-                // Die
+                currentHealth = 0;
             }
             
         }
