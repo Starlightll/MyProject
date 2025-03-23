@@ -92,6 +92,7 @@ public class Bat : Enemy, IDamageable
     {
         float patrolDistance = Random.Range(minPatrolDistance, maxPatrolDistance);
         float heightOffset = Random.Range(-patrolHeightVariation, patrolHeightVariation);
+
         movingRight = !movingRight;
 
         patrolTarget = startPos + new Vector2(movingRight ? patrolDistance : -patrolDistance, heightOffset);

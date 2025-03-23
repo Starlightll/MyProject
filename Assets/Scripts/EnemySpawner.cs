@@ -60,7 +60,13 @@ public class EnemySpawner : MonoBehaviour
                     if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                     {
                         Enemy enemy = pool.GetObject();
+
+                        if (enemy.spawnPosition == Vector2.zero)
+                        {
+                            enemy.spawnPosition = spawnPoint.position;
+                        }
                         enemy.transform.position = enemy.spawnPosition;
+
                         activeEnemies[spawnPoint] = enemy;
 
                     }
@@ -99,27 +105,13 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
+        // Đợi trước khi spawn lại
         yield return new WaitForSeconds(respawnDelay);
 
-        if (enemySpawnPoint != null && activeEnemies[enemySpawnPoint] == null)
-        {
-            bool hasGround = CheckGround(enemySpawnPoint.position);
-            List<Enemy> validEnemies = hasGround ? groundEnemies : airEnemies;
-
-            if (validEnemies.Count > 0)
-            {
-                int randomIndex = Random.Range(0, validEnemies.Count);
-                Enemy enemyPrefab = validEnemies[randomIndex];
-
-                if (enemyPools.TryGetValue(enemyPrefab, out var pool))
-                {
-                    Enemy newEnemy = pool.GetObject();
-                    // newEnemy.Initialize(enemySpawnPoint.position);
-                    // activeEnemies[enemySpawnPoint] = newEnemy;
-                }
-            }
-        }
+        SpawnEnemy();
+        yield break; // Đảm bảo coroutine kết thúc đúng
     }
+
 
     private void OnDrawGizmos()
     {
