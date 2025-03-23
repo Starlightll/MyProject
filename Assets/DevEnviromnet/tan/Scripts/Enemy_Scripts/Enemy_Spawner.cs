@@ -7,53 +7,63 @@ public class Enemy_Spawner : MonoBehaviour
     public List<Transform> _spawnPoints;
     public float _spawnInterval = 3f;
     private Enemy_Pool enemyPool;
-    bool isSpawning = true;
+    private bool initialSpawnComplete = false;
+    private bool shouldRespawn = false;
+    
     void Start()
     {
         StartCoroutine(InitializeAndSpawn());
     }
-
-    IEnumerator SpawnEnemiesRoutine()
+    
+    // This method will be called when player dies and respawns
+    public void PlayerRespawned()
     {
-        while (isSpawning)
+        shouldRespawn = true;
+        StartCoroutine(SpawnEnemiesOnPlayerRespawn());
+    }
+    
+    IEnumerator SpawnEnemiesOnPlayerRespawn()
+    {
+        if (shouldRespawn && initialSpawnComplete)
         {
             SpawnEnemies();
-            yield return new WaitForSeconds(_spawnInterval);
+            shouldRespawn = false;
         }
-        isSpawning = false;
+        yield return null;
     }
-
+    
     IEnumerator InitializeAndSpawn()
     {
         yield return new WaitForSeconds(0.1f);
         enemyPool = FindAnyObjectByType<Enemy_Pool>();
-
         if (enemyPool == null)
         {
             Debug.LogError("Enemy_Pool not found in the scene!");
             yield break;
         }
-
-        StartCoroutine(SpawnEnemiesRoutine());
+        
+        // Initial spawn when game starts
+        SpawnEnemies();
+        initialSpawnComplete = true;
     }
-
+    
     void SpawnEnemies()
     {
         if (enemyPool == null) return;
-
-        // Get the enemy types list directly from the pool
         List<Enemy_Pool.EnemySpawnData> enemySpawnList = enemyPool.GetEnemyTypes();
-        int spawnCount = Mathf.Min(enemySpawnList.Count, _spawnPoints.Count);
-
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < enemySpawnList.Count; i++)
         {
             var enemyData = enemySpawnList[i];
-            Vector3 spawnPosition = _spawnPoints[i].position;
+            int spawnPointIndex = i % _spawnPoints.Count;
+            Vector3 basePosition = _spawnPoints[spawnPointIndex].position;
 
-            // Just call GetEnemy, the pool will handle availability internally
-            enemyPool.GetEnemy(enemyData.enemyPrefab, spawnPosition);
+            for (int j = 0; j < enemyData.poolSize; j++)
+            {
+                float randomX = Random.Range(-10f, 10f);
+
+                Vector3 spawnPosition = basePosition + new Vector3(randomX, 0, 0);
+                enemyPool.GetEnemy(enemyData.enemyPrefab, spawnPosition);
+            }
         }
     }
-
-
 }

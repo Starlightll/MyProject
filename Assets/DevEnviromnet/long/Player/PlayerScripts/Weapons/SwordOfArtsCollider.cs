@@ -12,7 +12,6 @@ public class SwordOfArtsCollider : MonoBehaviour
     {
         if (collider.CompareTag("Enemy"))
         {   
-            
             _swordOfArts.hit(collider, transform.parent);
         }
     }

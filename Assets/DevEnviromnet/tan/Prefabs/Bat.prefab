@@ -210,7 +210,7 @@ MonoBehaviour:
   detectionRange: 6
   attackRange: 5
   minPatrolDistance: 3
-  maxPatrolDistance: 20
+  maxPatrolDistance: 8
   patrolHeightVariation: 5
   obstacleLayer:
     serializedVersion: 2
