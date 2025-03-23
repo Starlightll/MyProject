@@ -11,6 +11,8 @@ public class TrapController : MonoBehaviour
 
         if (damageable != null && Time.time >= lastDamageTime + damageInterval)
         {
+            Vector2 direction = new Vector2(Random.Range(-2,2),50);
+            collision.GetComponent<Rigidbody2D>().AddForce(direction*1);
             damageable.TakeDamage(damage);
             lastDamageTime = Time.time;
             Debug.Log("Take dame");

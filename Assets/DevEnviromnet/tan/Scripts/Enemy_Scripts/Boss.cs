@@ -34,38 +34,47 @@ public class Boss : Enemy, IDamageable
 
         float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
 
+        fireDamageTimer += Time.deltaTime;
+
+        if (fireDamageTimer >= fireDamageInterval)
+        {
+
+            Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, 4, playerLayer);
+            if (hits != null)
+            {
+                DealDamage(MagicDame, hits);
+                Debug.Log("Take Dame Fire");
+            }
+
+            fireDamageTimer = 0;
+        }
 
         if (distanceToPlayerX < 0.5f)
         {
             isChasing = false;
             isAttacking = false;
             animator.SetBool("isWalking", false);
-            return;
-        }
-
-        if (PlayerInAttackRange())
-        {
-            Attack();
-        }
-        else if (CheckInRange())
-        {
-            ChasePlayer();
+            //return;
         }
         else
         {
-            Patrol();
+            if (PlayerInAttackRange())
+            {
+                if (Time.time - lastAttackTime >= attackCooldown)
+                {
+                    animator.SetTrigger("Attack");
+                }
+            }
+            else if (CheckInRange())
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                Patrol();
+            }
         }
 
-        Collider2D fire = Physics2D.OverlapCircle(groundCheck.position, 6, playerLayer);
-        IDamageable damage = fire?.GetComponent<IDamageable>();
-
-        if (damage != null && Time.time >= fireDamageTimer)
-        {
-            damage.TakeDamage(PhysicalDame);
-            Debug.Log("Take Dame Fire");
-
-            fireDamageTimer = Time.time + fireDamageInterval;
-        }
     }
     protected override void Patrol()
     {
@@ -107,26 +116,24 @@ public class Boss : Enemy, IDamageable
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
-            {
-                Flip();
-            }
+        if ((directionToPlayer.x > 0 && direction < 0) || (directionToPlayer.x < 0 && direction > 0))
+        {
+            Flip();
+        }
 
-         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
-        
+        transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
+
     }
 
     protected override void Attack()
     {
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            isAttacking = true;
-            isChasing = false;
-            animator.SetTrigger("Attack");
-            lastAttackTime = Time.time;
+        isAttacking = true;
+        isChasing = false;
 
-            Invoke(nameof(DealDamage), 1.1f);
-        }
+        lastAttackTime = Time.time;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        DealDamage(PhysicalDame, hits);
     }
 
     private void OnDrawGizmos()
@@ -134,7 +141,7 @@ public class Boss : Enemy, IDamageable
         if (attack_Point != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attack_Point.position, attackRadius);
+            Gizmos.DrawWireSphere(groundCheck.position, 4);
         }
     }
 
@@ -168,9 +175,9 @@ public class Boss : Enemy, IDamageable
         }
     }
 
-    private void DealDamage()
+    private void DealDamage(float dame, Collider2D[] hits)
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        //Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
         foreach (Collider2D hit in hits)
         {
             IDamageable damageable = hit.GetComponent<IDamageable>();
@@ -178,8 +185,11 @@ public class Boss : Enemy, IDamageable
             {
                 damageable.TakeDamage(PhysicalDame);
                 Debug.Log("Take Dame");
+                return;
             }
         }
 
     }
+
+    
 }
