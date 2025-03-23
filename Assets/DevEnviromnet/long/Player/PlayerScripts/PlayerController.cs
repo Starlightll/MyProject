@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         _stats.TakeDamage(damage);
+        _anim.SetTrigger("Hurt");
     }
 
 }
