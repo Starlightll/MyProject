@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4092035781000681336}
   - component: {fileID: 7874413556623037494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8248281753766921132}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7680695451661767990}
   - component: {fileID: 7024543263040327026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4358414480665813977}
   - component: {fileID: 4119143094697934801}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8406748541919445653}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BodyAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2541550255296510181}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,6 +354,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3749924188291988012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1986011422536380485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7480674184294416049}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7480674184294416049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986011422536380485}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.76, y: 3.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8883442708095116527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3544476480899223422
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3749924188291988012}
   - component: {fileID: 6690362932710098745}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,8 +496,8 @@ GameObject:
   - component: {fileID: 5939558694355377561}
   - component: {fileID: 7923486093193396873}
   - component: {fileID: 4067899887689681001}
-  - component: {fileID: 5109609568756069573}
-  m_Layer: 0
+  - component: {fileID: 1843602353528644320}
+  m_Layer: 7
   m_Name: Juggernaut
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -490,6 +521,7 @@ Transform:
   - {fileID: 7680695451661767990}
   - {fileID: 5819560293227821817}
   - {fileID: 8248281753766921132}
+  - {fileID: 7480674184294416049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9178113720880015681
@@ -636,7 +668,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -648,7 +680,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5109609568756069573
+--- !u!114 &1843602353528644320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,26 +689,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 3714157757312682828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284de4ce6b23556429be684d2e233852, type: 3}
+  m_Script: {fileID: 11500000, guid: d44aebf5749e9fc46bb508b016299a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
+  WalkSpeed: 2
+  RunSpeed: 5
+  FlySpeed: 5
+  Hp: 700
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 12
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 7747333220237274301}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 7480674184294416049}
   groundCheck: {fileID: 8248281753766921132}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 7747333220237274301}
 --- !u!1 &4580186107117831778
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1057721654194898234}
   - component: {fileID: 3611426875475398316}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009016181467013690}
   - component: {fileID: 4470125493901639678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,7 +898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7986438118696925851}
   - component: {fileID: 381783293857571181}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -948,7 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2396015446254916877}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +1016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5731866490630800498}
   - component: {fileID: 8422115421740763357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5142367808857737244}
   - component: {fileID: 2411479919657346713}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FistR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1157,9 +1193,17 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1705703619297114216, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Name
       value: Hp3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Pivot.x
@@ -1240,6 +1284,10 @@ PrefabInstance:
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722452020556545427, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

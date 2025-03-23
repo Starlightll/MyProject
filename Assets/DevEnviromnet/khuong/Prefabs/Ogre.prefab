@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 468003783497907624}
   - component: {fileID: 2087894896868590075}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7191526498873908933}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1643877647655799298}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688111573650993740}
   - component: {fileID: 1868320516586729824}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,6 +236,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2037902461894784396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 934939496307533686}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &934939496307533686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037902461894784396}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.42, y: 3.23, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6135297986759724825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2621505288179111736
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2199276448308893028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5650896399491286601}
   - component: {fileID: 6826141290422914522}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8865766747985401190}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BodyAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2894262282375990320}
   - component: {fileID: 7154791957074827123}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2473054952547869946}
   - component: {fileID: 2075530570969867045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5564258104093953222}
   - component: {fileID: 7991138193582225282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3847304480889761900}
   - component: {fileID: 2766369491200862650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8027280065188892128}
   - component: {fileID: 1477514443251817250}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FistR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8135104162235674960}
   - component: {fileID: 6621770808867208463}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,8 +964,8 @@ GameObject:
   - component: {fileID: 4846101152002026458}
   - component: {fileID: 5973066386958059544}
   - component: {fileID: 2973346136283927850}
-  - component: {fileID: 7835081459989880793}
-  m_Layer: 0
+  - component: {fileID: 1481145834901163771}
+  m_Layer: 7
   m_Name: Ogre
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -958,6 +989,7 @@ Transform:
   - {fileID: 5650896399491286601}
   - {fileID: 874736845860869830}
   - {fileID: 1643877647655799298}
+  - {fileID: 934939496307533686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4615960481473073197
@@ -1104,7 +1136,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1116,7 +1148,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7835081459989880793
+--- !u!114 &1481145834901163771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1125,26 +1157,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8470953279836609111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284de4ce6b23556429be684d2e233852, type: 3}
+  m_Script: {fileID: 11500000, guid: d44aebf5749e9fc46bb508b016299a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
+  WalkSpeed: 2
+  RunSpeed: 6
+  FlySpeed: 5
+  Hp: 700
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 8
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 3991461689469370498}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 934939496307533686}
   groundCheck: {fileID: 1643877647655799298}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 3991461689469370498}
 --- !u!1001 &4623454569269460729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1157,9 +1193,17 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1705703619297114216, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Name
       value: Hp3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Pivot.x
@@ -1240,6 +1284,10 @@ PrefabInstance:
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722452020556545427, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
