@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 19
+  currentHealth: 10
   maxMana: 100
   currentMana: 100
   attackPower: 5
@@ -28,6 +28,6 @@ MonoBehaviour:
   manaRegen: 0
   healthRegen: 0
   currentExperience: 0
-  experienceToNextLevel: 0
-  level: 0
+  experienceToNextLevel: 100
+  level: 1
   skillPoints: 0
