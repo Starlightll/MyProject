@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   maxMana: 100
-  currentMana: 0
+  currentMana: 100
   attackPower: 5
   attackDamageMultiplier: 1
   attackRange: 0
@@ -28,6 +28,6 @@ MonoBehaviour:
   manaRegen: 0
   healthRegen: 0
   currentExperience: 0
-  experienceToNextLevel: 0
-  level: 0
+  experienceToNextLevel: 100
+  level: 1
   skillPoints: 0

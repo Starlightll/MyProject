@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 [RequireComponent(typeof(Rigidbody2D))]   
 public class PlayerController : MonoBehaviour, IDamageable
@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Initialize the player state machine
         _playerStateMachine.Initialize(_playerStateMachine.idleState);
+        _stats.ResetStats();
     }
 
 
@@ -82,7 +83,22 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Handle the player state machine
         _playerStateMachine.Execute();
 
-
+        if(_playerStateMachine.CurrentState is PlayerDeadState)
+        {
+            return;
+        }
+        if(_stats.currentHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+            _playerStateMachine.TransitionTo(new PlayerDeadState(this));
+        }
+        
+       
+        //Test the player got hit by the enemy
+        if(UnityEngine.Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(Random.Range(2, 10));
+        }
 
         comboTimer += Time.deltaTime;
         attackTimer += Time.deltaTime;
@@ -140,4 +156,5 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _stats.TakeDamage(damage);
     }
+
 }

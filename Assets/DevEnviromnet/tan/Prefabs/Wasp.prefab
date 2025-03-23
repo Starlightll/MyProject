@@ -568,7 +568,6 @@ GameObject:
   - component: {fileID: 4867315556631442157}
   - component: {fileID: 1797487778252940654}
   - component: {fileID: 4076152042055190876}
-  - component: {fileID: 1607676161251774214}
   m_Layer: 7
   m_Name: Wasp
   m_TagString: Enemy
@@ -720,43 +719,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.5, y: 3}
   m_Size: {x: 4, y: 4}
   m_Direction: 1
---- !u!114 &1607676161251774214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5923401707093281111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ead5a209a604240881bd0179a8da7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkSpeed: 2
-  RunSpeed: 4
-  FlySpeed: 5
-  Hp: 600
-  Mana: 100
-  Defend: 0
-  PhysicalDame: 0
-  AttackSpeed: 0
-  AttackRange: 0
-  IsAttackRange: 0
-  MagicDame: 0
-  PatrolRange: 5
-  attackCooldown: 1.5
-  lastAttackTime: 0
-  healthBar: {fileID: 2592849544510293826}
-  spawnPosition: {x: 0, y: 0}
-  enemyEye: {fileID: 0}
-  detectionRange: 6
-  attackRange: 5
-  minPatrolDistance: 3
-  maxPatrolDistance: 20
-  patrolHeightVariation: 5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &6131182453297221300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,14 +990,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
   m_PrefabInstance: {fileID: 6104326660155291961}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2592849544510293826 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 03b22df661bffba4ebfa2e4077deebff, type: 3}
-  m_PrefabInstance: {fileID: 6104326660155291961}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
