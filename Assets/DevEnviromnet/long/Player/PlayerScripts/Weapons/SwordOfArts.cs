@@ -11,20 +11,6 @@ public class SwordOfArts : Weapon
 
     public override void PerformAttack(Transform attacker, LayerMask enemyLayer, ref int comboCounter)
     {
-        // Vector2 attackPosition = (Vector2)attacker.position + attackOffset;
-        // Collider2D[] hits = Physics2D.OverlapCircleAll(
-        //     attackPosition,
-        //     attackRange 
-        //     + attackRange * attackRangeMultiplier/100
-        //     + attackRange * attacker.GetComponent<PlayerController>().Stats.attackRange/100, attackMask);
-
-        // foreach(Collider2D hit in hits)
-        // {
-        //     if(hit.TryGetComponent<IDamageable>(out IDamageable damageable))
-        //     {
-        //         damageable.TakeDamage(baseDamage);
-        //     }
-        // }
         if (!comboEnabled)
         {
             comboCounter = 0;
@@ -65,8 +51,6 @@ public class SwordOfArts : Weapon
             => sync được vùng gây sát thương với VFX.
          ***/
 
-       
-        
         //Calculate attack range
         float attackRange = 1f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);

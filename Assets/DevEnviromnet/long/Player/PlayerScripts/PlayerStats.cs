@@ -25,9 +25,9 @@ using UnityEngine;
         public float healthRegen;
 
         [Header("Experience")]
-        public float currentExperience;
-        public float experienceToNextLevel;
-        public float level;
+        public float currentExperience = 0;
+        public float experienceToNextLevel = 500;
+        public float level = 1;
         public float skillPoints;
 
         public void ResetStats()
@@ -43,7 +43,7 @@ using UnityEngine;
         {
             level++;
             skillPoints++;
-            experienceToNextLevel = level * 100;
+            experienceToNextLevel = experienceToNextLevel * 1.35f;
             
         }
 

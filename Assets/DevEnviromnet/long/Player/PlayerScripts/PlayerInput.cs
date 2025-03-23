@@ -13,4 +13,5 @@ public class PlayerInput : ScriptableObject
     public bool JumpPressed => Input.GetButtonDown("Jump");
     public bool JumpReleased => Input.GetButtonUp("Jump");
     
+    
 }
