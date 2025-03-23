@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 5841065178325608138}
   - component: {fileID: 1766872311093787521}
   - component: {fileID: 4740370970231919606}
-  - component: {fileID: 8307108815751962564}
   m_Layer: 0
   m_Name: MosquitoWorm
   m_TagString: Enemy
@@ -283,35 +282,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8307108815751962564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289963911752115625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284de4ce6b23556429be684d2e233852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
-  groundCheck: {fileID: 2385271487179203807}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 5343902773102727159}
 --- !u!1 &1961415045733492848
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,17 +949,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d215e667e011046b133b2af1c82368, type: 3}
---- !u!114 &5343902773102727159 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 97d215e667e011046b133b2af1c82368, type: 3}
-  m_PrefabInstance: {fileID: 4423679903666418060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8173591899137890739 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
