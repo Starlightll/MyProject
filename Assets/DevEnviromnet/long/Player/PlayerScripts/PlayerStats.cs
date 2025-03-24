@@ -29,6 +29,7 @@ using UnityEngine;
         public float experienceToNextLevel = 500;
         public float level = 1;
         public float skillPoints;
+        public bool isInvincible = false;
 
         public void ResetStats()
         {
@@ -59,10 +60,14 @@ using UnityEngine;
 
         public void TakeDamage(float damage)
         {
+            if(isInvincible)
+            {
+                return;
+            }
             currentHealth -= damage;
             if (currentHealth <= 0)
             {
-                // Die
+                currentHealth = 0;
             }
             
         }

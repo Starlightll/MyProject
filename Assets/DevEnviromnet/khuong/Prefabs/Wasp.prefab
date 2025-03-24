@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 3827657949582695025}
   - component: {fileID: 9109018250351135626}
   - component: {fileID: 314880499552588015}
-  - component: {fileID: 2103651767323215011}
+  - component: {fileID: 8299554800138808715}
   m_Layer: 7
   m_Name: Wasp
   m_TagString: Enemy
@@ -245,9 +245,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826706749236662328}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -6.249345, y: 2.192172, z: 0}
-  m_LocalScale: {x: -0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3476255854809206622}
@@ -255,7 +255,7 @@ Transform:
   - {fileID: 6268068319986440241}
   - {fileID: 8573159540153224724}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &4127575087908720173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,7 +394,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -409,7 +409,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2103651767323215011
+--- !u!114 &8299554800138808715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,26 +418,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1826706749236662328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b848934c5c18c240b39f6fcd51dd2b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 97a6e166e1247cf4e88ff02756ca13f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
-  groundCheck: {fileID: 8573159540153224724}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
-  groundLayer:
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 7
+  Hp: 200
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 7907075379221188213}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
+  detectionRange: 9
+  attackRange: 5
+  minPatrolDistance: 6
+  maxPatrolDistance: 25
+  patrolHeightVariation: 4
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 7907075379221188213}
 --- !u!1 &2276476714307864503
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 3483659862856505796}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalPosition: {x: -1.55, y: 3.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

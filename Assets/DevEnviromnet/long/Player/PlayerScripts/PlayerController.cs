@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerConfigs _configs;
     [SerializeField] public Rigidbody2D _rb;
     [SerializeField] public Animator _anim;
+    [SerializeField] private PlayerHealthController _playerHealthController;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Initialize the player state machine
         _playerStateMachine.Initialize(_playerStateMachine.idleState);
+        _stats.ResetStats();
     }
 
 
@@ -82,6 +84,17 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Handle the player state machine
         _playerStateMachine.Execute();
 
+        if(_playerStateMachine.CurrentState is PlayerDeadState)
+        {
+            return;
+        }
+        if(_stats.currentHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+            _playerStateMachine.TransitionTo(new PlayerDeadState(this));
+        }
+        
+       
         //Test the player got hit by the enemy
         if(UnityEngine.Input.GetKeyDown(KeyCode.H))
         {
@@ -142,7 +155,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        _stats.TakeDamage(damage);
+        // _stats.TakeDamage(damage);
+        _anim.SetTrigger("Hurt");
+        //Set color to red
+        _playerHealthController.TakeDamage(damage);
+        
     }
 
 }
