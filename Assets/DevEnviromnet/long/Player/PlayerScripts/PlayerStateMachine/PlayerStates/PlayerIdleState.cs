@@ -11,7 +11,7 @@ public class PlayerIdleState : IPlayerState
 
     public void Enter()
     {
-        Debug.Log("Entering Idle State");
+        // Debug.Log("Entering Idle State");
     }
 
     public void Execute()
@@ -22,6 +22,8 @@ public class PlayerIdleState : IPlayerState
         }
         if(player.Input.MoveDirection.x != 0){
             player.PlayerStateMachine.TransitionTo(new PlayerRunState(player));
+        }if(player.PlayerMovementController.isDashing){
+            player.PlayerStateMachine.TransitionTo(new PlayerDashState(player));
         }
         
 
@@ -29,6 +31,6 @@ public class PlayerIdleState : IPlayerState
 
     public void Exit()
     {
-        Debug.Log("Exiting Idle State");
+        // Debug.Log("Exiting Idle State");
     }
 }

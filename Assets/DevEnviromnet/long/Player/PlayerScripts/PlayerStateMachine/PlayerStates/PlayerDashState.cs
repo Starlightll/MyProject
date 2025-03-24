@@ -11,16 +11,21 @@ public class PlayerDashState : IPlayerState
 
     public void Enter()
     {
-        Debug.Log("Entering Dash State");
+        // Debug.Log("Entering Dash State");
     }
 
     public void Execute()
     {
         Debug.Log("Executing Dash State");
+        player.Stats.isInvincible = true;
+        if(!player.PlayerMovementController.isDashing){
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.idleState);
+        }
     }
 
     public void Exit()
     {
-        Debug.Log("Exiting Dash State");
+        player.Stats.isInvincible = false;
+        // Debug.Log("Exiting Dash State");
     }
 }

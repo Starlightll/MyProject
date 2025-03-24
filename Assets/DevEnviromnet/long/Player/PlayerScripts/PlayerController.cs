@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] public Rigidbody2D _rb;
     [SerializeField] public Animator _anim;
     [SerializeField] private PlayerHealthController _playerHealthController;
+    [SerializeField] private PlayerMovementController _playerMovementController;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public PlayerInput Input => _input;
     public PlayerConfigs Configs => _configs;
 
+    public PlayerMovementController PlayerMovementController => _playerMovementController;
     public PlayerStateMachine PlayerStateMachine => _playerStateMachine;
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
@@ -83,8 +85,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Handle the player state machine
         _playerStateMachine.Execute();
+        // Debug.Log("Current State: " + _playerStateMachine.CurrentState);
 
-        if(_playerStateMachine.CurrentState is PlayerDeadState)
+        if(_playerStateMachine.CurrentState is PlayerDeadState or PlayerDashState)
         {
             return;
         }
