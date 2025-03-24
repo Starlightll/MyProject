@@ -55,6 +55,8 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 playerAttackVelocity;
 
     private TrailRenderer dashTrail;
+
+    public Transform middleObject;
     
 
 
@@ -106,10 +108,11 @@ public class PlayerMovementController : MonoBehaviour
 
         // Handle dashing
         dashTimer += Time.deltaTime;
-        if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift) && dashTimer >= dashCooldown && !isDashing)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift) && dashTimer >= dashCooldown && !isDashing && _playerController.Stats.currentStamina >= 40 && !isTouchingWall)
         {
             Debug.Log("Dash");
             // rb.linearVelocity = new Vector2(0, 0);
+            _playerController.Stats.currentStamina -= 40;
             StartCoroutine(Dash());
             _playerController.PlayerStateMachine.TransitionTo(_playerController.PlayerStateMachine.dashState);
 
@@ -228,6 +231,7 @@ public class PlayerMovementController : MonoBehaviour
 
         // Get dash direction
         Vector2 dashDirection;
+        Vector2 rotateDirection;
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -240,6 +244,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             dashDirection = new Vector2(facingRight ? 1f : -1f, 0f);
         }
+        rotateDirection = new Vector2(facingRight ? -1f : 1f, 0f);
 
         // Setup dash effects
         if (dashTrail == null && TryGetComponent(out dashTrail))
@@ -255,7 +260,7 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         // Time slow effect for better game feel
-        Time.timeScale = 0.8f;
+        Time.timeScale = 0.9f;
 
         // // Optional camera shake
         // if (Camera.main != null && Camera.main.TryGetComponent(out CinemachineImpulseSource impulse))
@@ -285,15 +290,26 @@ public class PlayerMovementController : MonoBehaviour
 
             rb.linearVelocity = dashDirection * dashSpeed;
 
+            //Rotate player Z with fixed time and calculate number of rotations based on time
+            
+            // middleObject.localRotation = Quaternion.Euler(0, 0, 360 * (elapsedTime / dashDuration));
+
+            
+            
+            _playerController._anim.SetBool("IsDashing", true);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         // Restore normal time
         Time.timeScale = 1f;
+        //Set rotation angle to 0 when dash ends
+        middleObject.localRotation = Quaternion.Euler(0, 0, 0);
 
         // End dash with momentum preservation
         dashTimer = 0;
         isDashing = false;
+        _playerController._anim.SetBool("IsDashing", false);
 
         // // End velocity has some momentum in dash direction
         // rb.linearVelocity = dashDirection * dashEndSpeed;
@@ -309,7 +325,7 @@ public class PlayerMovementController : MonoBehaviour
 
         // Re-enable collisions
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
-
+        
         // Set cooldown
         dashCooldownTimer = dashCooldown;
     }

@@ -10,6 +10,8 @@ using UnityEngine;
         public float currentHealth;
         public float maxMana;
         public float currentMana;
+        public float maxStamina;
+        public float currentStamina;
         
         [Header("Attributes")]
         public float attackPower;
@@ -35,6 +37,7 @@ using UnityEngine;
         {
             currentHealth = maxHealth;
             currentMana = maxMana;
+            currentStamina = maxStamina;
             // Reset all other stats
         }
 

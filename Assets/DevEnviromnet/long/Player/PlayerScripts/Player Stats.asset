@@ -15,7 +15,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   maxMana: 100
-  currentMana: 100
+  currentMana: 12
+  maxStamina: 100
+  currentStamina: 100
   attackPower: 5
   attackDamageMultiplier: 1
   attackRange: 0

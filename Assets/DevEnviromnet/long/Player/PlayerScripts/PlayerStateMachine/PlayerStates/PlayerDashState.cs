@@ -18,7 +18,7 @@ public class PlayerDashState : IPlayerState
     {
         Debug.Log("Executing Dash State");
         player.Stats.isInvincible = true;
-        if(!player.PlayerMovementController.isDashing){
+        if(!player.PlayerMovementController.isDashing || player.PlayerMovementController.isTouchingWall){
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.idleState);
         }
     }

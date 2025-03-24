@@ -101,7 +101,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Test the player got hit by the enemy
         if(UnityEngine.Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(Random.Range(2, 10));
+            // TakeDamage(Random.Range(2, 10));
+            Stats.currentMana -= 10;
         }
 
         comboTimer += Time.deltaTime;
