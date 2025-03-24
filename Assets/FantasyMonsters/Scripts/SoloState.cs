@@ -15,7 +15,7 @@ namespace Assets.FantasyMonsters.Scripts
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.SetBool("Action", true);
+            animator.SetBool("IsRuning", true);
             Active = true;
         }
 
@@ -35,7 +35,7 @@ namespace Assets.FantasyMonsters.Scripts
 
             if (Continue == null)
             {
-                animator.SetBool("Action", false);
+                animator.SetBool("IsRuning", false);
             }
             else
             {
