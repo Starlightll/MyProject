@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457159649690964230}
   - component: {fileID: 7468478298432123344}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7446469390512971134}
   - component: {fileID: 5233611455339570694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4295201960362197006}
   - component: {fileID: 3511377675342543057}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegFrontL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 114880009048460585}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294192456977389842}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6080453603348916219}
   - component: {fileID: 1135369951590436113}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegFrontR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7934961309666255978}
   - component: {fileID: 4598560566448754313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,6 +505,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4919816238481063569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219415890066288964}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &219415890066288964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4919816238481063569}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 1.59, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1327868365681699433}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5373955690249570433
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,8 +552,8 @@ GameObject:
   - component: {fileID: 4795526545112462192}
   - component: {fileID: 2077517196972188200}
   - component: {fileID: 3309586363683387902}
-  - component: {fileID: 5427769124905717884}
-  m_Layer: 0
+  - component: {fileID: 1683308095987769100}
+  m_Layer: 7
   m_Name: MinerBoar
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -546,6 +577,7 @@ Transform:
   - {fileID: 7934961309666255978}
   - {fileID: 8558933773549645753}
   - {fileID: 294192456977389842}
+  - {fileID: 219415890066288964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3427739864359785869
@@ -690,7 +722,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -702,7 +734,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5427769124905717884
+--- !u!114 &1683308095987769100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -711,26 +743,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 5373955690249570433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284de4ce6b23556429be684d2e233852, type: 3}
+  m_Script: {fileID: 11500000, guid: d44aebf5749e9fc46bb508b016299a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
+  WalkSpeed: 2
+  RunSpeed: 5
+  FlySpeed: 5
+  Hp: 250
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 12
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 5584539609906919933}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 219415890066288964}
   groundCheck: {fileID: 294192456977389842}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 5584539609906919933}
 --- !u!1 &6482775864414466679
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3315376219588791823}
   - component: {fileID: 5429498864454582949}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegBackL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6333331345268563994}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,7 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6486206867929537837}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AnchorWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +926,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3976250408720052231}
   - component: {fileID: 751520929011194210}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LegBackR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,9 +1015,17 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1705703619297114216, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Name
       value: Hp3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230202700902172109, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_Pivot.x
@@ -1062,6 +1106,10 @@ PrefabInstance:
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722452020556545427, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

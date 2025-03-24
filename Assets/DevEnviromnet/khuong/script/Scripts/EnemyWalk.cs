@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWalk : Enemy
+public class EnemyWalk : Enemy, IDamageable
 {
     private Vector2 direction;
     private Vector2 MinPos;
@@ -66,6 +66,8 @@ public class EnemyWalk : Enemy
     {
         isChasing = true;
         isAttacking = false;
+        animator.SetInteger("State", 3);
+        animator.SetBool("Action", false);
 
 
         //Distant on x axis between player and enemy
@@ -114,14 +116,23 @@ public class EnemyWalk : Enemy
     }
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        animator.SetInteger("State", 9);
+        StartCoroutine(ReturnToPoolAfterDelay());
+
+    }
+    private IEnumerator ReturnToPoolAfterDelay()
+    {
+        Enemy_Pool enemy_Pool = UnityEngine.Object.FindFirstObjectByType<Enemy_Pool>();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        ResetState();
+        enemy_Pool.ReturnToPool(gameObject);
     }
 
     protected override void Patrol()
     {
         if (animator != null)
         {
-            animator.SetInteger("State", 3);
+            animator.SetInteger("State", 2);
             animator.SetBool("Action", false);
         }
 
@@ -154,10 +165,23 @@ public class EnemyWalk : Enemy
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
     }
 
-    //protected override void TakeDame(float dame)
-    //{
-    //    throw new System.NotImplementedException();
-    //}
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth / Hp;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        animator.SetTrigger("Hurt");
+        Invoke(nameof(ResetHurt), 0.3f);
+    }
+
+    void ResetHurt()
+    {
+        animator.ResetTrigger("Hurt");
+        animator.SetBool("isHurt", false);
+    }
 
 
 }
