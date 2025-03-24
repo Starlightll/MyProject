@@ -38,7 +38,16 @@ public class EnemySpawner : MonoBehaviour
         foreach (var spawnPoint in spawnPoints)
             activeEnemies[spawnPoint] = null;
 
-        InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
+        StartCoroutine(SpawnEnemyRoutine());
+    }
+
+    private IEnumerator SpawnEnemyRoutine()
+    {
+        while (true)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
+        }
     }
 
     private void SpawnEnemy()
@@ -50,8 +59,6 @@ public class EnemySpawner : MonoBehaviour
                 bool hasGround = CheckGround(spawnPoint.position);
                 List<Enemy> validEnemies = hasGround ? groundEnemies : airEnemies;
 
-
-
                 if (validEnemies.Count > 0)
                 {
                     int randomIndex = Random.Range(0, validEnemies.Count);
@@ -60,15 +67,10 @@ public class EnemySpawner : MonoBehaviour
                     if (enemyPools.TryGetValue(enemyPrefab, out var pool))
                     {
                         Enemy enemy = pool.GetObject();
-
-                        if (enemy.spawnPosition == Vector2.zero)
-                        {
-                            enemy.spawnPosition = spawnPoint.position;
-                        }
-                        enemy.transform.position = enemy.spawnPosition;
-
+                        enemy.gameObject.SetActive(true); // Kích hoạt enemy khi spawn
+                        enemy.transform.position = spawnPoint.position;
+                        enemy.spawnPosition = spawnPoint.position;
                         activeEnemies[spawnPoint] = enemy;
-
                     }
                 }
             }
@@ -78,17 +80,16 @@ public class EnemySpawner : MonoBehaviour
     bool CheckGround(Vector3 position)
     {
         RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, groundCheckRadius, groundLayer);
-
-        bool grounded = hit.collider != null;
-
-        return grounded;
+        return hit.collider != null;
     }
-
-
 
     public void ReturnEnemyToPool(Enemy enemy)
     {
-        StartCoroutine(RespawnEnemy(enemy));
+        if (activeEnemies.ContainsValue(enemy))
+        {
+            enemy.gameObject.SetActive(false);
+            StartCoroutine(RespawnEnemy(enemy));
+        }
     }
 
     private IEnumerator RespawnEnemy(Enemy enemy)
@@ -105,13 +106,22 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        // Đợi trước khi spawn lại
         yield return new WaitForSeconds(respawnDelay);
+        Debug.Log("Respawned Time: " + respawnDelay);
 
-        SpawnEnemy();
-        yield break; // Đảm bảo coroutine kết thúc đúng
+        if (enemyPools.TryGetValue(enemy, out ObjectPool<Enemy> pool))
+        {
+            pool.ReturnObject(enemy);
+        }
+
+        if (enemySpawnPoint != null && activeEnemies[enemySpawnPoint] == null && enemyPools.TryGetValue(enemy, out pool))
+        {
+            Enemy respawnedEnemy = pool.GetObject();
+            respawnedEnemy.transform.position = enemySpawnPoint.position;
+            respawnedEnemy.gameObject.SetActive(true);
+            activeEnemies[enemySpawnPoint] = respawnedEnemy;
+        }
     }
-
 
     private void OnDrawGizmos()
     {
