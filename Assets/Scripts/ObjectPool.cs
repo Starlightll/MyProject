@@ -22,14 +22,16 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public T GetObject()
     {
-        if (pool.Count > 0)
+        if (pool.Count == 0)
         {
-            T newObj = pool.Dequeue();
-            newObj.gameObject.SetActive(true);
+            T newObj = GameObject.Instantiate(prefab, parent);
+            newObj.gameObject.SetActive(false);
             return newObj;
         }
 
-        return GameObject.Instantiate(prefab, parent);
+        T obj = pool.Dequeue();
+        obj.gameObject.SetActive(true);
+        return obj;
     }
 
     public void ReturnObject(T obj)
