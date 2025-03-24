@@ -1631,7 +1631,7 @@ MonoBehaviour:
   groundCheckDistance: 0.5
   player: {fileID: 0}
   attackRange: 10
-  diveAttackRange: 3
+  diveAttackRange: 20
   diveSpeed: 30
   enragedThreshold: 0.3
   enragedSpeedMultiplier: 1.5

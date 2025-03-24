@@ -35,6 +35,12 @@ public class BossController : MonoBehaviour
     private float health = 100;
     private float maxHealth = 100;
 
+    [Header("Điểm tấn công")]
+    public Transform attackPoint;
+    public float PainAttack = 1f;
+    public int attackDamage = 20;
+    public LayerMask playerLayer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,6 +116,13 @@ public class BossController : MonoBehaviour
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
         // 🏴‍☠️ Ở đây có thể thêm animation tấn công
+        Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
+
+        if (playerHit != null)
+        {
+
+            Debug.Log("Player bị trúng đòn!");
+        }
         yield return new WaitForSeconds(1f); // Giả lập thời gian ra đòn
         isAttacking = false;
     }
@@ -121,7 +134,7 @@ public class BossController : MonoBehaviour
 
         Vector2 direction = new Vector2(player.position.x, player.position.y) - (Vector2)transform.position;
         direction.Normalize();
-
+        FlipBoss(direction.x);
         rb.linearVelocity = direction * diveSpeed;
 
         yield return new WaitForSeconds(0.5f); // Giữ tốc độ trong 0.5s
@@ -156,6 +169,8 @@ public class BossController : MonoBehaviour
 
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(rb.position, diveAttackRange);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(attackPoint.position, PainAttack);
         }
     }
 
