@@ -92,17 +92,17 @@ public class PlayerMovementController : MonoBehaviour
                 canDoubleJump = false;
             }
         }
-        
+
         // Handle dashing
-        // if (Input.GetButtonDown("Fire1") && dashCooldownTimer <= 0 && !isDashing)
-        // {
-        //     StartCoroutine(Dash());
-        // }
-        
+        if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
+
         // // Update cooldowns
         // if (dashCooldownTimer > 0)
         //     dashCooldownTimer -= Time.deltaTime;
-            
+
         // // Handle wall sliding
         // if (isTouchingWall && !isGrounded && horizontalInput != 0)
         // {
@@ -117,7 +117,7 @@ public class PlayerMovementController : MonoBehaviour
         // {
         //     isWallSliding = false;
         // }
-        
+
         // Update animations
         UpdateAnimations();
     }
