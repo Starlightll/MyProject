@@ -11,7 +11,7 @@ public class PlayerRunState : IPlayerState
 
     public void Enter()
     {
-        Debug.Log("Entering Run State");
+        // Debug.Log("Entering Run State");
     }
 
     public void Execute()
@@ -21,11 +21,13 @@ public class PlayerRunState : IPlayerState
         }
         if(player.Input.MoveDirection.x == 0){
             player.PlayerStateMachine.TransitionTo(new PlayerIdleState(player));
+        }if(player.PlayerMovementController.isDashing){
+            player.PlayerStateMachine.TransitionTo(new PlayerDashState(player));
         }
     }
 
     public void Exit()
     {
-        Debug.Log("Exiting Run State");
+        // Debug.Log("Exiting Run State");
     }
 }
