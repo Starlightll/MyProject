@@ -38,6 +38,9 @@ public class PlayerAttackState : IPlayerState
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.idleState);
         }
+        if(player.PlayerMovementController.isDashing){
+            player.PlayerStateMachine.TransitionTo(new PlayerDashState(player));
+        }
         else if(isAttackFinished && player.Input.MoveDirection.x != 0)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.runState);
