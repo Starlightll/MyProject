@@ -91,7 +91,7 @@ public class EnemyWalk : Enemy, IDamageable
                 direction = Vector2.right;
             }
 
-            if (!IsGroundAhead())
+            if (!IsGroundAhead() || IsObstacleAhead())
             {
                 direction *= -1;
                 return;
@@ -106,6 +106,12 @@ public class EnemyWalk : Enemy, IDamageable
     }
 
 
+
+    bool IsObstacleAhead()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 0.5f, groundLayer);
+        return hit.collider != null;
+    }
 
 
 
@@ -122,10 +128,10 @@ public class EnemyWalk : Enemy, IDamageable
     }
     private IEnumerator ReturnToPoolAfterDelay()
     {
-        Enemy_Pool enemy_Pool = UnityEngine.Object.FindFirstObjectByType<Enemy_Pool>();
+        EnemySpawner enemy_Pool = UnityEngine.Object.FindFirstObjectByType<EnemySpawner>();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         ResetState();
-        enemy_Pool.ReturnToPool(gameObject);
+        enemy_Pool.ReturnEnemyToPool(this);
     }
 
     protected override void Patrol()
