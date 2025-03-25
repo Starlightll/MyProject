@@ -204,7 +204,7 @@ MonoBehaviour:
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.7
+  attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 8005592262545121263}
   spawnPosition: {x: 0, y: 0}

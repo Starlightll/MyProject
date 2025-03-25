@@ -199,11 +199,11 @@ MonoBehaviour:
   Hp: 260
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 10
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
-  MagicDame: 0
+  MagicDame: 10
   PatrolRange: 5
   attackCooldown: 1
   lastAttackTime: 0

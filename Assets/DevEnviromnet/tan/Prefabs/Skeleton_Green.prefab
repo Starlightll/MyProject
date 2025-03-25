@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 3600533394682542667}
   - component: {fileID: 3228653017840071359}
   - component: {fileID: 333317147644941228}
-  - component: {fileID: 1148823492655267208}
+  - component: {fileID: 2356070391097252351}
   m_Layer: 7
   m_Name: Skeleton_Green
   m_TagString: Enemy
@@ -242,7 +242,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.07820348, y: -0.008231947}
   m_Size: {x: 0.25909433, y: 0.49782205}
   m_Direction: 0
---- !u!114 &1148823492655267208
+--- !u!114 &2356070391097252351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7207491007060666423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc604832b99f434a826b6aa1efa0cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ebeb2473d0830445a95b9ae6a92707b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 2
@@ -282,7 +282,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackPoint: {fileID: 3690416078545944577}
-  delay: 0
+  delay: 0.3
 --- !u!1001 &4958256760464011760
 PrefabInstance:
   m_ObjectHideFlags: 0
