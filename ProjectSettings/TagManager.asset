@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Enemy
   - Trap
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Ground
   - Enemy
   - Player
-  - 
+  - Boss
   - 
   - 
   - 
@@ -44,14 +45,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 3527788699
-    locked: 0
   - name: Background1
     uniqueID: 781931655
     locked: 0
   - name: Background2
     uniqueID: 1249330441
+    locked: 0
+  - name: Background3
+    uniqueID: 1177045741
+    locked: 0
+  - name: Background
+    uniqueID: 3527788699
     locked: 0
   - name: Light
     uniqueID: 2079006769
@@ -62,13 +66,16 @@ TagManager:
   - name: Enemy
     uniqueID: 3438053853
     locked: 0
-  - name: Fire
-    uniqueID: 1734006367
-    locked: 0
   - name: Player
     uniqueID: 916264935
     locked: 0
-  - name: ForeGround
+  - name: Fire
+    uniqueID: 1734006367
+    locked: 0
+  - name: GroundProps
+    uniqueID: 3209217061
+    locked: 0
+  - name: Foreground
     uniqueID: 4250280641
     locked: 0
   - name: Hp3
@@ -79,6 +86,9 @@ TagManager:
     locked: 0
   - name: PlayerHead
     uniqueID: 1076841431
+    locked: 0
+  - name: EnemyBullet
+    uniqueID: 1801228639
     locked: 0
   m_RenderingLayers:
   - Default

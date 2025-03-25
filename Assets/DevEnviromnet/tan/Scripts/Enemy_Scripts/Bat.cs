@@ -10,6 +10,7 @@ public class Bat : Enemy, IDamageable
     [SerializeField] private float patrolHeightVariation = 2f;
     // [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private LayerMask playerLayer;
 
     private Animator animator;
     // private bool isAttacking = false;
@@ -58,6 +59,16 @@ public class Bat : Enemy, IDamageable
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1, playerLayer);
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(PhysicalDame);
+                Debug.Log("Take Dame");
+            }
+        }
         lastAttackTime = Time.time;
     }
 
@@ -110,12 +121,14 @@ public class Bat : Enemy, IDamageable
         if ((directionX > 0 && transform.localScale.x < 0) || (directionX < 0 && transform.localScale.x > 0))
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
         }
     }
 
     protected override void Die()
     {
-        animator.SetTrigger("Die");
+        //animator.SetTrigger("Die");
         StartCoroutine(ReturnToPoolAfterDelay());
     }
 

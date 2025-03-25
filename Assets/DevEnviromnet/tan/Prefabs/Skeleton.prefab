@@ -166,7 +166,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 100
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -205,7 +205,7 @@ MonoBehaviour:
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 1
+  attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 3890318002959135500}
   spawnPosition: {x: 0, y: 0}
