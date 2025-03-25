@@ -122,10 +122,10 @@ public class EnemyWalk : Enemy, IDamageable
     }
     private IEnumerator ReturnToPoolAfterDelay()
     {
-        Enemy_Pool enemy_Pool = UnityEngine.Object.FindFirstObjectByType<Enemy_Pool>();
+        EnemySpawner enemy_Pool = UnityEngine.Object.FindFirstObjectByType<EnemySpawner>();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         ResetState();
-        enemy_Pool.ReturnToPool(gameObject);
+        enemy_Pool.ReturnEnemyToPool(this);
     }
 
     protected override void Patrol()
@@ -138,10 +138,11 @@ public class EnemyWalk : Enemy, IDamageable
 
         FaceToward(direction);
 
-        if (!IsGroundAhead())
+        if (!IsGroundAhead() || !IsGroundAhead2())
         {
             direction *= -1;
         }
+
 
 
         if (transform.position.x > MaxPos.x)
@@ -163,6 +164,10 @@ public class EnemyWalk : Enemy, IDamageable
     private bool IsGroundAhead()
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
+    }
+    private bool IsGroundAhead2()
+    {
+        return Physics2D.Raycast(enemyEye.position, Vector2.right, 3, groundLayer);
     }
 
     public void TakeDamage(float damage)
