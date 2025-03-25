@@ -14,9 +14,7 @@ public class DashSkill : Skill
 
     private Vector2 playerAttackVelocity;
 
-    private TrailRenderer dashTrail;
-
-
+    public TrailRenderer dashTrail;
 
     public AnimationCurve dashCurve; // For inspector customization
     public AnimationCurve dashSpeedCurve; // For inspector customization
@@ -26,17 +24,18 @@ public class DashSkill : Skill
     public override void ActivateSkill(PlayerController player)
     {
         player.StartCoroutine(PerformDash(player));
+        player.StartCoroutine(StartCooldown());
     }
 
     public override bool CanActiveSkill(PlayerController player)
     {
-        return player.Stats.currentMana >= manaCost && player.PlayerStateMachine.CurrentState is not PlayerDashState && !player.PlayerMovementController.isTouchingWall;
+        return player.Stats.currentStamina >= staminaCost && player.PlayerStateMachine.CurrentState is not PlayerDashState && !player.PlayerMovementController.isTouchingWall;
     }
 
     private IEnumerator PerformDash(PlayerController player)
     {
        
-        player.Stats.currentMana -= manaCost;
+        player.Stats.currentStamina -= staminaCost;
         // Setup
         player.PlayerMovementController.isDashing = true;
         float originalGravity = player.PlayerMovementController.rb.gravityScale;
@@ -44,7 +43,6 @@ public class DashSkill : Skill
 
         // Get dash direction
         Vector2 dashDirection;
-        Vector2 rotateDirection;
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -57,7 +55,7 @@ public class DashSkill : Skill
         {
             dashDirection = new Vector2(player.PlayerMovementController.facingRight ? 1f : -1f, 0f);
         }
-        rotateDirection = new Vector2(player.PlayerMovementController.facingRight ? -1f : 1f, 0f);
+        
 
         // Setup dash effects
         if (dashTrail == null && player.TryGetComponent(out TrailRenderer trail))

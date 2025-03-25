@@ -19,8 +19,8 @@ MonoBehaviour:
   player: {fileID: 4960598903292135017, guid: fc2805d09fbaae741b64f5ef6f00a2e8, type: 3}
   weaponName: Sword Of Arts
   weaponIcon: {fileID: 0}
-  baseDamage: 150
-  attackSpeed: 100
+  baseDamage: 10
+  attackSpeed: 60
   attackRate: 0
   critChance: 0
   critDamage: 0
@@ -59,7 +59,8 @@ MonoBehaviour:
   comboResetTime: 1.5
   comboResetDuration: 0
   skills:
-  - {fileID: 11400000, guid: 21c53b6ba9b53654dbaea69ed569b3e0, type: 2}
+  - {fileID: 11400000, guid: 63a5b8dbbb2dbac42a7061b57e15ebeb, type: 2}
+  - {fileID: 11400000, guid: a214e4170bd460c4b862f2a7fc3c485a, type: 2}
   runtimeAttackRange: 0
   slashEffects:
   - {fileID: 2126529731121513941, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}

@@ -60,3 +60,5 @@ MonoBehaviour:
   comboResetDuration: 0
   skills:
   - {fileID: 11400000, guid: 63a5b8dbbb2dbac42a7061b57e15ebeb, type: 2}
+  - {fileID: 11400000, guid: 21c53b6ba9b53654dbaea69ed569b3e0, type: 2}
+  - {fileID: 11400000, guid: 242d6d440d64cba489a675a6d8da8a90, type: 2}

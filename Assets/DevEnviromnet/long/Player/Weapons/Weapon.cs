@@ -62,6 +62,8 @@ public abstract class Weapon : ScriptableObject
     public float comboResetTime;
     public float comboResetDuration;
 
+ 
+
     [Header("Weapon Skills")]
     public Skill[] skills;
 

@@ -8,6 +8,8 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private Skill[] defaultSkills;
     [SerializeField] private Skill[] currentSkills;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private SkillBarManagement _skillBarManagement;
+    [SerializeField] private PlayerStaminaController _playerStaminaController;
 
 
     private Dictionary<Skill, float> _cooldownTimers = new Dictionary<Skill, float>();
@@ -37,32 +39,66 @@ public class SkillManager : MonoBehaviour
                 {
                     _cooldownTimers[skill] -= Time.deltaTime;
                 }
+                if(_cooldownTimers[skill] > skill.cooldown){
+                    _cooldownTimers[skill] = skill.cooldown;
+                }
             }
             else
             {
                 _cooldownTimers.Add(skill, skill.cooldown);
             }
+            skill.initialCooldown = _cooldownTimers[skill] <= 0 ? 0 : _cooldownTimers[skill];
+        }
 
-
-            if(skill.CanActiveSkill(GetComponent<PlayerController>()) && _cooldownTimers[skill] <= 0)
+        //Skill 1: Dash
+        if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        {
+            Skill skill = _playerController.CurrentWeapon.skills[0];
+            if(skill.CanActiveSkill(_playerController) && _cooldownTimers[skill] <= 0)
             {
-                if(Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    skill.ActivateSkill(GetComponent<PlayerController>());
-                }
-                if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-                {
-                    if(skill is DashSkill)
-                    {
-                        _cooldownTimers[skill] = skill.cooldown;
-                        DashSkill dashSkill = (DashSkill)skill;
+                //Start UI display cooldown
+                // _skillBarManagement.StartCooldown(_playerController.CurrentWeapon.skills[0].cooldown, 0);
 
-                        dashSkill.ActivateSkill(GetComponent<PlayerController>());
-                        // _playerController.PlayerStateMachine.TransitionTo(_playerController.PlayerStateMachine.dashState);
-                    }
-                }
+                //Activate skill
+                skill.ActivateSkill(_playerController);
+                _playerStaminaController.timer = 0;
+                _cooldownTimers[skill] = skill.cooldown;
             }
         }
+        
+        //Skill 2: Weapon Skill
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Skill skill = _playerController.CurrentWeapon.skills[1];
+            if(skill.CanActiveSkill(_playerController) && _cooldownTimers[skill] <= 0)
+            {
+                //Start UI display cooldown
+                // _skillBarManagement.StartCooldown(_playerController.CurrentWeapon.skills[1].cooldown, 1);
+
+                //Activate skill
+                skill.ActivateSkill(_playerController);
+                _cooldownTimers[skill] = skill.cooldown;
+            }
+        }
+
+
+        // foreach(Skill skill in _playerController.CurrentWeapon.skills){
+        //     if(skill.CanActiveSkill(GetComponent<PlayerController>()) && _cooldownTimers[skill] <= 0)
+        //     {
+        //         if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        //         {
+        //             skillCooldownUI.StartCooldown(_playerController.CurrentWeapon.skills[0].cooldown, 0);
+                    
+        //             _cooldownTimers[skill] = skill.cooldown;
+        //         }
+        //         if(Input.GetKeyDown(KeyCode.Q))
+        //         {
+        //             skillCooldownUI.StartCooldown(_playerController.CurrentWeapon.skills[1].cooldown, 1);
+        //             _playerController.CurrentWeapon.skills[1].ActivateSkill(_playerController);
+        //             _cooldownTimers[skill] = skill.cooldown;
+        //         }
+        //     }
+        // }
     }
 
 }

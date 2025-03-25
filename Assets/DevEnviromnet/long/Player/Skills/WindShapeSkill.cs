@@ -10,6 +10,6 @@ public class WindShapeSkill : Skill
 
     public override bool CanActiveSkill(PlayerController player)
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 }
