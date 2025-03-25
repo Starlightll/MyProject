@@ -12,6 +12,10 @@ public class EnemyWalk : Enemy, IDamageable
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+    [SerializeField] private Transform attack_Point;
+    [SerializeField] private float PainAttack = 1f;
+    [SerializeField] private LayerMask playerLayer;
+
     private Animator animator;
 
 
@@ -53,7 +57,10 @@ public class EnemyWalk : Enemy, IDamageable
         {
             if (animator != null)
             {
+
                 animator.SetTrigger("Attack");
+                Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
+
             }
 
             isAttacking = true;
@@ -91,7 +98,7 @@ public class EnemyWalk : Enemy, IDamageable
                 direction = Vector2.right;
             }
 
-            if (!IsGroundAhead())
+            if (!IsGroundAhead() || IsObstacleAhead())
             {
                 direction *= -1;
                 return;
@@ -106,6 +113,12 @@ public class EnemyWalk : Enemy, IDamageable
     }
 
 
+
+    bool IsObstacleAhead()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 3f, groundLayer);
+        return hit.collider != null;
+    }
 
 
 
@@ -138,11 +151,10 @@ public class EnemyWalk : Enemy, IDamageable
 
         FaceToward(direction);
 
-        if (!IsGroundAhead() || !IsGroundAhead2())
+        if (!IsGroundAhead())
         {
             direction *= -1;
         }
-
 
 
         if (transform.position.x > MaxPos.x)
@@ -164,10 +176,6 @@ public class EnemyWalk : Enemy, IDamageable
     private bool IsGroundAhead()
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
-    }
-    private bool IsGroundAhead2()
-    {
-        return Physics2D.Raycast(enemyEye.position, Vector2.right, 3, groundLayer);
     }
 
     public void TakeDamage(float damage)
