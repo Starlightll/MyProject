@@ -96,7 +96,7 @@ public class PlayerMovementController : MonoBehaviour
             else if (isWallSliding || isTouchingWall)
             {
                 coyoteTimeCounter = coyoteTime; // Reset coyote time
-                canDoubleJump = false;
+                canDoubleJump = true;
                 WallJump();
             }
             else if (canDoubleJump)
