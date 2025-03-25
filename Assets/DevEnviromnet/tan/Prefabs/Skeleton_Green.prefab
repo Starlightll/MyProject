@@ -143,7 +143,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 7025154549869057301, guid: 95cf814edb4af6a4093c0e0e7139dfbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -190,7 +190,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 500
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -272,7 +272,7 @@ MonoBehaviour:
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   groundCheckDistance: 1
-  attackRange: 2
+  attackRange: 3
   detectionRange: 5
   groundCheck: {fileID: 6249212420513653214}
   groundLayer:

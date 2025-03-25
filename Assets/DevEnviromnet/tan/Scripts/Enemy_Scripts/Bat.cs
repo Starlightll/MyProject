@@ -128,7 +128,7 @@ public class Bat : Enemy, IDamageable
 
     protected override void Die()
     {
-        animator.SetTrigger("Die");
+        //animator.SetTrigger("Die");
         StartCoroutine(ReturnToPoolAfterDelay());
     }
 
