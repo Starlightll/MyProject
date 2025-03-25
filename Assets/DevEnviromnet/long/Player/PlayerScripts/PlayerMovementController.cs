@@ -10,10 +10,10 @@ public class PlayerMovementController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float wallSlideSpeed = 2f;
-    public float dashSpeed = 30f;
-    public float dashDuration = 0.25f;
-    public float dashCooldown = 2f;
-    public float dashEndSpeed = 8f; // Speed preserved after dash ends
+    // public float dashSpeed = 30f;
+    // public float dashDuration = 0.25f;
+    // public float dashCooldown = 2f;
+    // public float dashEndSpeed = 8f; // Speed preserved after dash ends
 
 
     [Header("References")]
@@ -27,12 +27,12 @@ public class PlayerMovementController : MonoBehaviour
     public float GroundCheckSize = 0.1f;
     public float HeadCheckSize = 0.1f;
     public float wallCheckDistance = 0.5f;
+    public float wallCheckSize = 0.1f;
+    public float wallCheckHeight = 0.1f;
+    public float wallCheckWidth = 0.1f;
     public float gravityScale = 5f;
     public float gravityScaleWallSlide = 1f;
-    public AnimationCurve dashCurve; // For inspector customization
-    public AnimationCurve dashSpeedCurve; // For inspector customization
-    public GameObject dashEffectPrefab; // Optional particle effect
-    public Color dashTrailColor = new Color(0.5f, 0.8f, 1f, 0.7f);
+
 
 
     [Header("System Variables")]
@@ -42,8 +42,8 @@ public class PlayerMovementController : MonoBehaviour
     public bool isWallSliding;
     public bool canDoubleJump;
     public bool isDashing = false;
-    public float dashCooldownTimer = 2f;
-    public float dashTimer;
+    // public float dashCooldownTimer = 2f;
+    // public float dashTimer;
     public bool facingRight = true;
     public float horizontalInput;
     public bool isOnWallJump = false;
@@ -107,16 +107,16 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         // Handle dashing
-        dashTimer += Time.deltaTime;
-        if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift) && dashTimer >= dashCooldown && !isDashing && _playerController.Stats.currentStamina >= 40 && !isTouchingWall)
-        {
-            Debug.Log("Dash");
-            // rb.linearVelocity = new Vector2(0, 0);
-            _playerController.Stats.currentStamina -= 40;
-            StartCoroutine(Dash());
-            _playerController.PlayerStateMachine.TransitionTo(_playerController.PlayerStateMachine.dashState);
+        // dashTimer += Time.deltaTime;
+        // if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift) && dashTimer >= dashCooldown && !isDashing && _playerController.Stats.currentStamina >= 40 && !isTouchingWall)
+        // {
+        //     Debug.Log("Dash");
+        //     // rb.linearVelocity = new Vector2(0, 0);
+        //     _playerController.Stats.currentStamina -= 40;
+        //     StartCoroutine(Dash());
+        //     _playerController.PlayerStateMachine.TransitionTo(_playerController.PlayerStateMachine.dashState);
 
-        }
+        // }
 
         // // Update cooldowns
         // if (dashCooldownTimer > 0)
@@ -224,110 +224,111 @@ public class PlayerMovementController : MonoBehaviour
 
     private IEnumerator Dash()
     {
-        // Setup
-        isDashing = true;
-        float originalGravity = rb.gravityScale;
-        rb.gravityScale = 4f; // No gravity during dash
+        yield return null;
+        // // Setup
+        // isDashing = true;
+        // float originalGravity = rb.gravityScale;
+        // rb.gravityScale = 4f; // No gravity during dash
 
-        // Get dash direction
-        Vector2 dashDirection;
-        Vector2 rotateDirection;
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        // // Get dash direction
+        // Vector2 dashDirection;
+        // Vector2 rotateDirection;
+        // float horizontal = Input.GetAxisRaw("Horizontal");
+        // float vertical = Input.GetAxisRaw("Vertical");
 
-        // Directional dash if there's input, otherwise dash in facing direction
-        if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
-        {
-            dashDirection = new Vector2(horizontal, vertical).normalized;
-        }
-        else
-        {
-            dashDirection = new Vector2(facingRight ? 1f : -1f, 0f);
-        }
-        rotateDirection = new Vector2(facingRight ? -1f : 1f, 0f);
-
-        // Setup dash effects
-        if (dashTrail == null && TryGetComponent(out dashTrail))
-        {
-            dashTrail.emitting = true;
-            dashTrail.startColor = dashTrailColor;
-        }
-
-        // Spawn dash effect
-        if (dashEffectPrefab != null)
-        {
-            Instantiate(dashEffectPrefab, transform.position, Quaternion.identity);
-        }
-
-        // Time slow effect for better game feel
-        Time.timeScale = 0.9f;
-
-        // // Optional camera shake
-        // if (Camera.main != null && Camera.main.TryGetComponent(out CinemachineImpulseSource impulse))
+        // // Directional dash if there's input, otherwise dash in facing direction
+        // if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
         // {
-        //     impulse.GenerateImpulse();
+        //     dashDirection = new Vector2(horizontal, vertical).normalized;
+        // }
+        // else
+        // {
+        //     dashDirection = new Vector2(facingRight ? 1f : -1f, 0f);
+        // }
+        // rotateDirection = new Vector2(facingRight ? -1f : 1f, 0f);
+
+        // // Setup dash effects
+        // if (dashTrail == null && TryGetComponent(out dashTrail))
+        // {
+        //     dashTrail.emitting = true;
+        //     dashTrail.startColor = dashTrailColor;
         // }
 
-        // Physics ignore layer
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        // // Spawn dash effect
+        // if (dashEffectPrefab != null)
+        // {
+        //     Instantiate(dashEffectPrefab, transform.position, Quaternion.identity);
+        // }
 
-        // Trigger dash animation
-        animator.SetTrigger("Dash");
+        // // Time slow effect for better game feel
+        // Time.timeScale = 0.9f;
 
-        // Smooth dash execution
-        float elapsedTime = 0f;
-        while (elapsedTime < dashDuration)
-        {
-            float speedCurve = dashSpeedCurve != null && dashSpeedCurve.keys.Length > 0 ?
-                dashSpeedCurve.Evaluate(elapsedTime / dashDuration) :
-                0f; // Fallback to constant speed 
-            // Use animation curve for dash shape
-            float curveValue = dashCurve != null && dashCurve.keys.Length > 0 ?
-                dashCurve.Evaluate(elapsedTime / dashDuration) : 0f; // Fallback to linear curve
-            // Apply velocity with curve
-            dashDirection.x = speedCurve * (facingRight ? 1f : -1f);
-            dashDirection.y = curveValue; // Upward curve for better feel
+        // // // Optional camera shake
+        // // if (Camera.main != null && Camera.main.TryGetComponent(out CinemachineImpulseSource impulse))
+        // // {
+        // //     impulse.GenerateImpulse();
+        // // }
 
-            rb.linearVelocity = dashDirection * dashSpeed;
+        // // Physics ignore layer
+        // Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
 
-            //Rotate player Z with fixed time and calculate number of rotations based on time
+        // // Trigger dash animation
+        // animator.SetTrigger("Dash");
+
+        // // Smooth dash execution
+        // float elapsedTime = 0f;
+        // while (elapsedTime < dashDuration)
+        // {
+        //     float speedCurve = dashSpeedCurve != null && dashSpeedCurve.keys.Length > 0 ?
+        //         dashSpeedCurve.Evaluate(elapsedTime / dashDuration) :
+        //         0f; // Fallback to constant speed 
+        //     // Use animation curve for dash shape
+        //     float curveValue = dashCurve != null && dashCurve.keys.Length > 0 ?
+        //         dashCurve.Evaluate(elapsedTime / dashDuration) : 0f; // Fallback to linear curve
+        //     // Apply velocity with curve
+        //     dashDirection.x = speedCurve * (facingRight ? 1f : -1f);
+        //     dashDirection.y = curveValue; // Upward curve for better feel
+
+        //     rb.linearVelocity = dashDirection * dashSpeed;
+
+        //     //Rotate player Z with fixed time and calculate number of rotations based on time
             
-            // middleObject.localRotation = Quaternion.Euler(0, 0, 360 * (elapsedTime / dashDuration));
+        //     // middleObject.localRotation = Quaternion.Euler(0, 0, 360 * (elapsedTime / dashDuration));
 
             
             
-            _playerController._anim.SetBool("IsDashing", true);
+        //     _playerController._anim.SetBool("IsDashing", true);
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        // Restore normal time
-        Time.timeScale = 1f;
-        //Set rotation angle to 0 when dash ends
-        middleObject.localRotation = Quaternion.Euler(0, 0, 0);
+        //     elapsedTime += Time.deltaTime;
+        //     yield return null;
+        // }
+        // // Restore normal time
+        // Time.timeScale = 1f;
+        // //Set rotation angle to 0 when dash ends
+        // middleObject.localRotation = Quaternion.Euler(0, 0, 0);
 
-        // End dash with momentum preservation
-        dashTimer = 0;
-        isDashing = false;
-        _playerController._anim.SetBool("IsDashing", false);
+        // // End dash with momentum preservation
+        // dashTimer = 0;
+        // isDashing = false;
+        // _playerController._anim.SetBool("IsDashing", false);
 
-        // // End velocity has some momentum in dash direction
-        // rb.linearVelocity = dashDirection * dashEndSpeed;
+        // // // End velocity has some momentum in dash direction
+        // // rb.linearVelocity = dashDirection * dashEndSpeed;
 
-        // Return to normal gravity
-        rb.gravityScale = originalGravity;
+        // // Return to normal gravity
+        // rb.gravityScale = originalGravity;
 
-        // Turn off dash effects
-        if (dashTrail != null)
-        {
-            dashTrail.emitting = false;
-        }
+        // // Turn off dash effects
+        // if (dashTrail != null)
+        // {
+        //     dashTrail.emitting = false;
+        // }
 
-        // Re-enable collisions
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
+        // // Re-enable collisions
+        // Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
         
-        // Set cooldown
-        dashCooldownTimer = dashCooldown;
+        // // Set cooldown
+        // dashCooldownTimer = dashCooldown;
     }
 
     // public IEnumerable Dash(Vector2 direction, float power, float duration)
@@ -364,7 +365,7 @@ public class PlayerMovementController : MonoBehaviour
     private void CheckWall()
     {
         Vector2 direction = facingRight ? Vector2.right : Vector2.left;
-        isTouchingWall = Physics2D.Raycast(wallCheck.position, direction, wallCheckDistance, groundLayer);
+        isTouchingWall = Physics2D.BoxCast(wallCheck.position, new Vector2(wallCheckWidth, wallCheckHeight), 0f, direction, wallCheckDistance, groundLayer);
         if (isTouchingWall && !isGrounded)
         {
             // Check if the player is sliding down the wall
@@ -407,9 +408,9 @@ public class PlayerMovementController : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(groundCheck.position, GroundCheckSize);
 
-        Gizmos.color = Color.cyan;
-        Vector2 direction = facingRight ? Vector2.right : Vector2.left;
-        Gizmos.DrawRay(wallCheck.position, direction * wallCheckDistance);
+        Gizmos.color = Color.red;
+        //Draw wall check box
+        Gizmos.DrawWireCube(wallCheck.position, new Vector3(wallCheckWidth, wallCheckHeight, 0));
 
         Gizmos.color = Color.yellow;
     }

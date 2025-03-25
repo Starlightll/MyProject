@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
         public int requiredLevel;
         public int requiredSkillPoints;
         public Skill[] requiredSkills;
+        public Weapon requiredWeapon;
 
 
         [Header("Skill Info")]

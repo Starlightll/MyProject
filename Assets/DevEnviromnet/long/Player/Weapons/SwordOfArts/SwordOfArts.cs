@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,7 +6,6 @@ using UnityEngine;
 public class SwordOfArts : Weapon
 {
     public float runtimeAttackRange = 0f;
-
 
     public GameObject[] slashEffects;
 

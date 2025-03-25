@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b546b40e4ed176e49b12193773c81062, type: 3}
-  m_Name: Sword Of Arts
+  m_Script: {fileID: 11500000, guid: a2e67c8034a0a8b4dbbf5b0e138b4cba, type: 3}
+  m_Name: Spear Of Nova
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 0}
   weaponTrail: {fileID: 0}
   weaponTrailHit: {fileID: 0}
   weaponTrailMiss: {fileID: 0}
-  player: {fileID: 4960598903292135017, guid: fc2805d09fbaae741b64f5ef6f00a2e8, type: 3}
-  weaponName: Sword Of Arts
+  player: {fileID: 0}
+  weaponName: 
   weaponIcon: {fileID: 0}
-  baseDamage: 150
-  attackSpeed: 100
+  baseDamage: 0
+  attackSpeed: 0
   attackRate: 0
   critChance: 0
   critDamage: 0
-  knockback: 10
+  knockback: 0
   attackRange: 0
   attackDuration: 0
-  attackCooldown: 1
+  attackCooldown: 0
   attackKnockback: 0
   attackStunDuration: 0
   attackManaCost: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 1.5
   critChanceMultiplier: 1.5
   critDamageMultiplier: 1.5
-  attackRangeMultiplier: 1
+  attackRangeMultiplier: 1.5
   attackDurationMultiplier: 1.5
   attackCooldownMultiplier: 1
   attackKnockbackMultiplier: 1.5
@@ -54,12 +54,9 @@ MonoBehaviour:
   attackEffects: []
   attackHitEffects: []
   attackMissEffects: []
-  comboEnabled: 1
+  comboEnabled: 0
   maxComboCount: 0
-  comboResetTime: 1.5
+  comboResetTime: 0
   comboResetDuration: 0
-  runtimeAttackRange: 0
-  slashEffects:
-  - {fileID: 2126529731121513941, guid: 781e95ebd314e874ab55cff3f911a1e1, type: 3}
-  - {fileID: 8121855661580006960, guid: cab90f85bcea990478387ac806c4965d, type: 3}
-  - {fileID: 1575611588403928121, guid: edb7e242d04a57e419cdea5f723ae1f5, type: 3}
+  skills:
+  - {fileID: 11400000, guid: 63a5b8dbbb2dbac42a7061b57e15ebeb, type: 2}

@@ -62,6 +62,9 @@ public abstract class Weapon : ScriptableObject
     public float comboResetTime;
     public float comboResetDuration;
 
+    [Header("Weapon Skills")]
+    public Skill[] skills;
+
     public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter);
     
     public abstract float CalculateTimeBetweenAttacks();

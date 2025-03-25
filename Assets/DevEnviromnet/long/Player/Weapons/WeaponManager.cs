@@ -8,7 +8,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private int  _currentWeaponIndex = 0;
     [SerializeField] private Weapon[] defaultWeapons;
     public Weapon CurrentWeapon => _unlockedWeapons[_currentWeaponIndex];
-
+    
+    private SkillManager _skillManager;
     private PlayerController _playerController;
 
     private void Awake()
