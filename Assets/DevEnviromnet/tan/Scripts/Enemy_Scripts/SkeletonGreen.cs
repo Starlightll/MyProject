@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skeleton : Enemy, IDamageable
+public class SkeletonGreen : Enemy, IDamageable
 {
     [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private float attackRange = 1f;
@@ -12,10 +12,10 @@ public class Skeleton : Enemy, IDamageable
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private float delay=0.5f;
+    [SerializeField] private float delay = 0.5f;
     private int direction = 1;
     private Animator animator;
-    
+
     // private bool isAttacking = false;
     private bool is_Chasing = false;
     private PlayerController playerController;
@@ -33,10 +33,7 @@ public class Skeleton : Enemy, IDamageable
     {
         if (PlayerInAttackRange())
         {
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                animator.SetTrigger("Attack");
-            }
+            Attack();
         }
         else if (CheckInRange())
         {
@@ -102,14 +99,22 @@ public class Skeleton : Enemy, IDamageable
 
     protected override void Attack()
     {
-        DealDamage();
-        lastAttackTime = Time.time;
+        if (Time.time - lastAttackTime >= attackCooldown)
+        {
+            isAttacking = true;
+            isChasing = false;
+            animator.SetTrigger("Attack");
+            lastAttackTime = Time.time;
 
+
+            Invoke(nameof(DealDamage), delay);
+        }
     }
     protected override void Flip()
     {
         direction *= -1;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
@@ -131,7 +136,7 @@ public class Skeleton : Enemy, IDamageable
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthBar.fillAmount = currentHealth/Hp;
+        healthBar.fillAmount = currentHealth / Hp;
         if (currentHealth <= 0)
         {
             Die();
@@ -149,7 +154,7 @@ public class Skeleton : Enemy, IDamageable
 
     private void DealDamage()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, 1, playerLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, 2, playerLayer);
         foreach (Collider2D hit in hits)
         {
             IDamageable damageable = hit.GetComponent<IDamageable>();
@@ -159,7 +164,7 @@ public class Skeleton : Enemy, IDamageable
                 Debug.Log("Take Dame");
             }
         }
-        
+
     }
 
     private void OnDrawGizmos()
