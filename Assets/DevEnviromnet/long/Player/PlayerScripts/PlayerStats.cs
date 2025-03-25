@@ -10,6 +10,8 @@ using UnityEngine;
         public float currentHealth;
         public float maxMana;
         public float currentMana;
+        public float maxStamina;
+        public float currentStamina;
         
         [Header("Attributes")]
         public float attackPower;
@@ -29,11 +31,13 @@ using UnityEngine;
         public float experienceToNextLevel = 500;
         public float level = 1;
         public float skillPoints;
+        public bool isInvincible = false;
 
         public void ResetStats()
         {
             currentHealth = maxHealth;
             currentMana = maxMana;
+            currentStamina = maxStamina;
             // Reset all other stats
         }
 
@@ -59,6 +63,10 @@ using UnityEngine;
 
         public void TakeDamage(float damage)
         {
+            if(isInvincible)
+            {
+                return;
+            }
             currentHealth -= damage;
             if (currentHealth <= 0)
             {

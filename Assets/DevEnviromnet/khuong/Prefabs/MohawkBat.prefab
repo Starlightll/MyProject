@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1760964577652595476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.25, z: 0}
+  m_LocalPosition: {x: -0, y: 1.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 4129628320981506092}
   - component: {fileID: 3198407378343845043}
   - component: {fileID: 4506783897291005584}
-  - component: {fileID: 4066052027405975163}
+  - component: {fileID: 3057759600556442380}
   m_Layer: 7
   m_Name: MohawkBat
   m_TagString: Enemy
@@ -94,9 +94,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2471714840597563476}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -6.45, y: -0.37, z: 0}
-  m_LocalScale: {x: -0.45, y: 0.45, z: 1}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1663256300004253023}
@@ -104,7 +104,7 @@ Transform:
   - {fileID: 2301256758220453324}
   - {fileID: 2085445158038846329}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6478222071201485926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -259,7 +259,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4066052027405975163
+--- !u!114 &3057759600556442380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,26 +268,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 2471714840597563476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b848934c5c18c240b39f6fcd51dd2b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 97a6e166e1247cf4e88ff02756ca13f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: 1
-  distance: 5
-  speed: 2
-  chaseSpeed: 5
-  groundCheckDistance: 1
-  attackRange: 1
-  groundCheck: {fileID: 2085445158038846329}
-  playerTransform: {fileID: 7082116837680190226, guid: f4d6e6e876f90734ca262f576e6c862c, type: 3}
-  groundLayer:
+  WalkSpeed: 2
+  RunSpeed: 4
+  FlySpeed: 6
+  Hp: 100
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 0
+  AttackSpeed: 0
+  AttackRange: 0
+  IsAttackRange: 0
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 1
+  lastAttackTime: 0
+  healthBar: {fileID: 2641503089935180680}
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 0}
+  detectionRange: 6
+  attackRange: 3
+  minPatrolDistance: 3
+  maxPatrolDistance: 15
+  patrolHeightVariation: 3
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  direction: 1
-  hpMax: 50
-  imageHp: {fileID: 2641503089935180680}
 --- !u!1 &4750822361301662873
 GameObject:
   m_ObjectHideFlags: 0

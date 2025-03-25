@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerConfigs _configs;
     [SerializeField] public Rigidbody2D _rb;
     [SerializeField] public Animator _anim;
+    [SerializeField] private PlayerHealthController _playerHealthController;
+    [SerializeField] private PlayerMovementController _playerMovementController;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public PlayerInput Input => _input;
     public PlayerConfigs Configs => _configs;
 
+    public PlayerMovementController PlayerMovementController => _playerMovementController;
     public PlayerStateMachine PlayerStateMachine => _playerStateMachine;
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
@@ -82,8 +85,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Handle the player state machine
         _playerStateMachine.Execute();
+        // Debug.Log("Current State: " + _playerStateMachine.CurrentState);
 
-        if(_playerStateMachine.CurrentState is PlayerDeadState)
+        if(_playerStateMachine.CurrentState is PlayerDeadState or PlayerDashState)
         {
             return;
         }
@@ -97,7 +101,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Test the player got hit by the enemy
         if(UnityEngine.Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(Random.Range(2, 10));
+            // TakeDamage(Random.Range(2, 10));
+            Stats.currentMana -= 10;
         }
 
         comboTimer += Time.deltaTime;
@@ -154,7 +159,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        _stats.TakeDamage(damage);
+        // _stats.TakeDamage(damage);
+        _anim.SetTrigger("Hurt");
+        //Set color to red
+        _playerHealthController.TakeDamage(damage);
+        
     }
 
 }
