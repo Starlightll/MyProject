@@ -110,16 +110,24 @@ public class BossKnightController : MonoBehaviour
         if (Time.time - lastAttackTime < attackCooldown) return;
 
         isAttacking = true;
-        animator.SetTrigger("skill_1");
         lastAttackTime = Time.time;
-        //if (player != null)
-        //{
-        //    Debug.Log("Player trúng đòn!");
-        //    // Gây sát thương cho Player
-        //}
 
-        Invoke("ResetAttack", 1f);
+        // Kiểm tra có đủ cooldown để dùng Skill 2 không
+        bool canUseSkill2 = (Time.time - lastSkill2Time >= skill2Cooldown);
+        bool useSkill2 = canUseSkill2 && (Random.value < 0.4f); // 40% cơ hội dùng Skill 2
+
+        if (useSkill2)
+        {
+            UseSkill2(); // Sử dụng Dark Bolt
+        }
+        else
+        {
+            animator.SetTrigger("skill_1"); // Đánh thường
+        }
+
+        Invoke("ResetAttack", 1.5f);
     }
+
 
     private void UseSkill2()
     {
