@@ -15,6 +15,8 @@ public class Boss : Enemy, IDamageable
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip bossSound;
+    [SerializeField] private float soundInterval = 10f;
 
     private float fireDamageTimer = 0f;
     private float fireDamageInterval = 1f;
@@ -40,20 +42,22 @@ public class Boss : Enemy, IDamageable
         savePath = Path.Combine(directoryPath, "bossData.json");
 
         LoadData();
+
+        InvokeRepeating(nameof(PlayBossSound), soundInterval, soundInterval);
     }
 
     void Update()
     {
         float distanceToPlayer = Vector2.Distance(groundCheck.position, player.position);
 
-        float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
+        float distanceToPlayerX = Mathf.Abs(player.position.x - groundCheck.position.x);
 
         fireDamageTimer += Time.deltaTime;
 
         if (fireDamageTimer >= fireDamageInterval)
         {
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, 4, playerLayer);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(groundCheck.position, 5, playerLayer);
             if (hits != null)
             {
                 DealDamage(MagicDame, hits);
@@ -63,7 +67,7 @@ public class Boss : Enemy, IDamageable
             fireDamageTimer = 0;
         }
 
-        if (distanceToPlayerX < 0.5f)
+        if (distanceToPlayerX < 5f)
         {
             isChasing = false;
             isAttacking = false;
@@ -235,5 +239,13 @@ public class Boss : Enemy, IDamageable
     {
         BossData data = new BossData { health = currentHealth, isDead = false };
         File.WriteAllText(savePath, JsonUtility.ToJson(data));
+    }
+
+    private void PlayBossSound()
+    {
+        if (audioSource != null && bossSound != null)
+        {
+            audioSource.PlayOneShot(bossSound);
+        }
     }
 }

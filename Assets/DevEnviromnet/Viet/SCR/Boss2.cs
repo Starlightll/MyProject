@@ -21,17 +21,18 @@ public class Boss2 : Enemy, IDamageable
     [SerializeField] private float leftLimit = -5f;
     [SerializeField] private float rightLimit = 5f;
 
-    private bool isAttacking = false;
+    
+    public GameObject bulletPrefab;  // Prefab của viên đạn (BanDan)
+    public Transform firePoint;      // Điểm phát đạn
+    public float bulletSpeed = 10f;  // Tốc độ của viên đạn
 
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
 
-        // Check if player exists and is correctly assigned
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        // If player is not found, log an error
         if (player == null)
         {
             Debug.LogError("Player object not found! Please assign the player in the scene.");
@@ -47,7 +48,6 @@ public class Boss2 : Enemy, IDamageable
 
         float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
 
-        // Nếu player quá gần, đứng yên
         if (distanceToPlayerX < 0.5f)
         {
             isChasing = false;
@@ -89,14 +89,12 @@ public class Boss2 : Enemy, IDamageable
             Flip();
         }
 
-        // Move continuously between leftLimit and rightLimit
         float currentPositionX = transform.position.x;
         if (currentPositionX <= leftLimit || currentPositionX >= rightLimit)
         {
             Flip();
         }
 
-        // Move Boss back and forth between leftLimit and rightLimit
         transform.position += new Vector3(direction * WalkSpeed * Time.deltaTime, 0, 0);
     }
 
@@ -111,7 +109,6 @@ public class Boss2 : Enemy, IDamageable
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         int moveDir = directionToPlayer.x > 0 ? 1 : -1;
 
-        // If Player is to the left of Boss, Boss should flip towards the left, and vice versa.
         if (moveDir != direction && Time.time - lastFlipTime > flipCooldown)
         {
             direction = moveDir;
@@ -119,7 +116,6 @@ public class Boss2 : Enemy, IDamageable
             lastFlipTime = Time.time;
         }
 
-        // Move towards the player
         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
     }
 
@@ -143,7 +139,7 @@ public class Boss2 : Enemy, IDamageable
         lastAttackTime = Time.time;
 
         // Kích hoạt animation tấn công
-        animator.SetTrigger("Attack");  // Đảm bảo rằng "Attack" trigger đã được thiết lập trong Animator
+        animator.SetTrigger("Attack");
 
         // Kiểm tra va chạm với Player trong phạm vi tấn công khi Boss tấn công
         if (attack_Point != null)
@@ -162,6 +158,48 @@ public class Boss2 : Enemy, IDamageable
                     }
                 }
             }
+        }
+
+        // Call the Shoot method to shoot a bullet
+        Shoot();
+    }
+
+    // Shoot method for firing a bullet towards the player
+    void Shoot()
+    {
+        if (bulletPrefab == null || firePoint == null || player == null)
+        {
+            Debug.LogError("Thiếu giá trị: Bullet, FirePoint hoặc Player chưa được gán!");
+            return;
+        }
+
+        // Tạo viên đạn tại firePoint
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        BanDan bulletComponent = newBullet.GetComponent<BanDan>();  // Dùng script BanDan cho bullet
+
+        if (bulletComponent != null)
+        {
+            // Căn chỉnh rotation của viên đạn sao cho hướng về player (bắn thẳng về phía người chơi)
+            Vector3 directionToPlayer = (player.position - firePoint.position).normalized;
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+            // Cài đặt tốc độ và hướng di chuyển cho viên đạn
+            bulletComponent.SetTarget(player);  // Set the player as the target for the bullet
+            bulletComponent.SetSpeed(bulletSpeed);  // Set the bullet speed
+
+            // Đảm bảo viên đạn bay thẳng, chỉ di chuyển theo trục X
+            Vector3 bulletPosition = newBullet.transform.position;
+            bulletPosition.y = firePoint.position.y; // Đảm bảo Y không thay đổi, viên đạn bay thẳng
+
+            newBullet.transform.position = bulletPosition;
+
+            Debug.Log("Boss đã bắn đạn!");
+        }
+        else
+        {
+            Debug.LogError("Lỗi: Prefab đạn không có script BanDan!");
         }
     }
 
