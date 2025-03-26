@@ -41,6 +41,7 @@ public class CameraPath : MonoBehaviour
         mapOverviewCam.gameObject.SetActive(true);
         playerFollowCam.gameObject.SetActive(false);
 
+
         for (int i = 0; i < waypoints.Length; i++)
         {
             Transform target = waypoints[i];
@@ -58,6 +59,7 @@ public class CameraPath : MonoBehaviour
 
 
         yield return new WaitUntil(() => gate.IsClosed());
+
 
         playerFollowCam.gameObject.SetActive(true);
         mapOverviewCam.gameObject.SetActive(false);

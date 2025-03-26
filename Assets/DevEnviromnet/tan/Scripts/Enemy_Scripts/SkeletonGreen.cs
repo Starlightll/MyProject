@@ -13,6 +13,9 @@ public class SkeletonGreen : Enemy, IDamageable
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float delay = 0.5f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSound;
+
     private int direction = 1;
     private Animator animator;
 
@@ -105,7 +108,8 @@ public class SkeletonGreen : Enemy, IDamageable
             isChasing = false;
             animator.SetTrigger("Attack");
             lastAttackTime = Time.time;
-
+            audioSource.PlayOneShot(attackSound);
+            audioSource.PlayOneShot(attackSound);
 
             Invoke(nameof(DealDamage), delay);
         }
