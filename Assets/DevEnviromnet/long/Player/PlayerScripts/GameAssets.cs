@@ -14,6 +14,7 @@ public class GameAssets : MonoBehaviour
     }
 
     public Transform pfDamagePopup;
+    public PlayerController playerController;
 
     private void Awake() {
         _i = this;

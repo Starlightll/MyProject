@@ -1713,7 +1713,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117065816806364179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4da372766d8fed4488dce04f9ad05166, type: 3}
   m_Name: 
@@ -2192,6 +2192,7 @@ GameObject:
   - component: {fileID: 4488486492655646953}
   - component: {fileID: 3146664967520170863}
   - component: {fileID: 3199705215005237285}
+  - component: {fileID: 213761690858448763}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -2353,6 +2354,26 @@ MonoBehaviour:
   fillEaseSpeed: 0.1
   _stats: {fileID: 11400000, guid: 1cf86430c9b425944bf6ad372bea31e0, type: 2}
   timeBeforeEase: 0.1
+--- !u!114 &213761690858448763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969673279872399609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da372766d8fed4488dce04f9ad05166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillIcons:
+  - {fileID: 887003934801473141}
+  - {fileID: 2820843083308169001}
+  skillCooldownOverlay:
+  - {fileID: 8401326647226159860}
+  - {fileID: 8260984180004586514}
+  nullSkillSlot: {fileID: -9082749241348254475, guid: c82eb1b4741f64e4592779e0b4185cc4, type: 3}
+  playerController: {fileID: 668418903709207227, guid: 899ae21f25bb3474b95d2051023c3e50, type: 3}
 --- !u!1 &9106128623427981865
 GameObject:
   m_ObjectHideFlags: 0
