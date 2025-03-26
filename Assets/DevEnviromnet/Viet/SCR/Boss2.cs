@@ -23,15 +23,20 @@ public class Boss2 : Enemy, IDamageable
 
     private bool isAttacking = false;
 
+    // Bullet related variables
+    public GameObject bulletPrefab;  // Prefab của viên đạn (BanDan)
+    public Transform firePoint;      // Điểm phát đạn
+    public float bulletSpeed = 10f;  // Tốc độ của viên đạn
+    public int bulletCount = 5;      // Số lượng viên đạn bắn ra mỗi lần tấn công
+    public float spreadAngle = 180f; // Góc phân tán giữa các viên đạn (bây giờ là 180 độ)
+
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
 
-        // Check if player exists and is correctly assigned
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        // If player is not found, log an error
         if (player == null)
         {
             Debug.LogError("Player object not found! Please assign the player in the scene.");
@@ -96,7 +101,6 @@ public class Boss2 : Enemy, IDamageable
             Flip();
         }
 
-        // Move Boss back and forth between leftLimit and rightLimit
         transform.position += new Vector3(direction * WalkSpeed * Time.deltaTime, 0, 0);
     }
 
@@ -111,7 +115,6 @@ public class Boss2 : Enemy, IDamageable
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         int moveDir = directionToPlayer.x > 0 ? 1 : -1;
 
-        // If Player is to the left of Boss, Boss should flip towards the left, and vice versa.
         if (moveDir != direction && Time.time - lastFlipTime > flipCooldown)
         {
             direction = moveDir;
@@ -119,7 +122,6 @@ public class Boss2 : Enemy, IDamageable
             lastFlipTime = Time.time;
         }
 
-        // Move towards the player
         transform.position += new Vector3(Mathf.Sign(directionToPlayer.x) * RunSpeed * Time.deltaTime, 0, 0);
     }
 
@@ -143,7 +145,7 @@ public class Boss2 : Enemy, IDamageable
         lastAttackTime = Time.time;
 
         // Kích hoạt animation tấn công
-        animator.SetTrigger("Attack");  // Đảm bảo rằng "Attack" trigger đã được thiết lập trong Animator
+        animator.SetTrigger("Attack");
 
         // Kiểm tra va chạm với Player trong phạm vi tấn công khi Boss tấn công
         if (attack_Point != null)
@@ -161,6 +163,48 @@ public class Boss2 : Enemy, IDamageable
                         Debug.Log("Boss deals damage to Player!");
                     }
                 }
+            }
+        }
+
+        // Bắn nhiều viên đạn về phía Player
+        ShootMultipleBullets();
+    }
+
+    void ShootMultipleBullets()
+    {
+        if (bulletPrefab == null || firePoint == null || player == null)
+        {
+            Debug.LogError("Thiếu giá trị: Bullet, FirePoint hoặc Player chưa được gán!");
+            return;
+        }
+
+        // Tính toán góc phân tán của các viên đạn, bắn trong phạm vi 180 độ
+        float angleStep = spreadAngle / (bulletCount - 1);
+        float startAngle = -spreadAngle / 2;
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+            float currentAngle = startAngle + (angleStep * i);
+
+            // Tạo viên đạn và tính toán hướng di chuyển
+            GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // Sử dụng firePoint để xác định vị trí phát đạn
+            BanDan bulletComponent = newBullet.GetComponent<BanDan>();
+
+            if (bulletComponent != null)
+            {
+                // Tính toán hướng di chuyển viên đạn trong phạm vi 180 độ
+                Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * currentAngle), Mathf.Sin(Mathf.Deg2Rad * currentAngle), 0).normalized;
+
+                newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle)); // Gắn góc cho viên đạn
+
+                bulletComponent.SetSpeed(bulletSpeed);  // Đặt tốc độ cho viên đạn
+                bulletComponent.SetDirection(direction);  // Đặt hướng di chuyển viên đạn
+
+                Debug.Log("Boss đã bắn nhiều đạn!");
+            }
+            else
+            {
+                Debug.LogError("Lỗi: Prefab đạn không có script BanDan!");
             }
         }
     }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +11,10 @@ public class ConBao : Enemy, IDamageable
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] private Transform attack_Point;
+    [SerializeField] private float PainAttack = 1f;
+    [SerializeField] private LayerMask playerLayer;
 
     private Animator animator;
 
@@ -53,13 +57,29 @@ public class ConBao : Enemy, IDamageable
         {
             if (animator != null)
             {
+
                 animator.SetTrigger("Attack");
+                Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
+                DealDamage(hits, PhysicalDame);
             }
 
             isAttacking = true;
             isChasing = false;
             lastAttackTime = Time.time;
         }
+    }
+    private void DealDamage(Collider2D[] hits, float damage)
+    {
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+                Debug.Log("Take Dame");
+            }
+        }
+
     }
 
     protected virtual void ChasePlayer()
@@ -91,7 +111,7 @@ public class ConBao : Enemy, IDamageable
                 direction = Vector2.right;
             }
 
-            if (!IsGroundAhead())
+            if (!IsGroundAhead() || IsObstacleAhead())
             {
                 direction *= -1;
                 return;
@@ -106,6 +126,12 @@ public class ConBao : Enemy, IDamageable
     }
 
 
+
+    bool IsObstacleAhead()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 0.5f, groundLayer);
+        return hit.collider != null;
+    }
 
 
 
@@ -122,10 +148,10 @@ public class ConBao : Enemy, IDamageable
     }
     private IEnumerator ReturnToPoolAfterDelay()
     {
-        Enemy_Pool enemy_Pool = UnityEngine.Object.FindFirstObjectByType<Enemy_Pool>();
+        EnemySpawner enemy_Pool = UnityEngine.Object.FindFirstObjectByType<EnemySpawner>();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         ResetState();
-        enemy_Pool.ReturnToPool(gameObject);
+        enemy_Pool.ReturnEnemyToPool(this);
     }
 
     protected override void Patrol()
@@ -138,7 +164,7 @@ public class ConBao : Enemy, IDamageable
 
         FaceToward(direction);
 
-        if (!IsGroundAhead())
+        if (!IsGroundAhead() || IsObstacleAhead())
         {
             direction *= -1;
         }
