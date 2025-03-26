@@ -129,7 +129,7 @@ public class EnemyWalk : Enemy, IDamageable
 
     bool IsObstacleAhead()
     {
-        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 0.5f, groundLayer);
         return hit.collider != null;
     }
 
@@ -164,7 +164,7 @@ public class EnemyWalk : Enemy, IDamageable
 
         FaceToward(direction);
 
-        if (!IsGroundAhead())
+        if (!IsGroundAhead() || IsObstacleAhead())
         {
             direction *= -1;
         }
