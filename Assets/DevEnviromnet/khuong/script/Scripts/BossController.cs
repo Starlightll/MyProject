@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour, IDamageable
 {
     [Header("Di chuyển")]
     public float minPatrolDistance = 2f;
@@ -32,8 +33,9 @@ public class BossController : MonoBehaviour
     public float enragedSpeedMultiplier = 1.5f;
     private bool isEnraged = false;
 
-    private float health = 100;
-    private float maxHealth = 100;
+    private float currentHealth;
+    [SerializeField] private float Hp = 100;
+    [SerializeField] private Image healthBar;
 
     [Header("Điểm tấn công")]
     public Transform attackPoint;
@@ -41,12 +43,19 @@ public class BossController : MonoBehaviour
     public int attackDamage = 20;
     public LayerMask playerLayer;
 
+    private Animator animator;
+    private int attackCount = 0;
+    public GameObject effectFire;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        animator = GetComponent<Animator>();
         SetNextPatrolTarget();
+        effectFire.SetActive(false);
+        currentHealth = Hp;
     }
 
     private void Update()
@@ -71,15 +80,20 @@ public class BossController : MonoBehaviour
             }
         }
 
-        if (!isEnraged && health / maxHealth <= enragedThreshold)
+        if (!isEnraged && currentHealth / Hp <= enragedThreshold)
         {
             EnrageMode();
         }
     }
 
-    // 🎯 **Di chuyển tuần tra**
+    //Di chuyển
     private void RandomPatrol()
     {
+
+        if (animator != null)
+        {
+            animator.SetTrigger("walk");
+        }
         if (!isMovingToTarget || Vector2.Distance(transform.position, patrolTarget) < 0.5f || IsObstacleAhead())
         {
             SetNextPatrolTarget();
@@ -90,46 +104,68 @@ public class BossController : MonoBehaviour
         FlipBoss(direction.x);
     }
 
-    // 📌 **Xác định điểm đến ngẫu nhiên**
+    // Xác định điểm đến ngẫu nhiên**
     private void SetNextPatrolTarget()
     {
         float patrolDistance = Random.Range(minPatrolDistance, maxPatrolDistance);
         float heightOffset = Random.Range(-patrolHeightVariation, patrolHeightVariation);
 
-        isFacingRight = !isFacingRight; // Đảo hướng di chuyển
+        isFacingRight = !isFacingRight;
 
         patrolTarget = startPosition + new Vector2(isFacingRight ? patrolDistance : -patrolDistance, heightOffset);
         isMovingToTarget = true;
     }
 
-    // ⚠️ **Phát hiện va chạm với Ground để quay đầu**
+    //Phát hiện va chạm với Ground để quay đầu
     private bool IsObstacleAhead()
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
     }
 
-
-
-
     private IEnumerator AttackPlayer()
     {
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
-        // 🏴‍☠️ Ở đây có thể thêm animation tấn công
-        Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
 
+        if (animator != null)
+        {
+            if (attackCount < 5)
+            {
+                animator.SetTrigger("skill_1");
+                attackCount++;
+            }
+            else
+            {
+                animator.SetTrigger("skill_2");
+                effectFire.SetActive(true);
+                attackCount = 0;
+
+                yield return new WaitForSeconds(0.5f);
+                effectFire.SetActive(false);
+            }
+        }
+
+
+        Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
         if (playerHit != null)
         {
-
             Debug.Log("Player bị trúng đòn!");
         }
-        yield return new WaitForSeconds(1f); // Giả lập thời gian ra đòn
+
+        yield return new WaitForSeconds(1f);
         isAttacking = false;
     }
 
-    // ⚡ **Lao tới tấn công**
+
+
+
+    // Lao tới tấn công**
     private IEnumerator DiveAttack()
     {
+        if (animator != null)
+        {
+            animator.SetTrigger("run");
+        }
         isDiving = true;
 
         Vector2 direction = new Vector2(player.position.x, player.position.y) - (Vector2)transform.position;
@@ -137,14 +173,13 @@ public class BossController : MonoBehaviour
         FlipBoss(direction.x);
         rb.linearVelocity = direction * diveSpeed;
 
-        yield return new WaitForSeconds(0.5f); // Giữ tốc độ trong 0.5s
-        rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(0.5f);
+        rb.linearVelocity = Vector2.zero;
+
 
         isDiving = false;
     }
 
-    // 🔥 **Tăng cường khi Boss sắp chết**
     private void EnrageMode()
     {
         isEnraged = true;
@@ -162,16 +197,32 @@ public class BossController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (rb != null) // Đảm bảo Rigidbody2D đã được gán
+        if (rb != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(rb.position, attackRange);
 
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(rb.position, diveAttackRange);
+
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(attackPoint.position, PainAttack);
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth / Hp;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        animator.SetTrigger("die");
+
+    }
 }
