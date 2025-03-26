@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 79.5
   maxMana: 100
   currentMana: 100
   maxStamina: 100
@@ -25,8 +25,8 @@ MonoBehaviour:
   defense: 5
   maxAttackSpeed: 200
   attackSpeed: 30
-  critChance: 0
-  critDamage: 0
+  critChance: 10
+  critDamage: 5
   lifeSteal: 0
   manaRegen: 0
   healthRegen: 0
