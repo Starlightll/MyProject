@@ -57,11 +57,11 @@ TagManager:
   - name: Background
     uniqueID: 3527788699
     locked: 0
-  - name: Light
-    uniqueID: 2079006769
-    locked: 0
   - name: Ground
     uniqueID: 3286187863
+    locked: 0
+  - name: Light
+    uniqueID: 2079006769
     locked: 0
   - name: Enemy
     uniqueID: 3438053853
@@ -89,11 +89,13 @@ TagManager:
     locked: 0
   - name: DamagePopup
     uniqueID: 4220928283
+    locked: 0
   - name: EnemyBullet
     uniqueID: 1801228639
     locked: 0
   - name: Boss
     uniqueID: 862654977
+    locked: 0
   - name: DamagePopup
     uniqueID: 4220928283
     locked: 0
