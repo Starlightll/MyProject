@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class BossKnightController : MonoBehaviour
+public class BossKnightController : MonoBehaviour , IDamageable
 {
     public float walkSpeed = 2f;
     public float chaseSpeed = 3.5f;
@@ -30,6 +31,12 @@ public class BossKnightController : MonoBehaviour
 
     [SerializeField] private GameObject darkBoltPrefab;
     [SerializeField] private float skill2Cooldown = 8f;
+    [SerializeField] private Image hpBar;
+    [SerializeField] private float hp = 100;
+    private float currentHp;
+
+
+
     private float lastSkill2Time;
     private float lastAttackTime;
 
@@ -42,6 +49,7 @@ public class BossKnightController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentHp = hp;
 
     }
 
@@ -202,23 +210,12 @@ public class BossKnightController : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
-    {
-        if (isDead) return;
-
-        health -= damage;
-        Debug.Log("Boss nhận " + damage + " sát thương. Máu còn: " + health);
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
+    
 
     private void Die()
     {
         isDead = true;
-        animator.SetTrigger("die");
+        animator.SetTrigger("death");
         Debug.Log("Boss đã chết!");
         Destroy(gameObject, 2f);
     }
@@ -253,4 +250,18 @@ public class BossKnightController : MonoBehaviour
         Gizmos.DrawLine(check1.position, check2.position);
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (isDead) return;
+
+
+        Debug.Log("Boss nhận " + damage + " sát thương. Máu còn: " + health);
+        currentHp -= damage;
+        hpBar.fillAmount = (float)currentHp / hp;
+        if (currentHp <= 0)
+        {
+
+            Die();
+        }
+    }
 }
