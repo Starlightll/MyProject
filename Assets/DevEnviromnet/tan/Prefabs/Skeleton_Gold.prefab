@@ -196,10 +196,10 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 500
+  Hp: 20
   Mana: 100
   Defend: 0
-  PhysicalDame: 5
+  PhysicalDame: 1
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
