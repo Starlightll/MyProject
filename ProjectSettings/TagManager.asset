@@ -92,5 +92,10 @@ TagManager:
   - name: EnemyBullet
     uniqueID: 1801228639
     locked: 0
+  - name: Boss
+    uniqueID: 862654977
+  - name: DamagePopup
+    uniqueID: 4220928283
+    locked: 0
   m_RenderingLayers:
   - Default
