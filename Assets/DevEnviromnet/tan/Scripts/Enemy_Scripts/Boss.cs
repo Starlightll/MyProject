@@ -13,6 +13,8 @@ public class Boss : Enemy, IDamageable
     // [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSound;
 
     private float fireDamageTimer = 0f;
     private float fireDamageInterval = 1f;
@@ -141,7 +143,7 @@ public class Boss : Enemy, IDamageable
     {
         isAttacking = true;
         isChasing = false;
-
+        audioSource.PlayOneShot(attackSound);
         lastAttackTime = Time.time;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);

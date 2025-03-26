@@ -13,6 +13,8 @@ public class Skeleton : Enemy, IDamageable
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float delay=0.5f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSound;
     private int direction = 1;
     private Animator animator;
     
@@ -35,7 +37,7 @@ public class Skeleton : Enemy, IDamageable
         {
             if (Time.time - lastAttackTime >= attackCooldown)
             {
-                animator.SetTrigger("Attack");
+                animator.SetTrigger("Attack");               
             }
         }
         else if (CheckInRange())
@@ -103,6 +105,7 @@ public class Skeleton : Enemy, IDamageable
     protected override void Attack()
     {
         DealDamage();
+        audioSource.PlayOneShot(attackSound);
         lastAttackTime = Time.time;
 
     }
