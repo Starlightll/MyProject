@@ -34,8 +34,7 @@ public class enemywalkercontroller : Enemy, IDamageable
 
     protected override void Patrol()
     {
-        animator.SetBool("isMoving", true);
-        animator.SetBool("isAttacking", false);
+        animator.SetBool("isMoving", true);     
         transform.position += new Vector3(direction * WalkSpeed * Time.deltaTime, 0, 0);
 
         // Kiểm tra nếu enemy di chuyển quá phạm vi được đặt trước

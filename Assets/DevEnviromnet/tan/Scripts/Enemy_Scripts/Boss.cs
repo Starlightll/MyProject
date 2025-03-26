@@ -30,7 +30,13 @@ public class Boss : Enemy, IDamageable
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         gate = FindAnyObjectByType<GateController>();
 
-        savePath = "D:/PRU_212_Game/GameData/bossData.json";
+        string directoryPath = Path.Combine(Application.persistentDataPath, "GameData");
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+        savePath = Path.Combine(directoryPath, "bossData.json");
+
         LoadData();
     }
 

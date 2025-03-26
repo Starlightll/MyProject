@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95181f58684a43c40bdd434f1525f964, type: 3}
+  m_Name: Astra Cosmic
+  m_EditorClassIdentifier: 
+  unlocked: 0
+  requiredLevel: 0
+  requiredSkillPoints: 0
+  requiredSkills: []
+  requiredWeapon: {fileID: 0}
+  skillName: 
+  icon: {fileID: 0}
+  skillDescription: 
+  cooldown: 0
+  manaCost: 0
+  staminaCost: 0
+  healthCost: 0
+  skillDuration: 0
+  initialCooldown: 0

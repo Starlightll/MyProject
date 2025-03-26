@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public PlayerMovementController PlayerMovementController => _playerMovementController;
     public PlayerStateMachine PlayerStateMachine => _playerStateMachine;
+
     public Weapon CurrentWeapon => _weaponManager.CurrentWeapon;
 
     public Transform attackPoint;
@@ -87,16 +88,19 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerStateMachine.Execute();
         // Debug.Log("Current State: " + _playerStateMachine.CurrentState);
 
-        if(_playerStateMachine.CurrentState is PlayerDeadState or PlayerDashState)
+        if(_playerStateMachine.CurrentState is PlayerDeadState)
         {
             return;
         }
+        
+        //Run player Skills manager
+        _skillManager.UpdateSkills();
         if(_stats.currentHealth <= 0)
         {
             Debug.Log("Player is dead");
             _playerStateMachine.TransitionTo(new PlayerDeadState(this));
         }
-        
+
        
         //Test the player got hit by the enemy
         if(UnityEngine.Input.GetKeyDown(KeyCode.H))
@@ -105,24 +109,18 @@ public class PlayerController : MonoBehaviour, IDamageable
             Stats.currentMana -= 10;
         }
 
+         if(_playerStateMachine.CurrentState is PlayerDashState)
+        {
+            return;
+        }
+    
         comboTimer += Time.deltaTime;
         attackTimer += Time.deltaTime;
 
         //Handle the player attack => Need to be moved HandleAttack() method
         if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
         {
-            if(comboTimer >= CurrentWeapon.attackCooldown)
-            {
-                comboCounter = 0;
-                comboTimer = 0f;
-            }
-            float direction = transform.localScale.x > 0 ? 1 : -1;
-            playerVelocity = new Vector2(_rb.linearVelocity.x == 0 ? 3 * direction: _rb.linearVelocity.x * 0.3f, /*Mathf.Abs(_rb.linearVelocity.y) * -0.3f*/ _rb.linearVelocity.y < 0? Mathf.Abs(_rb.linearVelocity.y) * -0.2f : _rb.linearVelocity.y *-0.01f);
-            Debug.Log("Player Velocity: " + playerVelocity);
-            // _stateMachine.CurrentState(States.Attack);
-            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
-            comboTimer = 0f;
-            attackTimer = 0f;
+           HandleAttack();
         }
 
         //Handle the player movement => Need to be moved HandleMovement() method
@@ -137,11 +135,23 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     
     private void HandleAttack() {
-        if(_input.AttackPressed)
+        if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
         {
             //Need to be complete this task next time
             //Move the attack logic to here
             //Calculate time here.
+             if(comboTimer >= CurrentWeapon.attackCooldown)
+            {
+                comboCounter = 0;
+                comboTimer = 0f;
+            }
+            float direction = transform.localScale.x > 0 ? 1 : -1;
+            playerVelocity = new Vector2(_rb.linearVelocity.x == 0 ? 3 * direction: _rb.linearVelocity.x * 0.3f, /*Mathf.Abs(_rb.linearVelocity.y) * -0.3f*/ _rb.linearVelocity.y < 0? Mathf.Abs(_rb.linearVelocity.y) * -0.2f : _rb.linearVelocity.y *-0.01f);
+            Debug.Log("Player Velocity: " + playerVelocity);
+            // _stateMachine.CurrentState(States.Attack);
+            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
+            comboTimer = 0f;
+            attackTimer = 0f;
         }
     }
 
@@ -165,5 +175,4 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerHealthController.TakeDamage(damage);
         
     }
-
 }
