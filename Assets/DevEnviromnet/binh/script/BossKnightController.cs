@@ -8,12 +8,18 @@ public class BossKnightController : MonoBehaviour
     public Transform attackPoint;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
-
+    public Transform player;
     private int direction = 1;
     private Animator animator;
     private bool isAttacking = false;
     private bool isDead = false;
     private Transform playerTarget;
+    [SerializeField] private Transform check1;
+    [SerializeField] private Transform check2;
+    [SerializeField] private float checkDistance = 2f;
+    // Khoảng cách để xác định 2 điểm chạm nhau
+    [SerializeField] private int skill1Damage = 15;
+    [SerializeField] private int skill2Damage = 30;
 
     [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private float obstacleCheckDistance = 1f;
@@ -27,18 +33,21 @@ public class BossKnightController : MonoBehaviour
     private float lastSkill2Time;
     private float lastAttackTime;
 
+    private bool lastUsedSkill2 = false;
+    private int skill1Count = 0;
+
     private Rigidbody2D rb;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     private void Update()
     {
-      
-
+       
         playerTarget = DetectPlayer();
 
         if (playerTarget != null) // Nếu phát hiện Player
@@ -48,7 +57,7 @@ public class BossKnightController : MonoBehaviour
             if (player != null) // Nếu Player trong phạm vi tấn công
             {
                 Attack(player);
-                Debug.Log(distanceToPlayer);
+
             }
             else // Nếu ngoài phạm vi tấn công nhưng vẫn thấy Player
             {
@@ -62,10 +71,23 @@ public class BossKnightController : MonoBehaviour
 
         
     }
+    private void SpawnDarkBolt()
+    {
+        if (player != null)
+        {
+            Vector3 spawnPosition = new Vector3(player.position.x, player.position.y + 5f, 0);
+            GameObject darkBolt = Instantiate(darkBoltPrefab, spawnPosition, Quaternion.identity);      
 
+            Rigidbody2D rb = darkBolt.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(0, -12f); // Dark Bolt rơi xuống Player
+            }
+        }
+    }
     private void Patrol()
     {
-        animator.SetTrigger("walk"); // Bật animation đi bộ
+        animator.SetBool("iswalk", true);// Bật animation đi bộ
         animator.SetBool("isrun", false); // Tắt animation chạy
 
         bool isGroundAhead = Physics2D.OverlapCircle(groundCheck.position, 2 , groundLayer); 
@@ -93,7 +115,11 @@ public class BossKnightController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (isAttacking) return; // Nếu đang tấn công thì không di chuyển nữa
+        if (isAttacking)
+        {
+            return;
+        }
+         // Nếu đang tấn công thì không di chuyển nữa
 
         animator.SetBool("iswalk", false);
         animator.SetBool("isrun", true);
@@ -105,6 +131,8 @@ public class BossKnightController : MonoBehaviour
         transform.position += new Vector3(direction * chaseSpeed * Time.deltaTime, 0, 0);
     }
 
+    
+
     private void Attack(Collider2D player)
     {
         if (Time.time - lastAttackTime < attackCooldown) return;
@@ -112,45 +140,62 @@ public class BossKnightController : MonoBehaviour
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        // Kiểm tra có đủ cooldown để dùng Skill 2 không
-        bool canUseSkill2 = (Time.time - lastSkill2Time >= skill2Cooldown);
-        bool useSkill2 = canUseSkill2 && (Random.value < 0.4f); // 40% cơ hội dùng Skill 2
-
-        if (useSkill2)
+        skill1Count++; // Mỗi lần đánh Skill 1, tăng biến đếm
+        Debug.Log("Skill 1 count: " + skill1Count);
+        UseSkill1();
+       
+        if (skill1Count >= 5) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
-            UseSkill2(); // Sử dụng Dark Bolt
-        }
-        else
-        {
-            animator.SetTrigger("skill_1"); // Đánh thường
+            skill1Count = 0; // Reset đếm sau khi dùng Skill 2
+            UseSkill2();
         }
 
-        Invoke("ResetAttack", 1.5f);
+        Invoke("ResetAttack", 1f); // Reset attack state sau khi hoàn tất combo
     }
 
+    private void UseSkill1()
+    {
+        if (isDead) return;
+
+        isAttacking = true;
+        animator.SetTrigger("skill_1"); // Gọi animation đánh thường
+    }
 
     private void UseSkill2()
     {
         if (isDead) return;
 
         isAttacking = true;
-        animator.SetTrigger("skill_2");
         lastSkill2Time = Time.time;
 
-        if (playerTarget != null)
-        {
-            Vector3 spawnPosition = new Vector3(playerTarget.position.x, playerTarget.position.y + 3f, 0);
-            GameObject darkBolt = Instantiate(darkBoltPrefab, spawnPosition, Quaternion.identity);
+        animator.SetTrigger("skill_2"); // Gọi animation Skill 2
 
-            Rigidbody2D rb = darkBolt.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.linearVelocity = new Vector2(0, -10f);
-            }
-        }
-
-        Invoke("ResetAttack", 1f);
+        // Chờ animation Skill 2 kết thúc, sau đó kiểm tra vị trí check1 & check2
+        Invoke("CheckAndSpawnDarkBolt", 3.5f);
     }
+
+    private void CheckAndSpawnDarkBolt()
+    {
+        if (isDead) return;
+
+        float currentDistance = Vector2.Distance(check1.position, check2.position);
+        Debug.Log($"Khoảng cách giữa check1 và check2: {currentDistance} (Yêu cầu: {checkDistance})");
+
+        if (currentDistance <= checkDistance)
+        {
+            Debug.Log("Spawn Dark Bolt!");
+            SpawnDarkBolt();
+        }
+        else
+        {
+            Debug.Log("Không spawn Dark Bolt, khoảng cách chưa đủ!");
+        }
+    }
+
+
+
+
+
 
     private void ResetAttack()
     {
@@ -178,6 +223,21 @@ public class BossKnightController : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
+    // Gọi từ Animation Event để gây sát thương đúng thời điểm
+    private void ApplyDamageSkill1()
+    {
+        Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
+        if (player != null)
+        {
+            IDamageable damageable = player.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(skill1Damage);
+                Debug.Log("Player mất " + skill1Damage + " máu tại thời điểm chém!");
+            }
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -188,6 +248,9 @@ public class BossKnightController : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawLine(groundCheck.position, Vector2.right * direction);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(check1.position, check2.position);
     }
 
 }
