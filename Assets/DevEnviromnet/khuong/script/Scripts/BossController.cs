@@ -46,6 +46,8 @@ public class BossController : MonoBehaviour, IDamageable
     private Animator animator;
     private int attackCount = 0;
     public GameObject effectFire;
+    public Transform attackPoint2;
+    public Transform attackPoint3;
 
     private void Start()
     {
@@ -137,23 +139,35 @@ public class BossController : MonoBehaviour, IDamageable
             else
             {
                 animator.SetTrigger("skill_2");
+                effectFire.transform.position = attackPoint3.position;
+                Vector2 directionToPlayer = (player.position - effectFire.transform.position).normalized;
+
+                // Xoay effectFire để hướng về phía người chơi
+                float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+                effectFire.transform.rotation = Quaternion.Euler(0, 0, angle);
                 effectFire.SetActive(true);
                 attackCount = 0;
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
                 effectFire.SetActive(false);
             }
         }
 
-
-        Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
-        if (playerHit != null)
-        {
-            Debug.Log("Player bị trúng đòn!");
-        }
-
         yield return new WaitForSeconds(1f);
         isAttacking = false;
+    }
+
+    private void AttackPlayer2()
+    {
+        Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
+        Collider2D playerHit2 = Physics2D.OverlapCircle(attackPoint2.position, PainAttack, playerLayer);
+
+        if (playerHit != null || playerHit2 != null)
+        {
+            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, PainAttack, playerLayer);
+            DealDamage(1, hits);
+            Debug.Log("Player bị trúng đòn!");
+        }
     }
 
 
@@ -173,7 +187,7 @@ public class BossController : MonoBehaviour, IDamageable
         FlipBoss(direction.x);
         rb.linearVelocity = direction * diveSpeed;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         rb.linearVelocity = Vector2.zero;
 
 
@@ -207,6 +221,11 @@ public class BossController : MonoBehaviour, IDamageable
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(attackPoint.position, PainAttack);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(attackPoint2.position, PainAttack);
+
+            Gizmos.color = Color.gray;
+            Gizmos.DrawWireSphere(attackPoint3.position, PainAttack);
         }
     }
 
@@ -218,6 +237,22 @@ public class BossController : MonoBehaviour, IDamageable
         {
             Die();
         }
+    }
+
+    private void DealDamage(float dame, Collider2D[] hits)
+    {
+        //Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, attackRadius, playerLayer);
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(dame);
+                Debug.Log("Take Dame");
+                return;
+            }
+        }
+
     }
 
     public void Die()
