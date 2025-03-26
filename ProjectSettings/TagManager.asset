@@ -87,6 +87,8 @@ TagManager:
   - name: PlayerHead
     uniqueID: 1076841431
     locked: 0
+  - name: DamagePopup
+    uniqueID: 4220928283
   - name: EnemyBullet
     uniqueID: 1801228639
     locked: 0

@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84a2ca0d243bf447aea78d1c3d3459b, type: 3}
+  m_Name: Dash Skill
+  m_EditorClassIdentifier: 
+  unlocked: 0
+  requiredLevel: 0
+  requiredSkillPoints: 0
+  requiredSkills: []
+  requiredWeapon: {fileID: 0}
+  skillName: Dash
+  icon: {fileID: 1356030974239926937, guid: cd8bce1ee6dd2254e8bc99f036eea621, type: 3}
+  skillDescription: 
+  cooldown: 1
+  manaCost: 20
+  staminaCost: 20
+  healthCost: 0
+  skillDuration: 0
+  initialCooldown: 0
+  animationTrigger: 
+  animationDuration: 0
+  skillOffset: {x: 0, y: 0}
+  skillSound: {fileID: 0}
+  skillHitSound: {fileID: 0}
+  skillMissSound: {fileID: 0}
+  skillEffects: []
+  skillHitEffects: []
+  skillMissEffects: []
+  dashSpeed: 60
+  dashDuration: 0.25
+  dashCooldown: 0.25
+  dashEndSpeed: 8
+  dashTrail: {fileID: 0}
+  dashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.014952958
+      value: 0.05086897
+      inSlope: -0.19888175
+      outSlope: -0.19888175
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.43833014
+    - serializedVersion: 3
+      time: 0.99941736
+      value: -0.26555127
+      inSlope: -0.53265715
+      outSlope: -0.53265715
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.051233392
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.071970224
+      value: 1.5379674
+      inSlope: -0.10336279
+      outSlope: -0.10336279
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.092202455
+    - serializedVersion: 3
+      time: 5.0154915
+      value: 0.9995779
+      inSlope: -0.0041926363
+      outSlope: -0.0041926363
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2440104
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashEffectPrefab: {fileID: 0}
+  dashTrailColor: {r: 0.5, g: 0.8, b: 1, a: 0.7}

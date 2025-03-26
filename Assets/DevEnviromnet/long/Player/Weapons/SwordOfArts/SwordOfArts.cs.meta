@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: b546b40e4ed176e49b12193773c81062
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - weaponPrefab: {instanceID: 0}
+  - weaponTrail: {instanceID: 0}
+  - weaponTrailHit: {instanceID: 0}
+  - weaponTrailMiss: {instanceID: 0}
+  - player: {instanceID: 0}
+  - weaponIcon: {instanceID: 0}
+  - attackSound: {instanceID: 0}
+  - attackHitSound: {instanceID: 0}
+  - attackMissSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

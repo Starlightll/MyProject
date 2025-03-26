@@ -8,9 +8,8 @@ public class PlayerStaminaController : MonoBehaviour
     public float timeBeforeStaminaRegen = 1f;
     public float regenAmount = 40f;
 
-    private bool needToRegen = false;
 
-    private float timer = 0f;
+    public float timer = 0f;
     void Start()
     {
         
