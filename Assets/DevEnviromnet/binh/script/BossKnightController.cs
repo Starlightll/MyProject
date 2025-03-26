@@ -75,7 +75,7 @@ public class BossKnightController : MonoBehaviour
     {
         if (player != null)
         {
-            Vector3 spawnPosition = new Vector3(player.position.x, player.position.y + 5f, 0);
+            Vector3 spawnPosition = new Vector3(player.position.x, player.position.y + 18f, 0);
             GameObject darkBolt = Instantiate(darkBoltPrefab, spawnPosition, Quaternion.identity);      
 
             Rigidbody2D rb = darkBolt.GetComponent<Rigidbody2D>();
@@ -144,7 +144,7 @@ public class BossKnightController : MonoBehaviour
         Debug.Log("Skill 1 count: " + skill1Count);
         UseSkill1();
        
-        if (skill1Count >= 5) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
+        if (skill1Count >= 3) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
             skill1Count = 0; // Reset đếm sau khi dùng Skill 2
             UseSkill2();
