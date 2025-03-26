@@ -21,14 +21,10 @@ public class Boss2 : Enemy, IDamageable
     [SerializeField] private float leftLimit = -5f;
     [SerializeField] private float rightLimit = 5f;
 
-    private bool isAttacking = false;
-
-    // Bullet related variables
+    
     public GameObject bulletPrefab;  // Prefab của viên đạn (BanDan)
     public Transform firePoint;      // Điểm phát đạn
     public float bulletSpeed = 10f;  // Tốc độ của viên đạn
-    public int bulletCount = 5;      // Số lượng viên đạn bắn ra mỗi lần tấn công
-    public float spreadAngle = 180f; // Góc phân tán giữa các viên đạn (bây giờ là 180 độ)
 
     protected override void Start()
     {
@@ -52,7 +48,6 @@ public class Boss2 : Enemy, IDamageable
 
         float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
 
-        // Nếu player quá gần, đứng yên
         if (distanceToPlayerX < 0.5f)
         {
             isChasing = false;
@@ -94,7 +89,6 @@ public class Boss2 : Enemy, IDamageable
             Flip();
         }
 
-        // Move continuously between leftLimit and rightLimit
         float currentPositionX = transform.position.x;
         if (currentPositionX <= leftLimit || currentPositionX >= rightLimit)
         {
@@ -166,11 +160,12 @@ public class Boss2 : Enemy, IDamageable
             }
         }
 
-        // Bắn nhiều viên đạn về phía Player
-        ShootMultipleBullets();
+        // Call the Shoot method to shoot a bullet
+        Shoot();
     }
 
-    void ShootMultipleBullets()
+    // Shoot method for firing a bullet towards the player
+    void Shoot()
     {
         if (bulletPrefab == null || firePoint == null || player == null)
         {
@@ -178,34 +173,33 @@ public class Boss2 : Enemy, IDamageable
             return;
         }
 
-        // Tính toán góc phân tán của các viên đạn, bắn trong phạm vi 180 độ
-        float angleStep = spreadAngle / (bulletCount - 1);
-        float startAngle = -spreadAngle / 2;
+        // Tạo viên đạn tại firePoint
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-        for (int i = 0; i < bulletCount; i++)
+        BanDan bulletComponent = newBullet.GetComponent<BanDan>();  // Dùng script BanDan cho bullet
+
+        if (bulletComponent != null)
         {
-            float currentAngle = startAngle + (angleStep * i);
+            // Căn chỉnh rotation của viên đạn sao cho hướng về player (bắn thẳng về phía người chơi)
+            Vector3 directionToPlayer = (player.position - firePoint.position).normalized;
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-            // Tạo viên đạn và tính toán hướng di chuyển
-            GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // Sử dụng firePoint để xác định vị trí phát đạn
-            BanDan bulletComponent = newBullet.GetComponent<BanDan>();
+            // Cài đặt tốc độ và hướng di chuyển cho viên đạn
+            bulletComponent.SetTarget(player);  // Set the player as the target for the bullet
+            bulletComponent.SetSpeed(bulletSpeed);  // Set the bullet speed
 
-            if (bulletComponent != null)
-            {
-                // Tính toán hướng di chuyển viên đạn trong phạm vi 180 độ
-                Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * currentAngle), Mathf.Sin(Mathf.Deg2Rad * currentAngle), 0).normalized;
+            // Đảm bảo viên đạn bay thẳng, chỉ di chuyển theo trục X
+            Vector3 bulletPosition = newBullet.transform.position;
+            bulletPosition.y = firePoint.position.y; // Đảm bảo Y không thay đổi, viên đạn bay thẳng
 
-                newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle)); // Gắn góc cho viên đạn
+            newBullet.transform.position = bulletPosition;
 
-                bulletComponent.SetSpeed(bulletSpeed);  // Đặt tốc độ cho viên đạn
-                bulletComponent.SetDirection(direction);  // Đặt hướng di chuyển viên đạn
-
-                Debug.Log("Boss đã bắn nhiều đạn!");
-            }
-            else
-            {
-                Debug.LogError("Lỗi: Prefab đạn không có script BanDan!");
-            }
+            Debug.Log("Boss đã bắn đạn!");
+        }
+        else
+        {
+            Debug.LogError("Lỗi: Prefab đạn không có script BanDan!");
         }
     }
 

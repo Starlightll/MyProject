@@ -2,36 +2,42 @@
 
 public class BanDan : MonoBehaviour
 {
-    private Vector3 direction;
-    private float speed;
-    private float damage = 10f; // Sát thương của viên đạn
+    public float speed = 10f;  // Tốc độ mặc định
+    private Transform target;  // Mục tiêu viên đạn nhắm đến, ở đây là Player
+    public float damage = 10f;  // Sát thương của viên đạn
 
-    public void SetDirection(Vector3 dir)
+    public void SetTarget(Transform player)
     {
-        direction = dir;
+        target = player;
     }
 
-    public void SetSpeed(float bulletSpeed)
+    public void SetSpeed(float bulletSpeed)  // Phương thức SetSpeed để cài đặt tốc độ viên đạn
     {
         speed = bulletSpeed;
     }
 
     void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        if (target != null)
         {
-            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage); // Gây sát thương cho Player
-            }
+            // Di chuyển viên đạn về phía Player
+            Vector3 direction = (target.position - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
 
-            Destroy(gameObject); // Hủy viên đạn sau khi va chạm
+            // Kiểm tra xem viên đạn có va chạm với Player hay không
+            if (Vector2.Distance(transform.position, target.position) < 0.5f)
+            {
+                // Gây sát thương cho Player
+                IDamageable damageable = target.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(damage);  // Gây sát thương cho Player
+                    Debug.Log("Player bị trúng đạn!");
+                }
+
+                // Hủy viên đạn sau khi va chạm
+                Destroy(gameObject);
+            }
         }
     }
 }
