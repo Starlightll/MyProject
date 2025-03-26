@@ -15,6 +15,9 @@ public class SkillBarManagement : MonoBehaviour
     void Start()
     {
         Weapon weapon = playerController.CurrentWeapon;
+        if(playerController == null) {
+            playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        }
         UpdateSkillBar(weapon);
     }
 
