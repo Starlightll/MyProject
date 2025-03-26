@@ -3,28 +3,32 @@ using UnityEngine;
 
 public class StarlightBrustCollision : MonoBehaviour
 {
-    public ParticleSystem Particles;
-    public int fireDamage = 10;
-    public float burnDuration = 3f;
-
+    //Get all colliders collided with the starlight brust
+     private ParticleSystem _particleSystem;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
-    void OnParticleCollision(GameObject other)
+    private void Start()
     {
-        int numCollisionEvents = Particles.GetCollisionEvents(other, collisionEvents);
+        _particleSystem = GetComponent<ParticleSystem>();
+    }
 
-        if (numCollisionEvents > 0 && other.CompareTag("Enemy"))
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Collided with " + other.name);
+        int numCollisionEvents = _particleSystem.GetCollisionEvents(other, collisionEvents);
+
+        for (int i = 0; i < numCollisionEvents; i++)
         {
-            
-            Debug.Log("Starlight Brust Collision");
-            IDamageable damageable = other.GetComponent<IDamageable>();
-            if(damageable != null)
+            if (other.CompareTag("Enemy"))  
             {
-                damageable.TakeDamage(10);
-                DamagePopup.Create(other.transform.position, Random.Range(5, 15));
+                IDamageable enemy = other.GetComponent<IDamageable>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(0);
+                    DamagePopup.Create(other.transform.position, 0, false);
+                    Debug.Log($"🔥 {gameObject.name} hit {other.name}, dealing {2} damage!");
+                }
             }
         }
     }
-
-    
 }

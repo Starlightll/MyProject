@@ -32,16 +32,16 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _CullMode: 0
-    - _FaceDilate: 0.476
+    - _FaceDilate: 0.322
     - _GradientScale: 10
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
-    - _OutlineSoftness: 0
-    - _OutlineWidth: 0.533
+    - _OutlineSoftness: 0.172
+    - _OutlineWidth: 0.396
     - _PerspectiveFilter: 0.875
-    - _ScaleRatioA: 0.75219387
+    - _ScaleRatioA: 0.8352668
     - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.30285
+    - _ScaleRatioC: 0.44145003
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
