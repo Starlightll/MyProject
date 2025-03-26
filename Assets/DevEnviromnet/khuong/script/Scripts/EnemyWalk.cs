@@ -60,13 +60,26 @@ public class EnemyWalk : Enemy, IDamageable
 
                 animator.SetTrigger("Attack");
                 Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
-
+                DealDamage(hits, PhysicalDame);
             }
 
             isAttacking = true;
             isChasing = false;
             lastAttackTime = Time.time;
         }
+    }
+    private void DealDamage(Collider2D[] hits, float damage)
+    {
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+                Debug.Log("Take Dame");
+            }
+        }
+
     }
 
     protected virtual void ChasePlayer()
@@ -116,7 +129,7 @@ public class EnemyWalk : Enemy, IDamageable
 
     bool IsObstacleAhead()
     {
-        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(enemyEye.position, direction, 0.5f, groundLayer);
         return hit.collider != null;
     }
 
@@ -151,7 +164,7 @@ public class EnemyWalk : Enemy, IDamageable
 
         FaceToward(direction);
 
-        if (!IsGroundAhead())
+        if (!IsGroundAhead() || IsObstacleAhead())
         {
             direction *= -1;
         }
