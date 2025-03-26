@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Enemy
   - Trap
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Ground
   - Enemy
   - Player
-  - 
+  - Boss
   - 
   - 
   - 
@@ -88,6 +89,8 @@ TagManager:
     locked: 0
   - name: DamagePopup
     uniqueID: 4220928283
+  - name: EnemyBullet
+    uniqueID: 1801228639
     locked: 0
   m_RenderingLayers:
   - Default

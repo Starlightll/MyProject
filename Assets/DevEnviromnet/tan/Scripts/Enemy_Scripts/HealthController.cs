@@ -3,13 +3,12 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] protected Image healthBar;
+    //[SerializeField] protected Image healthBar;
 
     void LateUpdate()
     {
-        if (healthBar != null)
-        {
-            healthBar.transform.rotation = Quaternion.identity;
-        }
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+
     }
 }

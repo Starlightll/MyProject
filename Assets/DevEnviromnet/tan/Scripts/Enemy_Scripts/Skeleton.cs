@@ -33,7 +33,10 @@ public class Skeleton : Enemy, IDamageable
     {
         if (PlayerInAttackRange())
         {
-            Attack();
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                animator.SetTrigger("Attack");
+            }
         }
         else if (CheckInRange())
         {
@@ -99,21 +102,15 @@ public class Skeleton : Enemy, IDamageable
 
     protected override void Attack()
     {
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            isAttacking = true;
-            isChasing = false;
-            animator.SetTrigger("Attack");
-            lastAttackTime = Time.time;
+        DealDamage();
+        lastAttackTime = Time.time;
 
-
-            Invoke(nameof(DealDamage), delay);
-        }
     }
     protected override void Flip()
     {
         direction *= -1;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
 

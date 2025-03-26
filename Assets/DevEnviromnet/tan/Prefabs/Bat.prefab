@@ -191,12 +191,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 2
-  RunSpeed: 4
+  RunSpeed: 8
   FlySpeed: 5
   Hp: 300
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 0.5
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
@@ -215,6 +215,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &2309752774269893779
 PrefabInstance:
   m_ObjectHideFlags: 0
