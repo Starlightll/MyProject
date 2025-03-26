@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using UnityEngine;
 
 public class Boss : Enemy, IDamageable
@@ -21,13 +22,18 @@ public class Boss : Enemy, IDamageable
     private bool is_Chasing = false;
     private GateController gate;
     // private float lastAttackTime = 0f;
+    private string savePath;
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         gate = FindAnyObjectByType<GateController>();
+
+        savePath = "D:/PRU_212_Game/GameData/bossData.json";
+        LoadData();
     }
+
     void Update()
     {
         float distanceToPlayer = Vector2.Distance(groundCheck.position, player.position);
@@ -149,9 +155,12 @@ public class Boss : Enemy, IDamageable
     {
         direction *= -1;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
     protected override void Die()
     {
+        BossData data = new BossData { health = 0, isDead = true };
+        File.WriteAllText(savePath, JsonUtility.ToJson(data));
         animator.SetTrigger("Die");
         gate.OpenGate();
         StartCoroutine(ReturnToPoolAfterDelay());
@@ -159,15 +168,18 @@ public class Boss : Enemy, IDamageable
 
     private IEnumerator ReturnToPoolAfterDelay()
     {
-        Enemy_Pool enemy_Pool = Object.FindFirstObjectByType<Enemy_Pool>();
+        //Enemy_Pool enemy_Pool = Object.FindFirstObjectByType<Enemy_Pool>();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        ResetState();
-        enemy_Pool.ReturnToPool(gameObject);
+        //ResetState();
+        //enemy_Pool.ReturnToPool(gameObject);
+        //GameObject.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        SaveData();
         healthBar.fillAmount = currentHealth / Hp;
         if (currentHealth <= 0)
         {
@@ -191,5 +203,29 @@ public class Boss : Enemy, IDamageable
 
     }
 
-    
+    private void LoadData()
+    {
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            BossData data = JsonUtility.FromJson<BossData>(json);
+
+            currentHealth = data.health;
+            if (data.isDead)
+            {
+                gameObject.SetActive(false);
+            }
+            healthBar.fillAmount = currentHealth / Hp;
+        }
+        else
+        {
+            currentHealth = Hp;
+        }
+    }
+
+    private void SaveData()
+    {
+        BossData data = new BossData { health = currentHealth, isDead = false };
+        File.WriteAllText(savePath, JsonUtility.ToJson(data));
+    }
 }
