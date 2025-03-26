@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &270713146048738339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7938361145728281314}
+  m_Layer: 7
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7938361145728281314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270713146048738339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.14, y: 0.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6332159720198034260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &994415166201656840
 GameObject:
   m_ObjectHideFlags: 0
@@ -5791,6 +5822,7 @@ Transform:
   - {fileID: 8795409706571336431}
   - {fileID: 1743679519730814513}
   - {fileID: 3997297907559493965}
+  - {fileID: 7938361145728281314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3032830738773250426
@@ -5860,7 +5892,7 @@ SortingGroup:
   m_GameObject: {fileID: 8877109762899664973}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &1711162833640858257
@@ -5967,7 +5999,7 @@ MonoBehaviour:
   Hp: 400
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 8
   IsAttackRange: 0
@@ -5982,6 +6014,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  attack_Point: {fileID: 7938361145728281314}
+  PainAttack: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &3892778512640697040
 PrefabInstance:
   m_ObjectHideFlags: 0
