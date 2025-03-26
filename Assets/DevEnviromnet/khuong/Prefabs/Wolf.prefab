@@ -593,6 +593,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4661119269979283420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3044119365330990755}
+  m_Layer: 7
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3044119365330990755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661119269979283420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.4, y: 1.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7762575029220516607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4872584637113467142
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +815,7 @@ Transform:
   - {fileID: 8139871964620305726}
   - {fileID: 6099666276115347605}
   - {fileID: 3508618952966921822}
+  - {fileID: 3044119365330990755}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7900643238078144434
@@ -852,7 +884,7 @@ SortingGroup:
   m_GameObject: {fileID: 7255248556537692485}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &441264083453476908
@@ -959,7 +991,7 @@ MonoBehaviour:
   Hp: 400
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 8
   IsAttackRange: 0
@@ -974,6 +1006,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  attack_Point: {fileID: 3044119365330990755}
+  PainAttack: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &7357486404996367132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,11 +1227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1039.7
+      value: -1.34
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 636.3
+      value: 4.38
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

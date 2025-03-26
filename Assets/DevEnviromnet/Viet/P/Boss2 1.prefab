@@ -134,7 +134,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -4753702385071775785, guid: 4e3263a7be8330b4b8a4cda22078969b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -226,7 +226,7 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 500
+  Hp: 1000
   Mana: 100
   Defend: 0
   PhysicalDame: 10
@@ -243,7 +243,6 @@ MonoBehaviour:
   attack_Point: {fileID: 5319202105518141335}
   attackRadius: 2.5
   groundCheckDistance: 7
-  attackRange: 6
   detectionRange: 15
   groundCheck: {fileID: 7504549374582696992}
   groundLayer:
@@ -252,8 +251,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  leftLimit: 0
-  rightLimit: 0
+  flipCooldown: 0.5
+  leftLimit: -5
+  rightLimit: 5
 --- !u!1 &5933137867398126298
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 5933137867398126298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.838, y: -0.264, z: 0}
+  m_LocalPosition: {x: -0.61, y: -0.219, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

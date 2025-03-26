@@ -14,8 +14,10 @@ using UnityEngine;
         public float currentStamina;
         
         [Header("Attributes")]
-        public float attackPower;
+        public float attackDamage;
         public float attackDamageMultiplier = 1f;
+        public float magicalDamage;
+
         public float attackRange;
         public float defense;
         public float maxAttackSpeed = 200f;
@@ -123,7 +125,7 @@ using UnityEngine;
 
         public void IncreaseAttackPower(float amount)
         {
-            attackPower += amount;
+            attackDamage += amount;
             
         }
 

@@ -267,6 +267,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6135297986759724825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2103948662514885730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3731082212822667042}
+  m_Layer: 7
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3731082212822667042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103948662514885730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.81, y: 2.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6135297986759724825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2621505288179111736
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +1021,7 @@ Transform:
   - {fileID: 874736845860869830}
   - {fileID: 1643877647655799298}
   - {fileID: 934939496307533686}
+  - {fileID: 3731082212822667042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4615960481473073197
@@ -1059,7 +1091,7 @@ SortingGroup:
   m_GameObject: {fileID: 8470953279836609111}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &4846101152002026458
@@ -1166,7 +1198,7 @@ MonoBehaviour:
   Hp: 700
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 8
   IsAttackRange: 0
@@ -1181,6 +1213,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  attack_Point: {fileID: 3731082212822667042}
+  PainAttack: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &4623454569269460729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1267,11 +1304,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 703.32
+      value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 526.56
+      value: 4.95
       objectReference: {fileID: 0}
     - target: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

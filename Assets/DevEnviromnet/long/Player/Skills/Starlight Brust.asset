@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c59bceb4a19ecd458360f83c75343e4, type: 3}
+  m_Name: Starlight Brust
+  m_EditorClassIdentifier: 
+  unlocked: 0
+  requiredLevel: 0
+  requiredSkillPoints: 0
+  requiredSkills: []
+  requiredWeapon: {fileID: 0}
+  skillName: 
+  icon: {fileID: 6887933019453977863, guid: 89b7bfd859758934cb79fb0bfbabdfd6, type: 3}
+  skillDescription: 
+  cooldown: 1
+  manaCost: 0
+  staminaCost: 0
+  healthCost: 0
+  skillDuration: 1.2
+  physicalDamage: 2
+  magicalDamage: 0
+  initialCooldown: 0
+  animationTrigger: 
+  animationDuration: 0
+  skillOffset: {x: 0, y: 0}
+  skillSound: {fileID: 0}
+  skillHitSound: {fileID: 0}
+  skillMissSound: {fileID: 0}
+  skillEffects:
+  - {fileID: 818464252283477565, guid: a2466b65169aee14aa1aa8403ae37a85, type: 3}
+  skillHitEffects: []
+  skillMissEffects: []

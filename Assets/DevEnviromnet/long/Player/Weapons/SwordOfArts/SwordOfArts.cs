@@ -1,0 +1,202 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Weapon/SwordOfArts")]
+public class SwordOfArts : Weapon
+{
+    public float runtimeAttackRange = 0f;
+
+    public GameObject[] slashEffects;
+
+    public override void PerformAttack(Transform attacker, LayerMask enemyLayer, ref int comboCounter)
+    {
+        if (!comboEnabled)
+        {
+            comboCounter = 0;
+        }
+        comboCounter++;
+        
+
+            switch (comboCounter)
+            {
+                case 1:
+                    Attack1(attacker, enemyLayer, 0);
+                    break;
+                case 2:
+                    Attack2(attacker, enemyLayer, 1);
+                    break;
+                case 3:
+                    Attack3(attacker, enemyLayer, 2);
+                    break;
+                default:
+                    Attack1(attacker, enemyLayer, 0);
+                    comboCounter = 1;
+                    break;
+            }
+    }
+
+    private void Attack1(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
+        Debug.Log("Sword of Arts Attack 1");
+        /*** Để tính toán được phạm vi gây sát thương đồng bộ với vfx thì cần phải
+            * 1. Tính toán được vị trí tấn công
+            * 2. Tính toán phạm vi tấn công của VFX.
+            * 3. Tính toán phạm vi tấn công của sát thường dựa trên phạm vi tấn công của VFX.
+
+            * Ví dụ:
+            vị trí tấn công sẽ là (0, 0) của player.
+            Diện tích của VFX sau khi nhân các chỉ số của player ví dụ tăng 1.5 lần diện tích ban đầu sẽ là 30x1.5 = 45;
+            diện tích của sát thương sẽ đi theo VFX là 45.
+            => sync được vùng gây sát thương với VFX.
+         ***/
+
+        //Calculate attack range
+        float attackRange = 1f * attackRangeMultiplier;
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
+
+
+        //Perform hitbox check
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange * 2.7f, enemyLayer);
+        // PerformHits(hits, attacker);
+
+
+        //Show slash effect
+        ShowSlashEffect(attacker, comboCounter, attackRange);
+    }
+
+    private void Attack2(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
+        Debug.Log("Sword of Arts Attack 2");
+        float attackRange = 1.5f * attackRangeMultiplier;
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 4f, 0), Color.red, 1f);
+         //Perform hitbox check
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
+        // PerformHits(hits, attacker);
+        
+
+        ShowSlashEffect(attacker, comboCounter, attackRange);
+    }
+
+    private void Attack3(Transform attacker, LayerMask enemyLayer, int comboCounter)
+    {
+        Debug.Log("Sword of Arts Attack 3");
+        float attackRange = 2f * attackRangeMultiplier;
+        Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);
+        Debug.DrawRay(attacker.position, new Vector2(-attackRange * 2.7f, 0), Color.red, 1f);
+         //Perform hitbox check
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attacker.position, attackRange  * 2.7f, enemyLayer);
+        // PerformHits(hits, attacker);
+
+
+        ShowSlashEffect(attacker, comboCounter, attackRange);
+    }
+
+    private void ShowSlashEffect(Transform attacker, int comboCounter, float size = 1f)
+    {
+        if (slashEffects.Length == 0 || slashEffects[comboCounter] == null)
+            return;
+
+        Vector2 attackPoint = new Vector2(attacker.position.x + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x/5, attacker.parent.position.y);
+        Debug.Log("Attack Point: " + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x + " " + attacker.position.x);
+        
+
+        float direction = attacker.parent.transform.localScale.x > 0 ? 1f : -1f;
+        // Tạo ra rotation cho vfx theo euler angle
+        Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
+        Debug.Log("Eular Rotation: " + eularRotation);
+
+        //Chuyển euler angle sang quaternion
+        Quaternion rotation = Quaternion.Euler(eularRotation);
+        GameObject slash = Instantiate(slashEffects[comboCounter], attackPoint, rotation);
+        slash.transform.localScale = new Vector3(size, size, size);
+        Debug.Log("Slash: " + rotation);
+
+        // slash.transform.eulerAngles = new Vector3(slash.transform.eulerAngles.x, slash.transform.eulerAngles.y * direction, slash.transform.eulerAngles.z);
+        // Instantiate(slash, attackPoint.position, slash.transform.rotation);
+        // Quaternion rotation = new Quaternion(slashEffects[comboIndex].transform.rotation.x, slashEffects[comboIndex].transform.rotation.y * direction, slashEffects[comboIndex].transform.rotation.z, slashEffects[comboIndex].transform.rotation.w);
+        // slash.transform.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+        Destroy(slash, 1f);
+    }
+
+    public void hit(Collider2D collider, Transform attacker)
+    {
+        Debug.Log("Hit");
+        
+        if(collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            float totalDamage = baseDamage;
+            if(player.GetComponent<PlayerController>().comboCounter == 0)
+            {
+                totalDamage = baseDamage * 1f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 1)
+            {
+                totalDamage = baseDamage * 1.5f;
+            }
+            else if(player.GetComponent<PlayerController>().comboCounter == 2)
+            {
+                totalDamage = baseDamage * 2.5f;
+            }else{
+                totalDamage = baseDamage * 1f;
+            }
+            damageable.TakeDamage(totalDamage);
+            Debug.Log("Total Damage: " + totalDamage);
+            
+            Vector2 knockbackDirection = (collider.transform.position - attacker.parent.position).normalized;
+            knockbackDirection.y = 0.5f;
+            collider.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);
+        }
+    }
+    
+    private void hit(IDamageable damageable)
+    {
+        damageable.TakeDamage(baseDamage);
+    }
+
+    private void PerformHits(Collider2D[] hits, Transform attacker)
+    {
+       foreach (Collider2D enemy in hits)
+        {
+            if (enemy.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                damageable.TakeDamage(baseDamage);
+                Vector2 knockbackDirection = (enemy.transform.position - attacker.parent.position).normalized;
+                knockbackDirection.y = 0.5f;
+                enemy.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockback, ForceMode2D.Impulse);
+            }
+            Debug.Log("Hit");
+        }
+    }
+
+    private void dash(float power)
+    {
+        Rigidbody2D rb = player.GetComponent<PlayerController>()._rb;
+        rb.AddForce(new Vector2(player.transform.localScale.x * power, 0), ForceMode2D.Impulse);
+    }
+    
+
+    public override float CalculateTimeBetweenAttacks()
+    {
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        //This is for Calculate final attacks speed or attack cooldown between attacks.
+        //This function ned:
+        // 1. Current weapon attack speed
+        // 2. Player attack speed
+        // 3. Weapon attack speed multiplier
+
+        // result will be calculated as:
+        // Player attack speed * player attack speed multiplier as 1
+        // Weapon attack speed * weapon attack speed multiplier as 2
+        // 1 + 2 + ... + n / max number of attack speed values  => percentage of attack speed
+        // time between attacks * 1 - percentage of attack speed
+        float weaponAttackSpeed = playerController.CurrentWeapon.attackSpeed * playerController.CurrentWeapon.attackSpeedMultiplier;
+        float playerAttackSpeed = playerController.Stats.attackSpeed;
+
+        float percentageOfAttackSpeed = (weaponAttackSpeed + playerAttackSpeed) / playerController.Stats.maxAttackSpeed;
+        float timeBetweenAttacks = playerController.CurrentWeapon.attackCooldown - playerController.CurrentWeapon.attackCooldown * percentageOfAttackSpeed;
+        return timeBetweenAttacks;
+    }
+}
