@@ -409,7 +409,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IceVFX 1 Repeatable_0: -2937912103407283272
+      IceVFX 1 Repeatable_1: -4969676193942958089
+      IceVFX 1 Repeatable_10: 6735368463686487047
+      IceVFX 1 Repeatable_11: -3279050014110943633
+      IceVFX 1 Repeatable_2: -2752706012691971032
+      IceVFX 1 Repeatable_3: 4426986535507562079
+      IceVFX 1 Repeatable_4: -7338746557343932665
+      IceVFX 1 Repeatable_5: 2121323489530304963
+      IceVFX 1 Repeatable_6: 959595360459687273
+      IceVFX 1 Repeatable_7: 9016592951320014200
+      IceVFX 1 Repeatable_8: -2634239317843360259
+      IceVFX 1 Repeatable_9: -7184832548953209133
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
