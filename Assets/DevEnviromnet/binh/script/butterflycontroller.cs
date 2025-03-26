@@ -137,11 +137,20 @@ public class butterflycontroller : Enemy , IDamageable
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
+
 
     public void TakeDamage(float damage)
     {
-        throw new System.NotImplementedException();
+        currentHealth -= damage;
+        healthBar.fillAmount = currentHealth / Hp;
+        if (currentHealth <= 0)
+        {
+            Die();
+            
+        }
+        animator.SetTrigger("Hurt");
+        
     }
 }

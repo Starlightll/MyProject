@@ -197,10 +197,10 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 260
+  Hp: 20
   Mana: 100
   Defend: 0
-  PhysicalDame: 10
+  PhysicalDame: 5
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
@@ -224,7 +224,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   audioSource: {fileID: -1958502108809566014}
-  attackSound: {fileID: 8300000, guid: 74fb1c2c59d02ff4d8d287e1358b07bd, type: 3}
+  attackSound: {fileID: 8300000, guid: 42284746f9f67564fb825c58d4d1c7dc, type: 3}
+  bossSound: {fileID: 8300000, guid: 7b4c5437fdf1919469279717b2138a6b, type: 3}
+  soundInterval: 15
 --- !u!82 &-1958502108809566014
 AudioSource:
   m_ObjectHideFlags: 0

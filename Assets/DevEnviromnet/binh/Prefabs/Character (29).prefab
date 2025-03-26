@@ -70,7 +70,7 @@ SortingGroup:
   m_GameObject: {fileID: 1199909962283835627}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!61 &1943237903909960208
@@ -172,7 +172,7 @@ MonoBehaviour:
   PatrolRange: 5
   attackCooldown: 0.5
   lastAttackTime: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 6128975744314724689}
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   bullet: {fileID: 887386796156232654, guid: 7d6fa347cd6c508458def9de5bed1a96, type: 3}
@@ -437,6 +437,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+--- !u!114 &6128975744314724689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+  m_PrefabInstance: {fileID: 2468875133780766506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7946965703691716373 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}

@@ -10,11 +10,15 @@ public class GateController : MonoBehaviour
     private bool isMoving = false;
     private bool isClosed = false;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSound;
+
     public void CloseGate()
     {
         if (!isMoving)
         {
             isMoving = true;
+            audioSource.PlayOneShot(attackSound);
             StartCoroutine(MoveGate(closedPosition.position, true));
         }
     }
@@ -24,6 +28,7 @@ public class GateController : MonoBehaviour
         if (!isMoving)
         {
             isMoving = true;
+            audioSource.PlayOneShot(attackSound);
             StartCoroutine(MoveGate(openPosition.position, false));
         }
     }
