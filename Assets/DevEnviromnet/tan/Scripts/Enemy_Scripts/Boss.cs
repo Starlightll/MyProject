@@ -41,7 +41,7 @@ public class Boss : Enemy, IDamageable
         }
         savePath = Path.Combine(directoryPath, "bossData.json");
 
-        LoadData();
+        //LoadData();
 
         InvokeRepeating(nameof(PlayBossSound), soundInterval, soundInterval);
     }
@@ -175,6 +175,7 @@ public class Boss : Enemy, IDamageable
         File.WriteAllText(savePath, JsonUtility.ToJson(data));
         animator.SetTrigger("Die");
         gate.OpenGate();
+        FindAnyObjectByType<Enemy_Spawner>()?.PlayerRespawned();
         StartCoroutine(ReturnToPoolAfterDelay());
     }
 
@@ -191,7 +192,7 @@ public class Boss : Enemy, IDamageable
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        SaveData();
+        //SaveData();
         healthBar.fillAmount = currentHealth / Hp;
         if (currentHealth <= 0)
         {
@@ -248,4 +249,12 @@ public class Boss : Enemy, IDamageable
             audioSource.PlayOneShot(bossSound);
         }
     }
+
+    public void ResetBossState()
+    {
+        currentHealth = Hp;
+        healthBar.fillAmount = 1;
+
+    }
+
 }
