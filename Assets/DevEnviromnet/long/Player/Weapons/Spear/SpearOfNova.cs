@@ -173,20 +173,19 @@ public class SpearOfNova : Weapon
         if (slashEffects.Length == 0 || slashEffects[comboCounter] == null)
             return;
 
-        Vector2 attackPoint = new Vector2(attacker.position.x + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x/5, attacker.parent.position.y);
+        Vector2 attackPoint = new Vector2(attacker.position.x + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x/5, attacker.parent.position.y + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.y/10);
         Debug.Log("Attack Point: " + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x + " " + attacker.position.x);
-        
 
-        float direction = attacker.parent.transform.localScale.x > 0 ? 1f : -1f;
+        float direction = attacker.parent.transform.localScale.x > 0 ?  0f :180f;
         // Tạo ra rotation cho vfx theo euler angle
-        Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
-        Debug.Log("Eular Rotation: " + eularRotation);
+        Vector3 eularRotation = new Vector3(Random.Range(-20, 20), direction, slashEffects[comboCounter].transform.localEulerAngles.z);
+        // Debug.Log("Eular Rotation: " + eularRotation);
 
         //Chuyển euler angle sang quaternion
         Quaternion rotation = Quaternion.Euler(eularRotation);
         GameObject slash = Instantiate(slashEffects[comboCounter], attackPoint, rotation);
         slash.transform.localScale = new Vector3(size, size, size);
-        Debug.Log("Slash: " + rotation);
+        // Debug.Log("Slash: " + rotation);
 
         // slash.transform.eulerAngles = new Vector3(slash.transform.eulerAngles.x, slash.transform.eulerAngles.y * direction, slash.transform.eulerAngles.z);
         // Instantiate(slash, attackPoint.position, slash.transform.rotation);

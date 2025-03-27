@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector2 playerDirection;
 
     public float attackRange = 0;
+    public bool isDead = false;
 
     // [Header("References")]
     // public Transform groundCheck;
