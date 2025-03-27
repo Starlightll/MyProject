@@ -72,6 +72,7 @@ public class SkillManager : MonoBehaviour
             Skill skill = _playerController.CurrentWeapon.skills[1];
             if(skill.CanActiveSkill(_playerController) && _cooldownTimers[skill] <= 0)
             {
+                Debug.Log("Skill 2 activated");
                 //Start UI display cooldown
                 // _skillBarManagement.StartCooldown(_playerController.CurrentWeapon.skills[1].cooldown, 1);
 

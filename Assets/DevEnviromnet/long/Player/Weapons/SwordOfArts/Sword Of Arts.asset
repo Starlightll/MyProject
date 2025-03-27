@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponTrail: {fileID: 0}
   weaponTrailHit: {fileID: 0}
   weaponTrailMiss: {fileID: 0}
-  player: {fileID: 4960598903292135017, guid: fc2805d09fbaae741b64f5ef6f00a2e8, type: 3}
+  player: {fileID: 4715208473121982112, guid: 899ae21f25bb3474b95d2051023c3e50, type: 3}
   weaponName: Sword Of Arts
   weaponIcon: {fileID: 0}
   baseDamage: 10

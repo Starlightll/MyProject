@@ -57,6 +57,7 @@ public class PlayerMovementController : MonoBehaviour
     private TrailRenderer dashTrail;
 
     public Transform middleObject;
+
     
 
 
