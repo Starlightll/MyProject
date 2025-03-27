@@ -135,24 +135,24 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     
     private void HandleAttack() {
-        if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
-        {
+           Debug.Log("Attack Combo" + comboCounter);
+
             //Need to be complete this task next time
             //Move the attack logic to here
             //Calculate time here.
              if(comboTimer >= CurrentWeapon.attackCooldown)
             {
+                Debug.Log("Combo Reset");
                 comboCounter = 0;
                 comboTimer = 0f;
             }
             float direction = transform.localScale.x > 0 ? 1 : -1;
             playerVelocity = new Vector2(_rb.linearVelocity.x == 0 ? 3 * direction: _rb.linearVelocity.x * 0.3f, /*Mathf.Abs(_rb.linearVelocity.y) * -0.3f*/ _rb.linearVelocity.y < 0? Mathf.Abs(_rb.linearVelocity.y) * -0.2f : _rb.linearVelocity.y *-0.01f);
-            Debug.Log("Player Velocity: " + playerVelocity);
+            // Debug.Log("Player Velocity: " + playerVelocity);
             // _stateMachine.CurrentState(States.Attack);
-            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
+            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter, this);
             comboTimer = 0f;
             attackTimer = 0f;
-        }
     }
 
     private void HandleMovement() {

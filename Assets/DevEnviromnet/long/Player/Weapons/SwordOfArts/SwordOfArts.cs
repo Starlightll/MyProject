@@ -9,7 +9,7 @@ public class SwordOfArts : Weapon
 
     public GameObject[] slashEffects;
 
-    public override void PerformAttack(Transform attacker, LayerMask enemyLayer, ref int comboCounter)
+    public override void PerformAttack(Transform attacker, LayerMask enemyLayer, ref int comboCounter, PlayerController player)
     {
         if (!comboEnabled)
         {
