@@ -54,7 +54,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip skill1;
     [SerializeField] private AudioClip skill2;
     [SerializeField] private AudioSource audioSource;
-
+    public GameObject wall;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -285,6 +285,11 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         Debug.Log("Boss đã chết!");
         Destroy(gameObject, 2f);
+        gate gate = FindFirstObjectByType<gate>();
+        if (gate != null)
+        {
+            gate.CloseGate();
+        }
     }
 
     // Gọi từ Animation Event để gây sát thương đúng thời điểm
