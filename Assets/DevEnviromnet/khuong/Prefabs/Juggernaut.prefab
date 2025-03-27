@@ -523,6 +523,7 @@ Transform:
   - {fileID: 8248281753766921132}
   - {fileID: 7480674184294416049}
   - {fileID: 1301027466202527625}
+  - {fileID: 8971239600803884243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9178113720880015681
@@ -693,8 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44aebf5749e9fc46bb508b016299a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 2
-  RunSpeed: 5
+  WalkSpeed: 3
+  RunSpeed: 6
   FlySpeed: 5
   Hp: 110
   Mana: 100
@@ -702,7 +703,7 @@ MonoBehaviour:
   PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 12
-  IsAttackRange: 0
+  IsAttackRange: 5
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
@@ -716,11 +717,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  attack_Point: {fileID: 1301027466202527625}
+  attack_Point: {fileID: 8971239600803884243}
   PainAttack: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 3
 --- !u!1 &4580186107117831778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1134,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9057213081189448366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8971239600803884243}
+  m_Layer: 7
+  m_Name: Attackpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8971239600803884243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9057213081189448366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.9, y: 2.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8883442708095116527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9084070249526543241
 GameObject:
   m_ObjectHideFlags: 0

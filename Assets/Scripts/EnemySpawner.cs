@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<Enemy, ObjectPool<Enemy>> enemyPools = new Dictionary<Enemy, ObjectPool<Enemy>>();
     private Dictionary<Transform, Enemy> activeEnemies = new Dictionary<Transform, Enemy>();
 
-    private Enemy_Pool enemyPool;
+    private Enemy_Pool1 enemyPool;
 
     private void Awake()
     {
@@ -29,11 +29,8 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
 
         // Tìm đối tượng Enemy_Pool trong cảnh
-        enemyPool = FindObjectOfType<Enemy_Pool>();
-        if (enemyPool == null)
-        {
-            //Debug.LogError("Enemy_Pool not found in the scene.");
-        }
+        enemyPool = FindObjectOfType<Enemy_Pool1>();
+        
     }
 
     private void Start()

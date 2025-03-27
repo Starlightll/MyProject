@@ -15,6 +15,7 @@ public class EnemyWalk : Enemy, IDamageable
     [SerializeField] private Transform attack_Point;
     [SerializeField] private float PainAttack = 1f;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float dame2 = 2;
     private int respawnCount = 0;
     private const int maxRespawnCount = 3;
 
@@ -62,7 +63,7 @@ public class EnemyWalk : Enemy, IDamageable
 
                 animator.SetTrigger("Attack");
                 Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
-                DealDamage(hits, PhysicalDame);
+                DealDamage(hits, dame2);
             }
 
             isAttacking = true;

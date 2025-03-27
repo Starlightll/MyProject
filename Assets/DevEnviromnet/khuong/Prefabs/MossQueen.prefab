@@ -6002,7 +6002,7 @@ MonoBehaviour:
   PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 8
-  IsAttackRange: 0
+  IsAttackRange: 4
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
@@ -6021,6 +6021,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 2
 --- !u!1001 &3892778512640697040
 PrefabInstance:
   m_ObjectHideFlags: 0
