@@ -598,10 +598,10 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 500
+  Hp: 100
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 1.5
   AttackSpeed: 0
   AttackRange: 10
   IsAttackRange: 5
@@ -610,6 +610,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 5673887788161595031}
+  currentHealth: 0
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 3876284251279452493}
   groundCheck: {fileID: 1326475219067326322}
