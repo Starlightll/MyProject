@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SkillCosmicShapeIcon._0: 418219476617877032
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
