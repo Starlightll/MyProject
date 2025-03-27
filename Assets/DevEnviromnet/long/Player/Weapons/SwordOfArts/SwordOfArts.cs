@@ -178,9 +178,9 @@ public class SwordOfArts : Weapon
         Vector2 attackPoint = new Vector2(attacker.position.x + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x/5, attacker.parent.position.y + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.y/10);
         Debug.Log("Attack Point: " + attacker.parent.GetComponent<Rigidbody2D>().linearVelocity.x + " " + attacker.position.x);
 
-        float direction = attacker.parent.transform.localScale.x > 0 ?  0f :180f;
+        float direction = attacker.parent.transform.localScale.x > 0 ? 1 :-1;
         // Tạo ra rotation cho vfx theo euler angle
-        Vector3 eularRotation = new Vector3(Random.Range(-20, 20), direction, slashEffects[comboCounter].transform.localEulerAngles.z);
+        Vector3 eularRotation = new Vector3(Random.Range(-20, 20), slashEffects[comboCounter].transform.localEulerAngles.y * direction, slashEffects[comboCounter].transform.localEulerAngles.z);
         // Debug.Log("Eular Rotation: " + eularRotation);
 
         //Chuyển euler angle sang quaternion
