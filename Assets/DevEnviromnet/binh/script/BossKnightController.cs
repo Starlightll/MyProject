@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class BossKnightController : MonoBehaviour , IDamageable
+public class BossKnightController : MonoBehaviour, IDamageable
 {
     public float walkSpeed = 2f;
     public float chaseSpeed = 3.5f;
@@ -31,8 +32,11 @@ public class BossKnightController : MonoBehaviour , IDamageable
 
     [SerializeField] private GameObject darkBoltPrefab;
     [SerializeField] private float skill2Cooldown = 8f;
+    [SerializeField] private GameObject hpUI;
     [SerializeField] private Image hpBar;
     [SerializeField] private float hp = 100;
+    [SerializeField] private float knockbackForce = 70f;
+    [SerializeField] private int contactDamage = 5; // Sát thương khi va chạm
     private float currentHp;
 
 
@@ -42,25 +46,39 @@ public class BossKnightController : MonoBehaviour , IDamageable
 
     private bool lastUsedSkill2 = false;
     private int skill1Count = 0;
-
+    private int skill1UsageCount = 0;
     private Rigidbody2D rb;
+
+    //audio
+    [SerializeField] private AudioClip chaseSound; // Âm thanh đuổi player
+    [SerializeField]private AudioSource audioSource;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         currentHp = hp;
-
+        audioSource = GetComponent<AudioSource>();
+        hpUI.SetActive(false); // Fix the error by removing GameObject method call
     }
 
     private void Update()
     {
-       
+
         playerTarget = DetectPlayer();
 
         if (playerTarget != null) // Nếu phát hiện Player
         {
             float distanceToPlayer = Vector2.Distance(transform.position, playerTarget.position);
+
+            if (distanceToPlayer < detectionRange) // Nếu Player ở gần, hiện thanh máu
+            {
+                hpUI.SetActive(true);
+            }
+            else
+            {
+                hpUI.SetActive(false);
+            }
             Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
             if (player != null) // Nếu Player trong phạm vi tấn công
             {
@@ -69,22 +87,28 @@ public class BossKnightController : MonoBehaviour , IDamageable
             }
             else // Nếu ngoài phạm vi tấn công nhưng vẫn thấy Player
             {
+
                 ChasePlayer();
             }
         }
         else if (!isAttacking) // Nếu không thấy Player thì tuần tra
         {
+            hpUI.SetActive(false);
             Patrol();
         }
 
-        
+        if (isDead)
+        {
+            hpUI.SetActive(false);
+        }
+
     }
     private void SpawnDarkBolt()
     {
         if (player != null)
         {
             Vector3 spawnPosition = new Vector3(player.position.x, player.position.y + 18f, 0);
-            GameObject darkBolt = Instantiate(darkBoltPrefab, spawnPosition, Quaternion.identity);      
+            GameObject darkBolt = Instantiate(darkBoltPrefab, spawnPosition, Quaternion.identity);
 
             Rigidbody2D rb = darkBolt.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -98,8 +122,8 @@ public class BossKnightController : MonoBehaviour , IDamageable
         animator.SetBool("iswalk", true);// Bật animation đi bộ
         animator.SetBool("isrun", false); // Tắt animation chạy
 
-        bool isGroundAhead = Physics2D.OverlapCircle(groundCheck.position, 2 , groundLayer); 
-        bool isObstacleAhead = Physics2D.Raycast(groundCheck.position + new Vector3(0 ,5,0), Vector2.right * direction, obstacleCheckDistance, groundLayer);
+        bool isGroundAhead = Physics2D.OverlapCircle(groundCheck.position, 2, groundLayer);
+        bool isObstacleAhead = Physics2D.Raycast(groundCheck.position + new Vector3(0, 5, 0), Vector2.right * direction, obstacleCheckDistance, groundLayer);
 
         if (isObstacleAhead)
         {
@@ -107,6 +131,7 @@ public class BossKnightController : MonoBehaviour , IDamageable
         }
 
         rb.linearVelocity = new Vector3(direction * walkSpeed, rb.linearVelocity.y, 0);
+
     }
 
     private void Flip()
@@ -127,9 +152,10 @@ public class BossKnightController : MonoBehaviour , IDamageable
         {
             return;
         }
-         // Nếu đang tấn công thì không di chuyển nữa
+        // Nếu đang tấn công thì không di chuyển nữa
 
         animator.SetBool("iswalk", false);
+
         animator.SetBool("isrun", true);
 
         int moveDirection = playerTarget.position.x > transform.position.x ? 1 : -1;
@@ -137,9 +163,11 @@ public class BossKnightController : MonoBehaviour , IDamageable
 
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * moveDirection, transform.localScale.y, transform.localScale.z);
         transform.position += new Vector3(direction * chaseSpeed * Time.deltaTime, 0, 0);
+        PlaySound(chaseSound);
+
     }
 
-    
+
 
     private void Attack(Collider2D player)
     {
@@ -148,16 +176,22 @@ public class BossKnightController : MonoBehaviour , IDamageable
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        skill1Count++; // Mỗi lần đánh Skill 1, tăng biến đếm
+        skill1Count++;
+        skill1UsageCount++;// Mỗi lần đánh Skill 1, tăng biến đếm
         Debug.Log("Skill 1 count: " + skill1Count);
+        Debug.Log(skill1UsageCount);
         UseSkill1();
-       
+
         if (skill1Count >= 3) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
             skill1Count = 0; // Reset đếm sau khi dùng Skill 2
             UseSkill2();
         }
-
+        if (skill1UsageCount >= 2) // Nếu đã dùng Skill 1 hai lần thì dùng Skill 3
+        {
+            skill1UsageCount = 0; // Reset đếm sau khi dùng Skill 3
+            UseSkill3();
+        }
         Invoke("ResetAttack", 1f); // Reset attack state sau khi hoàn tất combo
     }
 
@@ -166,7 +200,24 @@ public class BossKnightController : MonoBehaviour , IDamageable
         if (isDead) return;
 
         isAttacking = true;
-        animator.SetTrigger("skill_1"); // Gọi animation đánh thường
+        animator.SetTrigger("skill_1");
+        // Gọi animation đánh thường
+    }
+    private void UseSkill3()
+    {
+        if (isDead) return;
+
+        isAttacking = true;
+        animator.SetTrigger("evade_1");// Gọi animation Skill 3 (lộn)
+
+        float rollForce = 30f; // Điều chỉnh lực lộn
+        float rollDuration = 0.6f; // Thời gian chờ trước khi reset trạng thái
+
+        // Áp dụng lực đẩy theo hướng Boss đang nhìn
+        rb.linearVelocity = new Vector2(direction * rollForce, 0);
+
+        // Chờ một khoảng thời gian rồi cho phép di chuyển lại
+        Invoke("ResetAttack", rollDuration);
     }
 
     private void UseSkill2()
@@ -210,12 +261,13 @@ public class BossKnightController : MonoBehaviour , IDamageable
         isAttacking = false;
     }
 
-    
+
 
     private void Die()
     {
         isDead = true;
         animator.SetTrigger("death");
+
         Debug.Log("Boss đã chết!");
         Destroy(gameObject, 2f);
     }
@@ -234,7 +286,13 @@ public class BossKnightController : MonoBehaviour , IDamageable
             }
         }
     }
-
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -250,11 +308,33 @@ public class BossKnightController : MonoBehaviour , IDamageable
         Gizmos.DrawLine(check1.position, check2.position);
     }
 
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            IDamageable player = collision.gameObject.GetComponent<IDamageable>();
+            if (player != null)
+            {
+                player.TakeDamage(contactDamage); // Gây sát thương lên Player
+            }
+
+            // Đẩy Player ra xa
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            }
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         if (isDead) return;
 
-
+        string hitAnimation = Random.value > 0.5f ? "hit_1" : "hit_2";
+        animator.SetTrigger(hitAnimation);
         Debug.Log("Boss nhận " + damage + " sát thương. Máu còn: " + health);
         currentHp -= damage;
         hpBar.fillAmount = (float)currentHp / hp;
