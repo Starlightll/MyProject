@@ -42,6 +42,7 @@ public class AstraCosmic : Skill
                         float damage = player.Stats.attackDamage + physicalDamage + physicalDamage * player.Stats.level/100 * 1.15f;
                         float finalDamage = isCrit ? damage * player.Stats.critDamage : damage;
                         damageable.TakeDamage(finalDamage);
+                        // hitEnemies[unluckyEnemy].GetComponent<Enemy>();
                         DamagePopup.Create(hitEnemies[unluckyEnemy].transform.position, finalDamage, isCrit);
                     }
                 }catch(System.Exception e){

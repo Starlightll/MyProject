@@ -18,7 +18,7 @@ MonoBehaviour:
   requiredSkills: []
   requiredWeapon: {fileID: 11400000, guid: 48c7880356d808143a0240210e769f70, type: 2}
   skillName: AstraCosmic
-  icon: {fileID: 141893073332109768, guid: 176b30f50976d4245833be84850e4343, type: 3}
+  icon: {fileID: 418219476617877032, guid: 16b0cb19c3a25134ebaf22cb080d710f, type: 3}
   skillDescription: 
   cooldown: 1
   manaCost: 0

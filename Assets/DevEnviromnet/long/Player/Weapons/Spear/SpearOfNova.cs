@@ -10,10 +10,10 @@ public class SpearOfNova : Weapon
 
     public override void PerformAttack(Transform attacker, LayerMask enemyLayer, ref int comboCounter, PlayerController player)
     {
-        // if (!comboEnabled)
-        // {
-        //     comboCounter = 0;
-        // }
+        if (!comboEnabled)
+        {
+            comboCounter = 0;
+        }
         comboCounter++;
         Debug.Log("Combo Counter: " + comboCounter);
         
@@ -39,18 +39,6 @@ public class SpearOfNova : Weapon
     private IEnumerator Attack1(Transform attacker, LayerMask enemyLayer, int comboCounter, PlayerController player)
     {
         Debug.Log("Sword of Arts Attack 1");
-        /*** Để tính toán được phạm vi gây sát thương đồng bộ với vfx thì cần phải
-            * 1. Tính toán được vị trí tấn công
-            * 2. Tính toán phạm vi tấn công của VFX.
-            * 3. Tính toán phạm vi tấn công của sát thường dựa trên phạm vi tấn công của VFX.
-
-            * Ví dụ:
-            vị trí tấn công sẽ là (0, 0) của player.
-            Diện tích của VFX sau khi nhân các chỉ số của player ví dụ tăng 1.5 lần diện tích ban đầu sẽ là 30x1.5 = 45;
-            diện tích của sát thương sẽ đi theo VFX là 45.
-            => sync được vùng gây sát thương với VFX.
-         ***/
-
         //Calculate attack range
         float attackRange = 1f * attackRangeMultiplier;
         Debug.DrawRay(attacker.position, new Vector2(attackRange * 2.7f, 0), Color.red, 1f);

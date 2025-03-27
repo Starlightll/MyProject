@@ -13,25 +13,26 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 79.5
+  currentHealth: 60.952
   maxMana: 100
   currentMana: 100
   maxStamina: 100
-  currentStamina: 100
+  currentStamina: 75
   attackDamage: 5
   attackDamageMultiplier: 1
-  magicalDamage: 0
+  magicalDamage: 5
   attackRange: 0
   defense: 5
   maxAttackSpeed: 200
   attackSpeed: 30
   critChance: 10
-  critDamage: 5
+  critDamage: 3
   lifeSteal: 0
   manaRegen: 0
   healthRegen: 0
-  currentExperience: 30
-  experienceToNextLevel: 100
+  currentExperience: 0
+  experienceToNextLevel: 500
   level: 1
   skillPoints: 0
   isInvincible: 0
+  isResetStatsNextTime: 1

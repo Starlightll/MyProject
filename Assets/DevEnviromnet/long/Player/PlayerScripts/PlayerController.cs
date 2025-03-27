@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public float attackRange = 0;
     public bool isDead = false;
+    public Vector3 checkpoint = new Vector3(0, 0, 0);
 
     // [Header("References")]
     // public Transform groundCheck;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Awake() {
         _playerStateMachine = new PlayerStateMachine(this);
+        checkpoint = transform.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,7 +80,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Initialize the player state machine
         _playerStateMachine.Initialize(_playerStateMachine.idleState);
-        _stats.ResetStats();
+        if(_stats.isResetStatsNextTime)
+        {
+            _stats.ResetStats();
+        }
+        _stats.InitializeStats();
     }
 
 
