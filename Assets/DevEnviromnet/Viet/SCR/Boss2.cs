@@ -14,17 +14,24 @@ public class Boss2 : Enemy, IDamageable
     [SerializeField] private float flipCooldown = 0.5f;
     private float lastFlipTime = 0f;
 
-    private int direction = 1;
+    private int direction = 1; // 1 means moving right, -1 means moving left
     private Animator animator;
     private GateController gate;
 
     [SerializeField] private float leftLimit = -5f;
     [SerializeField] private float rightLimit = 5f;
 
-    
     public GameObject bulletPrefab;  // Prefab của viên đạn (BanDan)
     public Transform firePoint;      // Điểm phát đạn
     public float bulletSpeed = 10f;  // Tốc độ của viên đạn
+
+    [SerializeField] private AudioSource audioSource;  // AudioSource để phát âm thanh
+    [SerializeField] private AudioClip attackSound;    // Âm thanh tấn công
+    [SerializeField] private AudioClip dieSound;       // Âm thanh chết
+
+    // Patrol distance and position tracking
+    private float patrolDistance = 5f;  // Set how far the boss should move before flipping
+    private float patrolStartPosX;      // Store the starting X position for the patrol
 
     protected override void Start()
     {
@@ -69,7 +76,7 @@ public class Boss2 : Enemy, IDamageable
             }
             else
             {
-                Patrol();
+                Patrol();  // Điều khiển di chuyển qua lại
             }
         }
     }
@@ -80,21 +87,23 @@ public class Boss2 : Enemy, IDamageable
         isAttacking = false;
         animator.SetBool("isWalking", true);
 
-        bool isGroundAhead = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
-        Vector2 obstacleCheckDirection = direction > 0 ? Vector2.right : Vector2.left;
-        bool isObstacleAhead = Physics2D.Raycast(groundCheck.position, obstacleCheckDirection, 6f, groundLayer);
-
-        if (!isGroundAhead || isObstacleAhead)
+        // If patrol hasn't started, initialize the starting position
+        if (patrolStartPosX == 0)
         {
-            Flip();
+            patrolStartPosX = transform.position.x;
         }
 
-        float currentPositionX = transform.position.x;
-        if (currentPositionX <= leftLimit || currentPositionX >= rightLimit)
+        // Check how far the boss has moved since starting the patrol
+        float distanceTraveled = Mathf.Abs(transform.position.x - patrolStartPosX);
+
+        // If the boss has traveled the patrol distance, flip direction and set a new start position
+        if (distanceTraveled >= patrolDistance)
         {
-            Flip();
+            Flip();  // Flip direction
+            patrolStartPosX = transform.position.x;  // Reset patrol start position after flipping
         }
 
+        // Move the boss smoothly back and forth based on the direction
         transform.position += new Vector3(direction * WalkSpeed * Time.deltaTime, 0, 0);
     }
 
@@ -140,6 +149,12 @@ public class Boss2 : Enemy, IDamageable
 
         // Kích hoạt animation tấn công
         animator.SetTrigger("Attack");
+
+        // Play attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
 
         // Kiểm tra va chạm với Player trong phạm vi tấn công khi Boss tấn công
         if (attack_Point != null)
@@ -205,13 +220,26 @@ public class Boss2 : Enemy, IDamageable
 
     protected override void Flip()
     {
+        // Reverse the direction on the X-axis
         direction *= -1;
+
+        // Flip the sprite on the X-axis only (not Y-axis)
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+        // Flip the health bar to match the boss's new direction (only change X scale)
+        healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
     protected override void Die()
     {
         animator.SetTrigger("Die");
+
+        // Play death sound
+        if (audioSource != null && dieSound != null)
+        {
+            audioSource.PlayOneShot(dieSound);
+        }
+
         gate.OpenGate();
         StartCoroutine(ReturnToPoolAfterDelay());
     }

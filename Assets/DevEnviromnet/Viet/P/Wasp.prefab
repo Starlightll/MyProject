@@ -766,7 +766,7 @@ MonoBehaviour:
   Hp: 500
   Mana: 100
   Defend: 0
-  PhysicalDame: 10
+  PhysicalDame: 1
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
@@ -775,6 +775,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 2592849544510293826}
+  currentHealth: 0
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   detectionRange: 5
