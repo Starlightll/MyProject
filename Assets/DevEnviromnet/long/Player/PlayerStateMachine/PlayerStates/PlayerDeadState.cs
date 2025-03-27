@@ -24,7 +24,7 @@ public class PlayerDeadState : IPlayerState
     public void Execute()
     {
         deadTimer += Time.deltaTime;
-        // Debug.Log("Executing Dead State");
+        Debug.Log("Executing Dead State");
         // Check if the animation is finished
         if (player._anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && deadTimer >= timeBeforeRestart)
         {

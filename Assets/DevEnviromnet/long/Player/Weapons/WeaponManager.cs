@@ -8,6 +8,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private int  _currentWeaponIndex = 0;
     [SerializeField] private Weapon[] defaultWeapons;
     public Weapon CurrentWeapon => _unlockedWeapons[_currentWeaponIndex];
+
+    [SerializeField] private SkillBarManagement _skillBarManagement;
     
     private SkillManager _skillManager;
     private PlayerController _playerController;
@@ -15,6 +17,27 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
+    }
+
+    private void Update(){
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(_unlockedWeapons.Count > 0)
+            {
+                SwitchWeapon(0);
+                Debug.Log("Switched to weapon 1");
+                _skillBarManagement.UpdateSkillBar(CurrentWeapon);
+
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if(_unlockedWeapons.Count > 1){
+                SwitchWeapon(1);
+                Debug.Log("Switched to weapon 2");
+                _skillBarManagement.UpdateSkillBar(CurrentWeapon);
+            }
+        }
     }
 
     public void UnlockWeapon(Weapon weapon)

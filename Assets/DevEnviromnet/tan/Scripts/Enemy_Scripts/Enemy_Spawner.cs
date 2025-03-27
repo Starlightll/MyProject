@@ -18,6 +18,11 @@ public class Enemy_Spawner : MonoBehaviour
     // This method will be called when player dies and respawns
     public void PlayerRespawned()
     {
+        Boss boss = FindAnyObjectByType<Boss>();
+        if (boss != null)
+        {
+            boss.ResetBossState();
+        }
         shouldRespawn = true;
         StartCoroutine(SpawnEnemiesOnPlayerRespawn());
     }

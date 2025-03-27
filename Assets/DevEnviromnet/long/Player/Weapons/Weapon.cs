@@ -67,7 +67,7 @@ public abstract class Weapon : ScriptableObject
     [Header("Weapon Skills")]
     public Skill[] skills;
 
-    public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter);
+    public abstract void PerformAttack(Transform attackPoint, LayerMask enemyLayer, ref int comboCounter, PlayerController playerController);
     
     public abstract float CalculateTimeBetweenAttacks();
 

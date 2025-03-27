@@ -24,4 +24,7 @@ public class PlayerConfigs : ScriptableObject
     public float dashSpeed = 25f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
+
+    [Header("Checkpoints")]
+    public Vector3 checkpoint;
 }

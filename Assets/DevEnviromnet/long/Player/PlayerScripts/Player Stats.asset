@@ -12,26 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ec550f4e8149945ac70e9676e58940, type: 3}
   m_Name: Player Stats
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 79.5
+  maxHealth: 140
+  currentHealth: 140
   maxMana: 100
   currentMana: 100
   maxStamina: 100
   currentStamina: 100
-  attackDamage: 5
+  attackDamage: 57
   attackDamageMultiplier: 1
-  magicalDamage: 0
+  magicalDamage: 5
   attackRange: 0
-  defense: 5
+  defense: 9
   maxAttackSpeed: 200
   attackSpeed: 30
   critChance: 10
-  critDamage: 5
+  critDamage: 3
   lifeSteal: 0
   manaRegen: 0
   healthRegen: 0
-  currentExperience: 30
-  experienceToNextLevel: 100
-  level: 1
-  skillPoints: 0
+  currentExperience: 127.63
+  experienceToNextLevel: 1230.1875
+  level: 4
+  skillPoints: 10
   isInvincible: 0
+  isResetStatsNextTime: 1

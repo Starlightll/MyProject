@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 
@@ -6,7 +7,9 @@ using UnityEngine;
     public class PlayerStats : ScriptableObject
     {
         [Header("Vitals")]
+        [Min(1)]
         public float maxHealth = 100f;
+        [Min(0)]
         public float currentHealth;
         public float maxMana;
         public float currentMana;
@@ -29,17 +32,45 @@ using UnityEngine;
         public float healthRegen;
 
         [Header("Experience")]
-        public float currentExperience = 0;
+        public float currentExperience;
         public float experienceToNextLevel = 500;
-        public float level = 1;
-        public float skillPoints;
+        public float level = 0;
+        public int skillPoints;
         public bool isInvincible = false;
+        public bool isResetStatsNextTime = false;
 
-        public void ResetStats()
+        public void InitializeStats()
         {
             currentHealth = maxHealth;
             currentMana = maxMana;
             currentStamina = maxStamina;
+        }
+        public void ResetStats()
+        {
+            maxHealth = 100f;
+            maxMana = 100f;
+            maxStamina = 100f;
+            currentHealth = maxHealth;
+            currentMana = maxMana;
+            currentStamina = maxStamina;
+            attackDamage = 5f;
+            attackDamageMultiplier = 1f;
+            magicalDamage = 5f;
+            attackRange = 0f;
+            defense = 5f;
+            maxAttackSpeed = 200f;
+            attackSpeed = 30f;
+            critChance = 10f;
+            critDamage = 3f;
+            lifeSteal = 0f;
+            manaRegen = 0f;
+            healthRegen = 0f;
+            currentExperience = 0f;
+            experienceToNextLevel = 500;
+            level = 1;
+            skillPoints = 0;
+            isInvincible = false;
+            // isResetStatsNextTime = false;
             // Reset all other stats
         }
 
@@ -49,8 +80,7 @@ using UnityEngine;
         {
             level++;
             skillPoints++;
-            experienceToNextLevel = experienceToNextLevel * 1.35f;
-            
+            experienceToNextLevel = experienceToNextLevel * 1.35f;            
         }
 
         public void AddExperience(float experience)
