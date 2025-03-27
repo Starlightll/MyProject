@@ -51,8 +51,10 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
     //audio
     [SerializeField] private AudioClip chaseSound; // Âm thanh đuổi player
-    [SerializeField]private AudioSource audioSource;
-
+    [SerializeField] private AudioClip skill1;
+    [SerializeField] private AudioClip skill2;
+    [SerializeField] private AudioSource audioSource;
+    public GameObject wall;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -60,6 +62,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
         currentHp = hp;
         audioSource = GetComponent<AudioSource>();
         hpUI.SetActive(false); // Fix the error by removing GameObject method call
+       
     }
 
     private void Update()
@@ -87,7 +90,8 @@ public class BossKnightController : MonoBehaviour, IDamageable
             }
             else // Nếu ngoài phạm vi tấn công nhưng vẫn thấy Player
             {
-
+                audioSource.volume = 0.05f;
+                PlaySound(chaseSound);
                 ChasePlayer();
             }
         }
@@ -148,6 +152,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
     private void ChasePlayer()
     {
+       
         if (isAttacking)
         {
             return;
@@ -163,11 +168,20 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * moveDirection, transform.localScale.y, transform.localScale.z);
         transform.position += new Vector3(direction * chaseSpeed * Time.deltaTime, 0, 0);
-        PlaySound(chaseSound);
+        
 
     }
+    public void PlaySkillSound()
+    {
+        audioSource.volume = 1f;
+        PlaySound(skill1);
+    }
 
-
+    public void PlaySkill2Sound()
+    {
+        audioSource.volume = 1f;
+        PlaySound(skill2);
+    }
 
     private void Attack(Collider2D player)
     {
@@ -181,7 +195,6 @@ public class BossKnightController : MonoBehaviour, IDamageable
         Debug.Log("Skill 1 count: " + skill1Count);
         Debug.Log(skill1UsageCount);
         UseSkill1();
-
         if (skill1Count >= 3) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
             skill1Count = 0; // Reset đếm sau khi dùng Skill 2
@@ -194,6 +207,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
         }
         Invoke("ResetAttack", 1f); // Reset attack state sau khi hoàn tất combo
     }
+   
 
     private void UseSkill1()
     {
@@ -201,6 +215,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         isAttacking = true;
         animator.SetTrigger("skill_1");
+        
         // Gọi animation đánh thường
     }
     private void UseSkill3()
@@ -270,6 +285,11 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         Debug.Log("Boss đã chết!");
         Destroy(gameObject, 2f);
+        gate gate = FindFirstObjectByType<gate>();
+        if (gate != null)
+        {
+            gate.CloseGate();
+        }
     }
 
     // Gọi từ Animation Event để gây sát thương đúng thời điểm
@@ -282,6 +302,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
             if (damageable != null)
             {
                 damageable.TakeDamage(skill1Damage);
+                
                 Debug.Log("Player mất " + skill1Damage + " máu tại thời điểm chém!");
             }
         }
