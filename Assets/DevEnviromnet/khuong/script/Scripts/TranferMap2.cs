@@ -1,10 +1,14 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TranferMap2 : MonoBehaviour
 {
     public string nextSceneName; // Tên của scene tiếp theo
     public GameObject warningUI; // UI cảnh báo cần giết boss trước
-    public BossManager bossManager; // Tham chiếu đến script quản lý boss
+    public Collider2D blockCollider; 
+    public AudioClip passMap;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -12,24 +16,50 @@ public class TranferMap2 : MonoBehaviour
         {
             warningUI.SetActive(false); // Ẩn UI khi bắt đầu
         }
+
+        if (blockCollider != null)
+        {
+            blockCollider.enabled = true; // Kích hoạt collider khi bắt đầu
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if (bossManager != null && bossManager.IsBossDefeated)
+            Debug.Log("IsBossDefeated: " + BossController.IsBossDefeated);
+            if (BossController.IsBossDefeated)
             {
-                SceneManager.LoadScene(nextSceneName);
+                Debug.Log("Boss is defeated! Transfer to next scene!");
+                audioSource.PlayOneShot(passMap);
+                StartCoroutine(TransferToNextScene());
+
             }
             else
             {
-                if (warningUI != null)
-                {
-                    warningUI.SetActive(true);
-                    Invoke("HideWarning", 2f); 
-                }
+                ShowWarning();
             }
+        }
+    }
+
+    IEnumerator TransferToNextScene()
+    {
+        yield return new WaitForSeconds(2f); // Đợi 2 giây
+        SceneManager.LoadScene(nextSceneName);
+    }
+
+    void ShowWarning()
+    {
+        if (warningUI != null)
+        {
+            warningUI.SetActive(true);
+            Debug.Log("You need to defeat the boss first!");
+            Invoke("HideWarning", 2f);
+        }
+
+        if (blockCollider != null)
+        {
+            blockCollider.enabled = true;
         }
     }
 
@@ -39,5 +69,11 @@ public class TranferMap2 : MonoBehaviour
         {
             warningUI.SetActive(false);
         }
+
+        if (blockCollider != null)
+        {
+            blockCollider.enabled = false; // Vô hiệu hóa collider để cho phép người chơi tiếp tục di chuyển
+        }
     }
 }
+

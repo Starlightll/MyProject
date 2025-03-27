@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class BossController : MonoBehaviour, IDamageable
 {
 
-     public bool IsBossDefeated { get; private set; } = false;
-     
+    public static bool IsBossDefeated { get; private set; }
+
     [Header("Di chuyển")]
     public float minPatrolDistance = 2f;
     public float maxPatrolDistance = 6f;
@@ -73,6 +73,7 @@ public class BossController : MonoBehaviour, IDamageable
         UpdateHp();
         hpUI.SetActive(false);
         audioSource = GetComponent<AudioSource>();
+        IsBossDefeated = false; 
     }
 
     private void Update()
@@ -316,9 +317,12 @@ public class BossController : MonoBehaviour, IDamageable
     {
         IsBossDefeated = true;
         animator.SetTrigger("death");
-        Destroy(gameObject, 3f);
+
         rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true; 
+        GetComponent<Collider2D>().enabled = false; 
+        StopAllCoroutines();
         effectFire.SetActive(false);
-        
+        Destroy(gameObject, 2f);
     }
 }
