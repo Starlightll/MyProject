@@ -150,6 +150,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1974160523750978230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2572477490756798550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294939383164491868}
+  m_Layer: 7
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294939383164491868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572477490756798550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.43, y: 2.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6543687698594550571}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4489740296237771619
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,6 +726,7 @@ Transform:
   - {fileID: 1974160523750978230}
   - {fileID: 7715194402791272786}
   - {fileID: 2474713838673875269}
+  - {fileID: 1294939383164491868}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6318881024756765982
@@ -863,16 +895,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a6e166e1247cf4e88ff02756ca13f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 2
-  RunSpeed: 4.05
+  WalkSpeed: 0
+  RunSpeed: 0
   FlySpeed: 5
   Hp: 30
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 5
   AttackSpeed: 0
-  AttackRange: 0
-  IsAttackRange: 0
+  AttackRange: 8
+  IsAttackRange: 3
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 1
@@ -882,14 +914,20 @@ MonoBehaviour:
   expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
-  detectionRange: 6
-  attackRange: 5
+  detectionRange: 8
+  attackRange: 4
   minPatrolDistance: 3
   maxPatrolDistance: 20
   patrolHeightVariation: 5
+  attack_Point: {fileID: 1294939383164491868}
+  PainAttack: 2
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  dame2: 2
 --- !u!1 &8457607820715637407
 GameObject:
   m_ObjectHideFlags: 0

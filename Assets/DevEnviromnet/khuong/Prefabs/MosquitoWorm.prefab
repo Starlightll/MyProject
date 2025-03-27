@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5841065178325608138}
   - component: {fileID: 1766872311093787521}
   - component: {fileID: 4740370970231919606}
+  - component: {fileID: 2426027950071461656}
   m_Layer: 0
   m_Name: MosquitoWorm
   m_TagString: Enemy
@@ -127,6 +128,8 @@ Transform:
   - {fileID: 944016452037354708}
   - {fileID: 8173591899137890739}
   - {fileID: 2385271487179203807}
+  - {fileID: 6573740848568881621}
+  - {fileID: 5892383999205754447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1077574022066982919
@@ -193,7 +196,7 @@ SortingGroup:
   m_GameObject: {fileID: 1289963911752115625}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &5841065178325608138
@@ -282,6 +285,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2426027950071461656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289963911752115625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44aebf5749e9fc46bb508b016299a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSpeed: 3
+  RunSpeed: 7
+  FlySpeed: 5
+  Hp: 50
+  Mana: 100
+  Defend: 0
+  PhysicalDame: 5
+  AttackSpeed: 0
+  AttackRange: 8
+  IsAttackRange: 4
+  MagicDame: 0
+  PatrolRange: 5
+  attackCooldown: 0.5
+  lastAttackTime: 0
+  healthBar: {fileID: 5343902773102727159}
+  currentHealth: 0
+  expereince: 10
+  spawnPosition: {x: 0, y: 0}
+  enemyEye: {fileID: 6573740848568881621}
+  groundCheck: {fileID: 2385271487179203807}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1088
+  attack_Point: {fileID: 5892383999205754447}
+  PainAttack: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  dame2: 2
 --- !u!1 &1961415045733492848
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +477,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5202798696769772064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5892383999205754447}
+  m_Layer: 0
+  m_Name: GroundCheck (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5892383999205754447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5202798696769772064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.85, y: 2.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3193573547684340180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6817039281701774900
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +773,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7145622814953368158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6573740848568881621}
+  m_Layer: 0
+  m_Name: GroundCheck (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6573740848568881621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145622814953368158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.69, y: 4.27, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3193573547684340180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7328828419364530143
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +1055,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+--- !u!114 &5343902773102727159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8596608820905606779, guid: 97d215e667e011046b133b2af1c82368, type: 3}
+  m_PrefabInstance: {fileID: 4423679903666418060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8173591899137890739 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5479332537988671551, guid: 97d215e667e011046b133b2af1c82368, type: 3}

@@ -585,7 +585,7 @@ Transform:
   m_GameObject: {fileID: 5091735453819166201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.85, y: 1.79, z: 0}
+  m_LocalPosition: {x: -3.37, y: 1.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 2
-  RunSpeed: 5
+  RunSpeed: 6
   FlySpeed: 5
   Hp: 120
   Mana: 100
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   PhysicalDame: 15
   AttackSpeed: 0
   AttackRange: 12
-  IsAttackRange: 0
+  IsAttackRange: 5
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
@@ -1101,6 +1101,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 3
 --- !u!1 &7939818553731335437
 GameObject:
   m_ObjectHideFlags: 0

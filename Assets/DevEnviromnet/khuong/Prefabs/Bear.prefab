@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 690169719176906942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9, y: 1.2, z: 0}
+  m_LocalPosition: {x: -4.61, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1062,8 +1062,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.5, y: 2}
-  m_Size: {x: 8, y: 6}
+  m_Offset: {x: -0.37309244, y: 1.9999979}
+  m_Size: {x: 6.477168, y: 4.4264007}
   m_Direction: 1
 --- !u!50 &5281526562356818264
 Rigidbody2D:
@@ -1110,10 +1110,10 @@ MonoBehaviour:
   Hp: 70
   Mana: 100
   Defend: 0
-  PhysicalDame: 15
+  PhysicalDame: 5
   AttackSpeed: 0
   AttackRange: 10
-  IsAttackRange: 0
+  IsAttackRange: 5
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
@@ -1132,6 +1132,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 2
 --- !u!1 &7521621943652270168
 GameObject:
   m_ObjectHideFlags: 0

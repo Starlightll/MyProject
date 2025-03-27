@@ -991,10 +991,10 @@ MonoBehaviour:
   Hp: 70
   Mana: 100
   Defend: 0
-  PhysicalDame: 15
+  PhysicalDame: 5
   AttackSpeed: 0
   AttackRange: 8
-  IsAttackRange: 0
+  IsAttackRange: 4
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
@@ -1013,6 +1013,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 2
 --- !u!1 &7357486404996367132
 GameObject:
   m_ObjectHideFlags: 0

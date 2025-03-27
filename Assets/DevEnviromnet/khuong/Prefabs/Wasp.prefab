@@ -254,6 +254,7 @@ Transform:
   - {fileID: 1347623193278030061}
   - {fileID: 6268068319986440241}
   - {fileID: 8573159540153224724}
+  - {fileID: 2850400684032930184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &4127575087908720173
@@ -439,15 +440,21 @@ MonoBehaviour:
   currentHealth: 0
   expereince: 10
   spawnPosition: {x: 0, y: 0}
-  enemyEye: {fileID: 0}
+  enemyEye: {fileID: 2850400684032930184}
   detectionRange: 9
   attackRange: 5
   minPatrolDistance: 6
   maxPatrolDistance: 25
   patrolHeightVariation: 4
+  attack_Point: {fileID: 2850400684032930184}
+  PainAttack: 1
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  dame2: 2
 --- !u!1 &2276476714307864503
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +485,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3476255854809206622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2627068567944722057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2850400684032930184}
+  m_Layer: 7
+  m_Name: GroundCheck (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2850400684032930184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627068567944722057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.69, y: 2.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8402432054174041944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3483659862856505796
 GameObject:
