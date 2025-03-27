@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IDamageable
 {
+
+     public bool IsBossDefeated { get; private set; } = false;
+     
     [Header("Di chuyển")]
     public float minPatrolDistance = 2f;
     public float maxPatrolDistance = 6f;
@@ -14,7 +17,7 @@ public class BossController : MonoBehaviour, IDamageable
     private bool isFacingRight = true;
     private Vector2 startPosition;
     private Rigidbody2D rb;
-    private bool isDie = false;
+  
 
     [Header("Phạm vi & Phát hiện")]
     public LayerMask groundLayer;
@@ -81,7 +84,7 @@ public class BossController : MonoBehaviour, IDamageable
           
             hpUI.SetActive(true);
         }
-        if(isDie){
+        if(IsBossDefeated){
             hpUI.SetActive(false);
         }
         if (!isDiving && !isAttacking)
@@ -311,7 +314,7 @@ public class BossController : MonoBehaviour, IDamageable
     
     public void Die()
     {
-        isDie = true;
+        IsBossDefeated = true;
         animator.SetTrigger("death");
         Destroy(gameObject, 3f);
         rb.linearVelocity = Vector2.zero;
