@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DevEnviromnet/tan/Desert 1.unity
     guid: 68abd98768f22d940b97c4303786a2cb
+  - enabled: 1
+    path: Assets/DevEnviromnet/khuong/Wox Forest 2.unity
+    guid: 694db8498623a4e478ee7ae147c3b728
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

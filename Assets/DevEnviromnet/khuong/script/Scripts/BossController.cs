@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IDamageable
 {
+
+    public static bool IsBossDefeated { get; private set; }
+
     [Header("Di chuyển")]
     public float minPatrolDistance = 2f;
     public float maxPatrolDistance = 6f;
@@ -14,12 +17,14 @@ public class BossController : MonoBehaviour, IDamageable
     private bool isFacingRight = true;
     private Vector2 startPosition;
     private Rigidbody2D rb;
+  
 
     [Header("Phạm vi & Phát hiện")]
     public LayerMask groundLayer;
     public Transform groundCheck;
     public float groundCheckDistance = 0.5f;
     public GameObject hpUI;
+    public float checkPlayerDistanceSound;
 
     [Header("Tấn công")]
     public Transform player;
@@ -51,6 +56,11 @@ public class BossController : MonoBehaviour, IDamageable
     public Transform attackPoint3;
     public float checkPlayerDistance;
 
+     [Header("Audio")]
+     public AudioSource audioSource;
+     public AudioClip checkPlayerSound;
+    public AudioClip attackSound;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -62,6 +72,8 @@ public class BossController : MonoBehaviour, IDamageable
         currentHealth = Hp;
         UpdateHp();
         hpUI.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        IsBossDefeated = false; 
     }
 
     private void Update()
@@ -70,10 +82,12 @@ public class BossController : MonoBehaviour, IDamageable
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer <= checkPlayerDistance)
         {
+          
             hpUI.SetActive(true);
         }
-
-
+        if(IsBossDefeated){
+            hpUI.SetActive(false);
+        }
         if (!isDiving && !isAttacking)
         {
             if (distanceToPlayer <= attackRange)
@@ -93,6 +107,14 @@ public class BossController : MonoBehaviour, IDamageable
         if (!isEnraged && currentHealth / Hp <= enragedThreshold)
         {
             EnrageMode();
+        }
+        if(distanceToPlayer <= checkPlayerDistanceSound)
+        {
+            if (audioSource != null && checkPlayerSound != null)
+            {
+                audioSource.volume = 0.1f; 
+                audioSource.PlayOneShot(checkPlayerSound);
+            }
         }
     }
 
@@ -129,7 +151,7 @@ public class BossController : MonoBehaviour, IDamageable
     //Phát hiện va chạm với Ground để quay đầu
     private bool IsObstacleAhead()
     {
-        return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+        return Physics2D.Raycast(groundCheck.position, Vector2.right, groundCheckDistance, groundLayer);
     }
 
 
@@ -167,11 +189,21 @@ public class BossController : MonoBehaviour, IDamageable
         isAttacking = false;
     }
 
-    private void AttackPlayer2()
+    public void AudioAttack()
+    {
+       
+          audioSource.volume = 0.5f; // Giảm âm lượng
+        audioSource.PlayOneShot(attackSound);
+        
+    }
+
+  
+
+    public void AttackPlayer2()
     {
         Collider2D playerHit = Physics2D.OverlapCircle(attackPoint.position, PainAttack, playerLayer);
         Collider2D playerHit2 = Physics2D.OverlapCircle(attackPoint2.position, PainAttack, playerLayer);
-
+       
         if (playerHit != null || playerHit2 != null)
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, PainAttack, playerLayer);
@@ -236,6 +268,9 @@ public class BossController : MonoBehaviour, IDamageable
 
             Gizmos.color = Color.gray;
             Gizmos.DrawWireSphere(attackPoint3.position, PainAttack);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(rb.position, checkPlayerDistanceSound);
             Gizmos.color = Color.grey;
             Gizmos.DrawWireSphere(attackPoint3.position, checkPlayerDistance);
         }
@@ -276,12 +311,18 @@ public class BossController : MonoBehaviour, IDamageable
             healthBar.fillAmount = currentHealth / Hp;
         }
     }
+
+    
     public void Die()
     {
+        IsBossDefeated = true;
         animator.SetTrigger("death");
-        Destroy(gameObject, 2f);
+
         rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true; 
+        GetComponent<Collider2D>().enabled = false; 
+        StopAllCoroutines();
         effectFire.SetActive(false);
-        hpUI.SetActive(false);
+        Destroy(gameObject, 2f);
     }
 }
