@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 593822028838859631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.477, z: 0}
+  m_LocalPosition: {x: 0, y: -0.437, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,6 +239,7 @@ MonoBehaviour:
   attackCooldown: 1
   lastAttackTime: 0
   healthBar: {fileID: 5802763916534061930}
+  currentHealth: 0
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   attack_Point: {fileID: 5319202105518141335}
@@ -248,7 +249,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7504549374582696992}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -258,8 +259,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   firePoint: {fileID: 5697477948669208055}
   bulletSpeed: 10
-  bulletCount: 5
-  spreadAngle: 30
+  audioSource: {fileID: 0}
+  attackSound: {fileID: 0}
+  dieSound: {fileID: 0}
 --- !u!1 &5933137867398126298
 GameObject:
   m_ObjectHideFlags: 0
