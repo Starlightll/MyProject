@@ -19,6 +19,7 @@ public class BossController : MonoBehaviour, IDamageable
     public LayerMask groundLayer;
     public Transform groundCheck;
     public float groundCheckDistance = 0.5f;
+    public GameObject hpUI;
 
     [Header("Tấn công")]
     public Transform player;
@@ -48,6 +49,7 @@ public class BossController : MonoBehaviour, IDamageable
     public GameObject effectFire;
     public Transform attackPoint2;
     public Transform attackPoint3;
+    public float checkPlayerDistance;
 
     private void Start()
     {
@@ -58,13 +60,19 @@ public class BossController : MonoBehaviour, IDamageable
         SetNextPatrolTarget();
         effectFire.SetActive(false);
         currentHealth = Hp;
+        UpdateHp();
+        hpUI.SetActive(false);
     }
 
     private void Update()
     {
         if (player == null) return;
-
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        if (distanceToPlayer <= checkPlayerDistance)
+        {
+            hpUI.SetActive(true);
+        }
+
 
         if (!isDiving && !isAttacking)
         {
@@ -123,6 +131,8 @@ public class BossController : MonoBehaviour, IDamageable
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
     }
+
+
 
     private IEnumerator AttackPlayer()
     {
@@ -226,13 +236,16 @@ public class BossController : MonoBehaviour, IDamageable
 
             Gizmos.color = Color.gray;
             Gizmos.DrawWireSphere(attackPoint3.position, PainAttack);
+            Gizmos.color = Color.grey;
+            Gizmos.DrawWireSphere(attackPoint3.position, checkPlayerDistance);
         }
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthBar.fillAmount = currentHealth / Hp;
+        animator.SetTrigger("hit_2");
+        UpdateHp();
         if (currentHealth <= 0)
         {
             Die();
@@ -255,9 +268,20 @@ public class BossController : MonoBehaviour, IDamageable
 
     }
 
+
+    public void UpdateHp()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = currentHealth / Hp;
+        }
+    }
     public void Die()
     {
-        animator.SetTrigger("die");
-
+        animator.SetTrigger("death");
+        Destroy(gameObject, 2f);
+        rb.linearVelocity = Vector2.zero;
+        effectFire.SetActive(false);
+        hpUI.SetActive(false);
     }
 }
