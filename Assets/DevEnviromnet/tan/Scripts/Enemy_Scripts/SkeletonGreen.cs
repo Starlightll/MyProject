@@ -15,6 +15,7 @@ public class SkeletonGreen : Enemy, IDamageable
     [SerializeField] private float delay = 0.5f;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip attackSound;
+    [SerializeField] private float experience;
 
     private int direction = 1;
     private Animator animator;
