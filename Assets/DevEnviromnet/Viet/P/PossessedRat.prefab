@@ -591,8 +591,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5847725221963307008}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -856913443
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &5847725221963307014
@@ -699,7 +699,7 @@ MonoBehaviour:
   Hp: 100
   Mana: 100
   Defend: 0
-  PhysicalDame: 2
+  PhysicalDame: 1
   AttackSpeed: 0
   AttackRange: 10
   IsAttackRange: 5
@@ -708,6 +708,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 1389184785099231074}
+  currentHealth: 0
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 5569967331351480731}
   groundCheck: {fileID: 409647982843931924}

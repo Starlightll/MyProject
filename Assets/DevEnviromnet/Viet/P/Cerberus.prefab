@@ -728,8 +728,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117150395161187363}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -856913443
+  m_SortingLayer: 7
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &117150395161187365
@@ -845,6 +845,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 196241963948499558}
+  currentHealth: 0
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 7096610071858891122}
   groundCheck: {fileID: 1699478521397725551}
