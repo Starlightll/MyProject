@@ -19,12 +19,21 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<Enemy, ObjectPool<Enemy>> enemyPools = new Dictionary<Enemy, ObjectPool<Enemy>>();
     private Dictionary<Transform, Enemy> activeEnemies = new Dictionary<Transform, Enemy>();
 
+    private Enemy_Pool enemyPool;
+
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
+        // Tìm đối tượng Enemy_Pool trong cảnh
+        enemyPool = FindObjectOfType<Enemy_Pool>();
+        if (enemyPool == null)
+        {
+            Debug.LogError("Enemy_Pool not found in the scene.");
+        }
     }
 
     private void Start()
@@ -41,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
         InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
     }
 
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         foreach (var spawnPoint in spawnPoints)
         {
@@ -49,8 +58,6 @@ public class EnemySpawner : MonoBehaviour
             {
                 bool hasGround = CheckGround(spawnPoint.position);
                 List<Enemy> validEnemies = hasGround ? groundEnemies : airEnemies;
-
-
 
                 if (validEnemies.Count > 0)
                 {
@@ -68,7 +75,6 @@ public class EnemySpawner : MonoBehaviour
                         enemy.transform.position = enemy.spawnPosition;
 
                         activeEnemies[spawnPoint] = enemy;
-
                     }
                 }
             }
@@ -78,17 +84,22 @@ public class EnemySpawner : MonoBehaviour
     bool CheckGround(Vector3 position)
     {
         RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, groundCheckRadius, groundLayer);
-
-        bool grounded = hit.collider != null;
-
-        return grounded;
+        return hit.collider != null;
     }
-
-
 
     public void ReturnEnemyToPool(Enemy enemy)
     {
-        StartCoroutine(RespawnEnemy(enemy));
+        PooledEnemy pooledEnemy = enemy.GetComponent<PooledEnemy>();
+        if (pooledEnemy == null)
+        {
+            Debug.LogWarning("Enemy doesn't have PooledEnemy component");
+            return;
+        }
+
+        if (enemyPool != null)
+        {
+            enemyPool.ReturnToPool(enemy.gameObject);
+        }
     }
 
     private IEnumerator RespawnEnemy(Enemy enemy)
@@ -109,9 +120,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(respawnDelay);
 
         SpawnEnemy();
-        yield break; // Đảm bảo coroutine kết thúc đúng
     }
-
 
     private void OnDrawGizmos()
     {

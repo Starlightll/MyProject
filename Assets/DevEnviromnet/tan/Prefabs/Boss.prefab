@@ -197,7 +197,7 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 20
+  Hp: 100
   Mana: 100
   Defend: 0
   PhysicalDame: 5
@@ -209,6 +209,8 @@ MonoBehaviour:
   attackCooldown: 1
   lastAttackTime: 0
   healthBar: {fileID: 734142110459226231}
+  currentHealth: 0
+  expereince: 1000
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   attack_Point: {fileID: 3719113800635547982}

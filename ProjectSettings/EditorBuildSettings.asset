@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/DevEnviromnet/tan/IntroSence.unity
     guid: 88d90e478aa49f642a87cfe31d1467b3
   - enabled: 1
+    path: Assets/Scenes/Map1 Wox Forest.unity
+    guid: efa1fb67460a7dc48ab1cfd0f347707c
+  - enabled: 1
     path: Assets/DevEnviromnet/tan/FirstSence.unity
     guid: e36301a656ea6394d8d07937ef5709a4
   - enabled: 1

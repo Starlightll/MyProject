@@ -20,8 +20,8 @@ MonoBehaviour:
   skillName: 
   icon: {fileID: 6887933019453977863, guid: 89b7bfd859758934cb79fb0bfbabdfd6, type: 3}
   skillDescription: 
-  cooldown: 1
-  manaCost: 0
+  cooldown: 15
+  manaCost: 30
   staminaCost: 0
   healthCost: 0
   skillDuration: 1.2

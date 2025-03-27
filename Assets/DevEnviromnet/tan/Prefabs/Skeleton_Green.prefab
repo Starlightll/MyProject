@@ -258,7 +258,7 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 4
   FlySpeed: 5
-  Hp: 20
+  Hp: 250
   Mana: 100
   Defend: 0
   PhysicalDame: 1
@@ -270,6 +270,8 @@ MonoBehaviour:
   attackCooldown: 0.47
   lastAttackTime: 0
   healthBar: {fileID: 3711544908309565323}
+  currentHealth: 0
+  expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   groundCheckDistance: 1
@@ -286,6 +288,7 @@ MonoBehaviour:
   delay: 0.3
   audioSource: {fileID: -4842223537931730155}
   attackSound: {fileID: 8300000, guid: 74fb1c2c59d02ff4d8d287e1358b07bd, type: 3}
+  experience: 0
 --- !u!82 &-4842223537931730155
 AudioSource:
   m_ObjectHideFlags: 0

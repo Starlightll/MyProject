@@ -20,18 +20,18 @@ public class TriggerZone : MonoBehaviour
         gate = FindAnyObjectByType<GateController>();
         if (gate == null)
         {
-            Debug.LogError("Không tìm thấy GateController! Hãy kiểm tra xem GameObject cửa có GateController chưa.");
+            // Debug.LogError("Không tìm thấy GateController! Hãy kiểm tra xem GameObject cửa có GateController chưa.");
         }
     }
 
     void Update()
     {
         float distance = Vector3.Distance(player.position, triggerPoint.position);
-        Debug.Log("Khoảng cách đến TriggerPoint: " + distance);
+        // Debug.Log("Khoảng cách đến TriggerPoint: " + distance);
 
         if (!hasTriggered && distance < triggerDistance)
         {
-            Debug.Log("Trigger Activated!");
+            // Debug.Log("Trigger Activated!");
             hasTriggered = true;
             StartCoroutine(TriggerEvent());
         }
@@ -39,12 +39,12 @@ public class TriggerZone : MonoBehaviour
 
     IEnumerator TriggerEvent()
     {
-        Debug.Log("Chuyển sang camera Overview");
+        // Debug.Log("Chuyển sang camera Overview");
         SwitchCamera(mapOverviewCam, playerFollowCam);
 
         yield return new WaitForSeconds(overviewDuration); // Chờ một thời gian quan sát cảnh vật
 
-        Debug.Log("Chuyển lại camera Player");
+        // Debug.Log("Chuyển lại camera Player");
         SwitchCamera(playerFollowCam, mapOverviewCam);
     }
 
@@ -57,7 +57,7 @@ public class TriggerZone : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Lỗi chuyển camera: Kiểm tra xem có bị null không!");
+            // Debug.LogError("Lỗi chuyển camera: Kiểm tra xem có bị null không!");
         }
     }
 }

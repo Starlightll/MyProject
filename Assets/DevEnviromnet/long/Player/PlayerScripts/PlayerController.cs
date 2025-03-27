@@ -100,13 +100,13 @@ public class PlayerController : MonoBehaviour, IDamageable
             return;
         }
         
-        //Run player Skills manager
-        _skillManager.UpdateSkills();
         if(_stats.currentHealth <= 0)
         {
             Debug.Log("Player is dead");
             _playerStateMachine.TransitionTo(new PlayerDeadState(this));
         }
+        //Run player Skills manager
+        _skillManager.UpdateSkills();
 
        
         //Test the player got hit by the enemy

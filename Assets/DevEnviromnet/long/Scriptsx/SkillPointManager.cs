@@ -53,6 +53,7 @@ public class SkillPointManager : MonoBehaviour
 
     public void AddDamage()
     {
+        Debug.Log("Add Damage");
         if(stats.skillPoints - totalPointsUsed <= 0)
         {
             return;

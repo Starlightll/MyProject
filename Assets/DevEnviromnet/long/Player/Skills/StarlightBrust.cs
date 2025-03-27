@@ -44,6 +44,16 @@ public class StarlightBrust : Skill
                         float damage = player.Stats.attackDamage + physicalDamage;
                         float finalDamage = isCrit ? damage * player.Stats.critDamage : damage;
                         damageable.TakeDamage(finalDamage);
+                        try{
+                            Enemy enemy = hitEnemies[unluckyEnemy].GetComponent<Enemy>();
+                            if(enemy.currentHealth <= 0){
+                                player.Stats.currentMana += 5;
+                                player.Stats.currentExperience += enemy.expereince;
+                            }
+
+                        }catch(System.Exception e){
+                            // Debug.Log(e);
+                        }
                         DamagePopup.Create(hitEnemies[unluckyEnemy].transform.position, finalDamage, isCrit);
                     }
                 }catch(System.Exception e){

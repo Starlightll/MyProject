@@ -84,6 +84,8 @@ public class BossController : MonoBehaviour, IDamageable
         {
           
             hpUI.SetActive(true);
+        }else{
+            hpUI.SetActive(false);
         }
         if(IsBossDefeated){
             hpUI.SetActive(false);

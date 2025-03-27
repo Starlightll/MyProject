@@ -24520,6 +24520,7 @@ GameObject:
   - component: {fileID: 3108791793937953775}
   - component: {fileID: 8867176706364302484}
   - component: {fileID: 7021539688786894767}
+  - component: {fileID: 5460063689185922785}
   m_Layer: 0
   m_Name: SpearAttack3
   m_TagString: Untagged
@@ -29343,6 +29344,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!210 &5460063689185922785
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190829512437142979}
+  m_Enabled: 1
+  m_SortingLayerID: -199633235
+  m_SortingLayer: 18
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2387777552663807356
 GameObject:
   m_ObjectHideFlags: 0

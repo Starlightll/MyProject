@@ -762,6 +762,8 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 5584539609906919933}
+  currentHealth: 0
+  expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 219415890066288964}
   groundCheck: {fileID: 294192456977389842}

@@ -15,6 +15,8 @@ public class EnemyWalk : Enemy, IDamageable
     [SerializeField] private Transform attack_Point;
     [SerializeField] private float PainAttack = 1f;
     [SerializeField] private LayerMask playerLayer;
+    private int respawnCount = 0;
+    private const int maxRespawnCount = 3;
 
     private Animator animator;
 
@@ -148,10 +150,27 @@ public class EnemyWalk : Enemy, IDamageable
     }
     private IEnumerator ReturnToPoolAfterDelay()
     {
-        EnemySpawner enemy_Pool = UnityEngine.Object.FindFirstObjectByType<EnemySpawner>();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         ResetState();
-        enemy_Pool.ReturnEnemyToPool(this);
+
+        if (respawnCount < maxRespawnCount)
+        {
+            respawnCount++;
+            Respawn();
+        }
+        else
+        {
+            EnemySpawner.Instance.ReturnEnemyToPool(this);
+        }
+    }
+
+    private void Respawn()
+    {
+        transform.position = spawnPosition;
+        currentHealth = Hp;
+        healthBar.fillAmount = 1f;
+        gameObject.SetActive(true);
+        // EnemySpawner.Instance.SpawnEnemy();
     }
 
     protected override void Patrol()
@@ -202,5 +221,24 @@ public class EnemyWalk : Enemy, IDamageable
     }
 
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            
+            IDamageable player = collision.gameObject.GetComponent<IDamageable>();
+            if (player != null)
+            {
+                player.TakeDamage(PhysicalDame);
+            }
 
+            
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                playerRb.AddForce(knockbackDirection * 500f); // Điều chỉnh lực hất ra theo ý muốn
+            }
+        }
+    }
 }

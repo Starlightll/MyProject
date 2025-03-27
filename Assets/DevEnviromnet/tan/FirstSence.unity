@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f901c0d6780dcde4bb98ff760631566f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSence: Desert 1
+  playSence: Map1 Wox Forest
 --- !u!1 &761125528
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,7 +2462,7 @@ SortingGroup:
   m_GameObject: {fileID: 4485913060141482350}
   m_Enabled: 1
   m_SortingLayerID: -199633235
-  m_SortingLayer: 13
+  m_SortingLayer: 18
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!4 &1622190610485548377
