@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         enemyPool = FindObjectOfType<Enemy_Pool>();
         if (enemyPool == null)
         {
-            Debug.LogError("Enemy_Pool not found in the scene.");
+            //Debug.LogError("Enemy_Pool not found in the scene.");
         }
     }
 

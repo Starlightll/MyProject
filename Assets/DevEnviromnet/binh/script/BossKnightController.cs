@@ -28,13 +28,12 @@ public class BossKnightController : MonoBehaviour, IDamageable
     [SerializeField] private float detectionRange = 7f;
     [SerializeField] private float attackRange = 2.5f;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private int health = 260;
 
     [SerializeField] private GameObject darkBoltPrefab;
     [SerializeField] private float skill2Cooldown = 8f;
     [SerializeField] private GameObject hpUI;
     [SerializeField] private Image hpBar;
-    [SerializeField] private float hp = 100;
+    [SerializeField] public float hp = 100;
     [SerializeField] private float knockbackForce = 70f;
     [SerializeField] private int contactDamage = 5; // Sát thương khi va chạm
     private float currentHp;
