@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/DevEnviromnet/tan/IntroSence.unity
+    guid: 88d90e478aa49f642a87cfe31d1467b3
+  - enabled: 1
+    path: Assets/DevEnviromnet/tan/FirstSence.unity
+    guid: e36301a656ea6394d8d07937ef5709a4
+  - enabled: 1
+    path: Assets/DevEnviromnet/tan/GamePlaySence.unity
+    guid: efccad78400717c418b74a56ae72be2a
+  - enabled: 1
+    path: Assets/DevEnviromnet/tan/Desert 1.unity
+    guid: 68abd98768f22d940b97c4303786a2cb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
