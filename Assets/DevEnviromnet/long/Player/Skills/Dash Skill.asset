@@ -25,7 +25,9 @@ MonoBehaviour:
   staminaCost: 20
   healthCost: 0
   skillDuration: 0
-  initialCooldown: 0
+  physicalDamage: 0
+  magicalDamage: 0
+  initialCooldown: 0.918011
   animationTrigger: 
   animationDuration: 0
   skillOffset: {x: 0, y: 0}
@@ -36,7 +38,7 @@ MonoBehaviour:
   skillHitEffects: []
   skillMissEffects: []
   dashSpeed: 60
-  dashDuration: 0.25
+  dashDuration: 0.15
   dashCooldown: 0.25
   dashEndSpeed: 8
   dashTrail: {fileID: 0}

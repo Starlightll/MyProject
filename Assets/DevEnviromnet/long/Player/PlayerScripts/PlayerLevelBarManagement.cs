@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class PlayerLevelBarManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Int32.Parse(_levelText.text) != _stats.level)
+            _levelText.text = _stats.level.ToString();
        _levelText.text = _stats.level.ToString();
        _experienceFill.fillAmount = _stats.currentExperience / _stats.experienceToNextLevel;
     }

@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Vector2 playerDirection;
 
     public float attackRange = 0;
+    public bool isDead = false;
+    public Vector3 checkpoint = new Vector3(0, 0, 0);
 
     // [Header("References")]
     // public Transform groundCheck;
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Awake() {
         _playerStateMachine = new PlayerStateMachine(this);
+        checkpoint = transform.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,7 +80,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         //Initialize the player state machine
         _playerStateMachine.Initialize(_playerStateMachine.idleState);
-        _stats.ResetStats();
+        if(_stats.isResetStatsNextTime)
+        {
+            _stats.ResetStats();
+        }
+        _stats.InitializeStats();
     }
 
 
@@ -135,24 +142,24 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     
     private void HandleAttack() {
-        if(_input.AttackPressed && attackTimer >= _weaponManager.CalculateTimeBetweenAttacks())
-        {
+           Debug.Log("Attack Combo" + comboCounter);
+
             //Need to be complete this task next time
             //Move the attack logic to here
             //Calculate time here.
              if(comboTimer >= CurrentWeapon.attackCooldown)
             {
+                Debug.Log("Combo Reset");
                 comboCounter = 0;
                 comboTimer = 0f;
             }
             float direction = transform.localScale.x > 0 ? 1 : -1;
             playerVelocity = new Vector2(_rb.linearVelocity.x == 0 ? 3 * direction: _rb.linearVelocity.x * 0.3f, /*Mathf.Abs(_rb.linearVelocity.y) * -0.3f*/ _rb.linearVelocity.y < 0? Mathf.Abs(_rb.linearVelocity.y) * -0.2f : _rb.linearVelocity.y *-0.01f);
-            Debug.Log("Player Velocity: " + playerVelocity);
+            // Debug.Log("Player Velocity: " + playerVelocity);
             // _stateMachine.CurrentState(States.Attack);
-            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter);
+            CurrentWeapon.PerformAttack(attackPoint, LayerMask.GetMask("Enemy"), ref comboCounter, this);
             comboTimer = 0f;
             attackTimer = 0f;
-        }
     }
 
     private void HandleMovement() {
