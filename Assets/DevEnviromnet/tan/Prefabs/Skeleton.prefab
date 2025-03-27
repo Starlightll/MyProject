@@ -202,7 +202,7 @@ MonoBehaviour:
   Defend: 0
   PhysicalDame: 1
   AttackSpeed: 0
-  AttackRange: 0
+  AttackRange: 2
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
