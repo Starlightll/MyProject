@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548edd83d0849d947a4f0d0bd896c360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 20
   audioSource: {fileID: 5955206860263111513}
   clip: {fileID: 8300000, guid: 0a7a340642b1201459546c5cdd8ecb3f, type: 3}
   lifeTime: 5
