@@ -63,7 +63,7 @@ public class EnemyWalk : Enemy, IDamageable
 
                 animator.SetTrigger("Attack");
                 Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
-                DealDamage(hits, dame2);
+                DealDamage(hits, PhysicalDame);
             }
 
             isAttacking = true;
@@ -230,7 +230,7 @@ public class EnemyWalk : Enemy, IDamageable
             IDamageable player = collision.gameObject.GetComponent<IDamageable>();
             if (player != null)
             {
-                player.TakeDamage(PhysicalDame);
+                player.TakeDamage(dame2);
             }
 
             
@@ -238,7 +238,13 @@ public class EnemyWalk : Enemy, IDamageable
             if (playerRb != null)
             {
                 Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
-                playerRb.AddForce(knockbackDirection * 500f); // Điều chỉnh lực hất ra theo ý muốn
+                float knockbackForce = 1000f; // Điều chỉnh lực hất ra theo ý muốn
+
+                // Xác định hướng lùi về sau của người chơi
+                Vector2 playerDirection = playerRb.linearVelocity.normalized;
+                Vector2 knockbackDirectionOpposite = -playerDirection;
+
+                playerRb.AddForce(knockbackDirectionOpposite * knockbackForce);
             }
         }
     }

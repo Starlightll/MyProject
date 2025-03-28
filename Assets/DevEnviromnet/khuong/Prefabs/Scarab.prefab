@@ -666,7 +666,7 @@ MonoBehaviour:
   IsAttackRange: 3
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 1
+  attackCooldown: 2
   lastAttackTime: 0
   healthBar: {fileID: 8405782265394172938}
   currentHealth: 0
