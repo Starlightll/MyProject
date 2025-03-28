@@ -57,17 +57,23 @@ TagManager:
   - name: Background
     uniqueID: 3527788699
     locked: 0
+  - name: GroundBack
+    uniqueID: 1522919585
+    locked: 0
   - name: Ground
     uniqueID: 3286187863
+    locked: 0
+  - name: Player
+    uniqueID: 916264935
+    locked: 0
+  - name: GroundFront
+    uniqueID: 687094063
     locked: 0
   - name: Light
     uniqueID: 2079006769
     locked: 0
   - name: Enemy
     uniqueID: 3438053853
-    locked: 0
-  - name: Player
-    uniqueID: 916264935
     locked: 0
   - name: Fire
     uniqueID: 1734006367
