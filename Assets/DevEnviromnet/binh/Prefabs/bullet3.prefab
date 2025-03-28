@@ -173,7 +173,7 @@ SortingGroup:
   m_GameObject: {fileID: 887386796156232654}
   m_Enabled: 1
   m_SortingLayerID: 1801228639
-  m_SortingLayer: 13
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!114 &827345895257749507
@@ -188,6 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16117b7addd7f6244a597fdbf8ed35bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
   lifeTime: 3
   speed: 10

@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 10
+  damage: 1
 --- !u!210 &7693053519210568813
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -187,6 +187,6 @@ SortingGroup:
   m_GameObject: {fileID: 1883956588502844096}
   m_Enabled: 1
   m_SortingLayerID: 1801228639
-  m_SortingLayer: 13
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_SortAtRoot: 0

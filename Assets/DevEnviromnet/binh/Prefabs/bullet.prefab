@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  damage: 10
+  damage: 1
 --- !u!96 &-8298079653753304117
 TrailRenderer:
   serializedVersion: 3
@@ -304,6 +304,6 @@ SortingGroup:
   m_GameObject: {fileID: 1883956588502844096}
   m_Enabled: 1
   m_SortingLayerID: 1801228639
-  m_SortingLayer: 13
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_SortAtRoot: 0

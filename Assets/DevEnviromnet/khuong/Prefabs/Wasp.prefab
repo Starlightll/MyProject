@@ -321,7 +321,7 @@ SortingGroup:
   m_GameObject: {fileID: 1826706749236662328}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 7
+  m_SortingLayer: 10
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &3827657949582695025
@@ -428,13 +428,13 @@ MonoBehaviour:
   Hp: 35
   Mana: 100
   Defend: 0
-  PhysicalDame: 0
+  PhysicalDame: 2
   AttackSpeed: 0
   AttackRange: 0
   IsAttackRange: 0
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 2
   lastAttackTime: 0
   healthBar: {fileID: 7907075379221188213}
   currentHealth: 0

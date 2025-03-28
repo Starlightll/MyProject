@@ -196,7 +196,7 @@ SortingGroup:
   m_GameObject: {fileID: 1289963911752115625}
   m_Enabled: 1
   m_SortingLayerID: -856913443
-  m_SortingLayer: 7
+  m_SortingLayer: 10
   m_SortingOrder: 200
   m_SortAtRoot: 0
 --- !u!95 &5841065178325608138
@@ -309,7 +309,7 @@ MonoBehaviour:
   IsAttackRange: 4
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 2
   lastAttackTime: 0
   healthBar: {fileID: 5343902773102727159}
   currentHealth: 0
