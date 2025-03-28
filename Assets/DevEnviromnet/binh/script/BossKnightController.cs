@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +55,9 @@ public class BossKnightController : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip skill2;
     [SerializeField] private AudioSource audioSource;
     public GameObject wall;
+
+    public CinemachineCamera VCam_Player;
+    public CinemachineCamera VCam_Gate;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -61,7 +65,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
         currentHp = hp;
         audioSource = GetComponent<AudioSource>();
         hpUI.SetActive(false); // Fix the error by removing GameObject method call
-       
+
     }
 
     private void Update()
@@ -103,6 +107,17 @@ public class BossKnightController : MonoBehaviour, IDamageable
         if (isDead)
         {
             hpUI.SetActive(false);
+            GateControll gateController = FindFirstObjectByType<GateControll>();
+            if (gateController != null)
+            {
+                gateController.isOpen = true;
+            }
+            if (VCam_Gate != null)
+            {
+                VCam_Gate.Priority = 10;  // Tăng Priority để kích hoạt VCam_Gate
+                VCam_Player.Priority = 15; // Giảm Priority của Player
+                Invoke("ReturnToPlayer", 3f); // Quay lại Player sau 3 giây
+            }
         }
 
     }
@@ -151,7 +166,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
     private void ChasePlayer()
     {
-       
+
         if (isAttacking)
         {
             return;
@@ -167,7 +182,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * moveDirection, transform.localScale.y, transform.localScale.z);
         transform.position += new Vector3(direction * chaseSpeed * Time.deltaTime, 0, 0);
-        
+
 
     }
     public void PlaySkillSound()
@@ -191,8 +206,8 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         skill1Count++;
         skill1UsageCount++;// Mỗi lần đánh Skill 1, tăng biến đếm
-        // Debug.Log("Skill 1 count: " + skill1Count);
-        // Debug.Log(skill1UsageCount);
+                           // Debug.Log("Skill 1 count: " + skill1Count);
+                           // Debug.Log(skill1UsageCount);
         UseSkill1();
         if (skill1Count >= 3) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
@@ -206,7 +221,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
         }
         Invoke("ResetAttack", 1f); // Reset attack state sau khi hoàn tất combo
     }
-   
+
 
     private void UseSkill1()
     {
@@ -214,7 +229,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         isAttacking = true;
         animator.SetTrigger("skill_1");
-        
+
         // Gọi animation đánh thường
     }
     private void UseSkill3()
@@ -265,11 +280,6 @@ public class BossKnightController : MonoBehaviour, IDamageable
         }
     }
 
-
-
-
-
-
     private void ResetAttack()
     {
         isAttacking = false;
@@ -289,8 +299,9 @@ public class BossKnightController : MonoBehaviour, IDamageable
         {
             gate.CloseGate();
         }
+       
     }
-
+ 
     // Gọi từ Animation Event để gây sát thương đúng thời điểm
     private void ApplyDamageSkill1()
     {
@@ -301,7 +312,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
             if (damageable != null)
             {
                 damageable.TakeDamage(skill1Damage);
-                
+
                 // Debug.Log("Player mất " + skill1Damage + " máu tại thời điểm chém!");
             }
         }
@@ -346,6 +357,17 @@ public class BossKnightController : MonoBehaviour, IDamageable
                 Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
                 playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
             }
+        }
+    }
+    private void ReturnToPlayer()
+    {
+        if (VCam_Player != null)
+        {
+            VCam_Player.Priority = 10; // Kích hoạt lại camera Player
+        }
+        if (VCam_Gate != null)
+        {
+            VCam_Gate.Priority = 4;  // Giảm Priority của Gate
         }
     }
 
