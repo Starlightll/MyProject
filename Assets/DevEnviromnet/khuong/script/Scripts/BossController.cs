@@ -33,6 +33,8 @@ public class BossController : MonoBehaviour, IDamageable
     public float diveSpeed = 10f;
     private bool isDiving = false;
     private bool isAttacking = false;
+    public float damge = 15f;
+    public float damgeFire = 30f;
 
     [Header("Tăng cường khi mất máu")]
     public float enragedThreshold = 0.3f;
@@ -84,6 +86,8 @@ public class BossController : MonoBehaviour, IDamageable
         {
           
             hpUI.SetActive(true);
+        }else{
+            hpUI.SetActive(false);
         }
         if(IsBossDefeated){
             hpUI.SetActive(false);
@@ -207,7 +211,7 @@ public class BossController : MonoBehaviour, IDamageable
         if (playerHit != null || playerHit2 != null)
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, PainAttack, playerLayer);
-            DealDamage(1, hits);
+            DealDamage(damge, hits);
             Debug.Log("Player bị trúng đòn!");
         }
     }
@@ -324,5 +328,27 @@ public class BossController : MonoBehaviour, IDamageable
         StopAllCoroutines();
         effectFire.SetActive(false);
         Destroy(gameObject, 2f);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+            IDamageable player = collision.gameObject.GetComponent<IDamageable>();
+            if (player != null)
+            {
+                player.TakeDamage(10);
+            }
+
+
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                playerRb.AddForce(knockbackDirection * 500f); // Điều chỉnh lực hất ra theo ý muốn
+            }
+        }
     }
 }

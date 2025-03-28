@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class butterflycontroller : Enemy , IDamageable
 {
@@ -7,7 +8,7 @@ public class butterflycontroller : Enemy , IDamageable
     [SerializeField] private float minPatrolDistance = 5f;
     [SerializeField] private float maxPatrolDistance = 10f;
     [SerializeField] private float patrolHeightVariation = 2f;
-
+    [SerializeField] protected Image healthBar;
 
     // [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private LayerMask obstacleLayer;
@@ -132,6 +133,7 @@ public class butterflycontroller : Enemy , IDamageable
         if ((directionX > 0 && transform.localScale.x < 0) || (directionX < 0 && transform.localScale.x > 0))
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
         }
     }
 

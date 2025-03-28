@@ -28,13 +28,12 @@ public class BossKnightController : MonoBehaviour, IDamageable
     [SerializeField] private float detectionRange = 7f;
     [SerializeField] private float attackRange = 2.5f;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private int health = 260;
 
     [SerializeField] private GameObject darkBoltPrefab;
     [SerializeField] private float skill2Cooldown = 8f;
     [SerializeField] private GameObject hpUI;
     [SerializeField] private Image hpBar;
-    [SerializeField] private float hp = 100;
+    [SerializeField] public float hp = 100;
     [SerializeField] private float knockbackForce = 70f;
     [SerializeField] private int contactDamage = 5; // Sát thương khi va chạm
     private float currentHp;
@@ -192,8 +191,8 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         skill1Count++;
         skill1UsageCount++;// Mỗi lần đánh Skill 1, tăng biến đếm
-        Debug.Log("Skill 1 count: " + skill1Count);
-        Debug.Log(skill1UsageCount);
+        // Debug.Log("Skill 1 count: " + skill1Count);
+        // Debug.Log(skill1UsageCount);
         UseSkill1();
         if (skill1Count >= 3) // Nếu đánh đủ 5 lần thì kích hoạt Skill 2
         {
@@ -253,16 +252,16 @@ public class BossKnightController : MonoBehaviour, IDamageable
         if (isDead) return;
 
         float currentDistance = Vector2.Distance(check1.position, check2.position);
-        Debug.Log($"Khoảng cách giữa check1 và check2: {currentDistance} (Yêu cầu: {checkDistance})");
+        // Debug.Log($"Khoảng cách giữa check1 và check2: {currentDistance} (Yêu cầu: {checkDistance})");
 
         if (currentDistance <= checkDistance)
         {
-            Debug.Log("Spawn Dark Bolt!");
+            // Debug.Log("Spawn Dark Bolt!");
             SpawnDarkBolt();
         }
         else
         {
-            Debug.Log("Không spawn Dark Bolt, khoảng cách chưa đủ!");
+            // Debug.Log("Không spawn Dark Bolt, khoảng cách chưa đủ!");
         }
     }
 
@@ -283,7 +282,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
         isDead = true;
         animator.SetTrigger("death");
 
-        Debug.Log("Boss đã chết!");
+        // Debug.Log("Boss đã chết!");
         Destroy(gameObject, 2f);
         gate gate = FindFirstObjectByType<gate>();
         if (gate != null)
@@ -303,7 +302,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
             {
                 damageable.TakeDamage(skill1Damage);
                 
-                Debug.Log("Player mất " + skill1Damage + " máu tại thời điểm chém!");
+                // Debug.Log("Player mất " + skill1Damage + " máu tại thời điểm chém!");
             }
         }
     }
@@ -356,7 +355,7 @@ public class BossKnightController : MonoBehaviour, IDamageable
 
         string hitAnimation = Random.value > 0.5f ? "hit_1" : "hit_2";
         animator.SetTrigger(hitAnimation);
-        Debug.Log("Boss nhận " + damage + " sát thương. Máu còn: " + health);
+        // Debug.Log("Boss nhận " + damage + " sát thương. Máu còn: " + health);
         currentHp -= damage;
         hpBar.fillAmount = (float)currentHp / hp;
         if (currentHp <= 0)

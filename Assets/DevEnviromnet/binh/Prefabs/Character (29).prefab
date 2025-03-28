@@ -173,6 +173,8 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 6128975744314724689}
+  currentHealth: 0
+  expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 0}
   bullet: {fileID: 887386796156232654, guid: 7d6fa347cd6c508458def9de5bed1a96, type: 3}

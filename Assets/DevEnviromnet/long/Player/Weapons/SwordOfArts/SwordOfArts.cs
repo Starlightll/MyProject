@@ -77,6 +77,16 @@ public class SwordOfArts : Weapon
                         float damage = player.Stats.attackDamage + baseDamage + baseDamage * player.Stats.level/100 * 1.15f;
                         float finalDamage = isCrit ? damage * player.Stats.critDamage : damage;
                         damageable.TakeDamage(finalDamage);
+                        try{
+                            Enemy enemy = hitEnemies[unluckyEnemy].GetComponent<Enemy>();
+                            if(enemy.currentHealth <= 0){
+                                player.Stats.currentMana += 5;
+                                player.Stats.currentExperience += enemy.expereince;
+                            }
+
+                        }catch(System.Exception e){
+                            // Debug.Log(e);
+                        }
                         DamagePopup.Create(hitEnemies[unluckyEnemy].transform.position, finalDamage, isCrit);
                     }
                 }catch(System.Exception e){
@@ -116,6 +126,16 @@ public class SwordOfArts : Weapon
                         float damage = player.Stats.attackDamage + baseDamage + baseDamage * player.Stats.level/100 * 1.15f;
                         float finalDamage = isCrit ? damage * player.Stats.critDamage : damage;
                         damageable.TakeDamage(finalDamage);
+                        try{
+                            Enemy enemy = hitEnemies[unluckyEnemy].GetComponent<Enemy>();
+                            if(enemy.currentHealth <= 0){
+                                player.Stats.currentMana += 5;
+                                player.Stats.currentExperience += enemy.expereince;
+                            }
+
+                        }catch(System.Exception e){
+                            // Debug.Log(e);
+                        }
                         DamagePopup.Create(hitEnemies[unluckyEnemy].transform.position, finalDamage, isCrit);
                     }
                 }catch(System.Exception e){
@@ -155,6 +175,16 @@ public class SwordOfArts : Weapon
                         float damage = player.Stats.attackDamage + baseDamage + baseDamage * player.Stats.level/100 * 1.15f;
                         float finalDamage = isCrit ? damage * player.Stats.critDamage : damage;
                         damageable.TakeDamage(finalDamage);
+                        try{
+                            Enemy enemy = hitEnemies[unluckyEnemy].GetComponent<Enemy>();
+                            if(enemy.currentHealth <= 0){
+                                player.Stats.currentMana += 5;
+                                player.Stats.currentExperience += enemy.expereince;
+                            }
+
+                        }catch(System.Exception e){
+                            // Debug.Log(e);
+                        }
                         DamagePopup.Create(hitEnemies[unluckyEnemy].transform.position, finalDamage, isCrit);
                     }
                 }catch(System.Exception e){

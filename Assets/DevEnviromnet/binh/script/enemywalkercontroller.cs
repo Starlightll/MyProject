@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemywalkercontroller : Enemy, IDamageable
 {
@@ -11,7 +12,7 @@ public class enemywalkercontroller : Enemy, IDamageable
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 10f;
-
+    [SerializeField] public Image healthBar;
     protected override void Start()
     {
         base.Start();
@@ -74,6 +75,7 @@ public class enemywalkercontroller : Enemy, IDamageable
     {
         direction *= -1;
         transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x) * direction, transform.localScale.y, transform.localScale.z);
+        healthBar.transform.localScale = new Vector3(-healthBar.transform.localScale.x, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
     private void FacePlayer()

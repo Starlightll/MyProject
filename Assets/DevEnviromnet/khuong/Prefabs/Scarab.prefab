@@ -657,18 +657,20 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 6
   FlySpeed: 5
-  Hp: 300
+  Hp: 65
   Mana: 100
   Defend: 0
-  PhysicalDame: 15
+  PhysicalDame: 4
   AttackSpeed: 0
   AttackRange: 8
-  IsAttackRange: 0
+  IsAttackRange: 3
   MagicDame: 0
   PatrolRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 2
   lastAttackTime: 0
   healthBar: {fileID: 8405782265394172938}
+  currentHealth: 0
+  expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 742461052102390459}
   groundCheck: {fileID: 7813824362721557108}
@@ -680,6 +682,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 2
 --- !u!1 &4042006973842852478
 GameObject:
   m_ObjectHideFlags: 0

@@ -468,6 +468,7 @@ Transform:
   - {fileID: 6726837441123233286}
   - {fileID: 1769781717789864371}
   - {fileID: 2394719480937683239}
+  - {fileID: 3539388306429156701}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2817046476515187183
@@ -595,8 +596,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1}
-  m_Size: {x: 5, y: 3}
+  m_Offset: {x: -0.37738374, y: 0.9408021}
+  m_Size: {x: 3.6532652, y: 2.0824437}
   m_Direction: 1
 --- !u!50 &5634140491813965445
 Rigidbody2D:
@@ -640,29 +641,32 @@ MonoBehaviour:
   WalkSpeed: 2
   RunSpeed: 5
   FlySpeed: 5
-  Hp: 400
+  Hp: 30
   Mana: 100
   Defend: 0
   PhysicalDame: 15
   AttackSpeed: 0
-  AttackRange: 12
-  IsAttackRange: 0
+  AttackRange: 8
+  IsAttackRange: 4
   MagicDame: 0
   PatrolRange: 5
   attackCooldown: 0.5
   lastAttackTime: 0
   healthBar: {fileID: 7091192554303491981}
+  currentHealth: 0
+  expereince: 10
   spawnPosition: {x: 0, y: 0}
   enemyEye: {fileID: 1769781717789864371}
   groundCheck: {fileID: 6726837441123233286}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  attack_Point: {fileID: 2394719480937683239}
+  attack_Point: {fileID: 3539388306429156701}
   PainAttack: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  dame2: 2
 --- !u!1 &4959328875579119712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1132,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6610801053052292907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8715475281600605331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3539388306429156701}
+  m_Layer: 7
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3539388306429156701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8715475281600605331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.3, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5265603727874470829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1523817716295070198
 PrefabInstance:

@@ -24,6 +24,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Image healthBar;
     
     public float currentHealth = 0;
+    public float expereince = 10;
 
     protected Rigidbody2D rb;
 

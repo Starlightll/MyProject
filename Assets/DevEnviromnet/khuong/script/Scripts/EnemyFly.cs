@@ -11,6 +11,8 @@ public class EnemyFly : Enemy, IDamageable
     [SerializeField] private float minPatrolDistance = 5f;
     [SerializeField] private float maxPatrolDistance = 10f;
     [SerializeField] private float patrolHeightVariation = 2f;
+    [SerializeField] private Transform attack_Point;
+    [SerializeField] private float PainAttack = 1f;
     // [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private LayerMask obstacleLayer;
 
@@ -19,6 +21,8 @@ public class EnemyFly : Enemy, IDamageable
     // private float lastAttackTime = 0f;
     private Vector2 patrolTarget;
     private bool movingRight = true;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float dame2 = 2f;
 
     protected override void Start()
     {
@@ -61,9 +65,25 @@ public class EnemyFly : Enemy, IDamageable
         isAttacking = true;
         animator.SetTrigger("Attack");
         lastAttackTime = Time.time;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attack_Point.position, PainAttack, playerLayer);
+        DealDamage(hits, dame2);
     }
 
-    void ChasePlayer()
+    private void DealDamage(Collider2D[] hits, float damage)
+    {
+        foreach (Collider2D hit in hits)
+        {
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+                Debug.Log("Take Dame");
+            }
+        }
+    }
+
+
+        void ChasePlayer()
     {
         isAttacking = false;
         animator.SetInteger("State", 3); // Đặt State = 3
@@ -140,6 +160,27 @@ public class EnemyFly : Enemy, IDamageable
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+            IDamageable player = collision.gameObject.GetComponent<IDamageable>();
+            if (player != null)
+            {
+                player.TakeDamage(PhysicalDame);
+            }
+
+
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                playerRb.AddForce(knockbackDirection * 500f); // Điều chỉnh lực hất ra theo ý muốn
+            }
         }
     }
 }
