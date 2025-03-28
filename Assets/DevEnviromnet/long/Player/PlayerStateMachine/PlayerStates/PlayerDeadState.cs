@@ -26,6 +26,7 @@ public class PlayerDeadState : IPlayerState
         deadTimer += Time.deltaTime;
         Debug.Log("Executing Dead State");
         // Check if the animation is finished
+        player._rb.linearVelocity = new Vector2(0, player._rb.linearVelocity.y);
         if (player._anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && deadTimer >= timeBeforeRestart)
         {
             //Restart the level
